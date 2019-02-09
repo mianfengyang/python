@@ -5,8 +5,7 @@ basepath1 = "//192.168.1.11/pubin/杨绵峰/"
 checklist1 = ['huoguangxin', 'hw.liu', 'jianhong.zhang', 'jili', 'libin', 'liujunwei', 'yuanjun', 'zhanglili', 'zhangyonghui', '杨绵峰']
 basepath10 = "//192.168.10.11/devin/"
 checklist10 = ['huoguangxin', 'hw.liu', 'libin', 'liujunwei', 'yuanjun', 'zhanglili', '张建红']
-
-
+path1 = "d:/soft/"
 
 def newmtime(filepath):
     dict = {}
@@ -22,5 +21,5 @@ def newmtime(filepath):
     return dict
 
 
-result = newmtime(basepath1)
+result = newmtime(path1)
 print(result)
