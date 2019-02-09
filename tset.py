@@ -21,7 +21,7 @@ print(newmtime(path3))
 #     #print("当前目录：{} 递归层级：{}".format(filepath, dirdepth))
 #     dirdepth -= 1
 #
-#     result = newmtime(filepath)
+#     result = getmtime(filepath)
 #     for file in os.listdir(filepath):
 #         childpath = filepath + file + "/"
 #         if dirdepth <= 0:
