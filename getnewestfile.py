@@ -3,7 +3,7 @@ import datetime
 path1 = r'd:/soft/'
 path2 = r'e:/电子书/'
 path3 = r'd:/Users/frank/'
-path4 = '//192.168.1.11/pubin/libin/'
+bpath = r'//192.168.1.11/pubin/'
 def findfiles(filepath, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
@@ -22,7 +22,7 @@ def findfiles(filepath, child_list = []):
     return child_list
 
 
-def getmaxdepth(dirlist,cdirdepth,dpath = []):
+def getmaxdepth(dirlist,cdirdepth):
     '''
     找出当前目录子目录的最大深度并返回
     :param dirlist:
@@ -30,10 +30,15 @@ def getmaxdepth(dirlist,cdirdepth,dpath = []):
     :param dpath:
     :return: maxdpath
     '''
+    dpath_dict = {}
+    dpath = []
     for i in dirlist:
         dpath.append(i.count("/"))
     maxdpath = max(dpath) - cdirdepth
-    return maxdpath
+    lpath = sorted(dirlist,key=lambda s: s.count("/"))[-1]
+    dpath_dict[maxdpath] = lpath
+    dirlist.clear()
+    return dpath_dict
 
 
 def getmtime(dir):
@@ -54,14 +59,21 @@ def Pt(filepath, newestdir = {}):
     :param newestdir:
     :return: newestdir
     '''
+    newestdir.clear()
+
     dirlist = findfiles(filepath)
     #dirlist.pop(0)
     print("当前目录：{}".format(filepath))
     for cdir in dirlist:
         #print("\t包含子目录：{}\t最新修改时间：{}".format(cdir, getmtime(cdir)))
         newestdir[cdir] = getmtime(cdir)
-    print("当前目录最大深度：%s" % getmaxdepth(dirlist,filepath.count("/")))
+    result_dpath = getmaxdepth(dirlist, filepath.count("/"))
+    print("当前目录最大深度：{}".format(result_dpath))
+    dirlist.clear()
     return newestdir
 
-
-print("当前目录下最新修改的目录为是：{}".format(sorted(Pt(path4).items(),key=lambda d:d[1])[-1]))
+checklist = ['huoguangxin', 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
+             'liujunwei', 'yuanjun', 'zhanglili', 'zhangyonghui', '杨绵峰']
+for p in checklist:
+    path = bpath + p + "/"
+    print("当前目录下最新修改的目录为是：{}\n".format(sorted(Pt(path).items(),key=lambda d:d[1])[-1]))
