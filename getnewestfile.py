@@ -3,7 +3,7 @@ import datetime
 path1 = r'd:/soft/'
 path2 = r'e:/电子书/'
 path3 = r'd:/Users/frank/'
-
+path4 = '//192.168.1.11/pubin/libin/'
 def findfiles(filepath, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
@@ -55,7 +55,7 @@ def Pt(filepath, newestdir = {}):
     :return: newestdir
     '''
     dirlist = findfiles(filepath)
-    dirlist.pop(0)
+    #dirlist.pop(0)
     print("当前目录：{}".format(filepath))
     for cdir in dirlist:
         #print("\t包含子目录：{}\t最新修改时间：{}".format(cdir, getmtime(cdir)))
@@ -64,4 +64,4 @@ def Pt(filepath, newestdir = {}):
     return newestdir
 
 
-print("当前目录下最新修改的目录为是：{}".format(sorted(Pt(path3).items(),key=lambda d:d[1])[-1]))
+print("当前目录下最新修改的目录为是：{}".format(sorted(Pt(path4).items(),key=lambda d:d[1])[-1]))
