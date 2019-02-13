@@ -17,7 +17,6 @@ path2 = r'e:/'
 path3 = r'd:/Users/frank/'
 bpath = r'//192.168.1.11/pubin/'
 depth = 5
-path4 = '//192.168.1.11/pubin/libin/'
 def findfiles(filepath, depth, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
@@ -85,8 +84,6 @@ def Pt(filepath, newestdir = {}):
     #每次调用函数时清空字典
     newestdir.clear()
     dirlist = findfiles(filepath, depth)
-    dirlist = findfiles(filepath)
-    #dirlist.pop(0)
     print("当前目录：{}".format(filepath))
 
     for cdir in dirlist:
