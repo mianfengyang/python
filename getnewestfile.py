@@ -97,14 +97,16 @@ def Pt(filepath, newestdir = {}):
     return newestdir
 
 
+def get_result(p):
+    path = bpath + p + "/"
+    result = sorted(Pt(path).items(),key=lambda d:d[1])[-1]
+    print("最新修改的目录为是：{}\n".format(result))
+
 
 checklist1 = ['迅雷下载', '维棠', 'DTLFolder', 'BaiduNetdiskDownload', '360Downloads', '电子书']
 checklist = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
               'liujunwei', 'yuanjun', 'zhanglili', 'zhangyonghui', '杨绵峰']
-def get_result(p):
-    path = bpath + p + "/"
-    result = sorted(Pt(path).items(),key=lambda d:d[1])[-1]
-    print("当前目录下最新修改的目录为是：{}\n".format(result))
+
 
 # for i in checklist:
 #     t = threading.Thread(target=get_result, args=(i, ))
