@@ -15,16 +15,10 @@ import threading
 path1 = r'd:/soft/'
 path2 = r'e:/'
 path3 = r'd:/Users/frank/'
-<<<<<<< HEAD
 bpath = r'//192.168.1.11/pubin/'
-path4 = r'C:/Users/'
 depth = 5
-
-def findfiles(filepath, depth, child_list = []):
-=======
 path4 = '//192.168.1.11/pubin/libin/'
-def findfiles(filepath, child_list = []):
->>>>>>> 测试网络文件夹“
+def findfiles(filepath, depth, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
     参数 filepath为传入路径参数，child_list列表用于保存传入路径中每个子目录
@@ -87,14 +81,12 @@ def Pt(filepath, newestdir = {}):
     :param newestdir:       初始化一个空字典，用来保存最新修改的目录和对应的修改时间
     :return: newestdir
     '''
-<<<<<<< HEAD
+
     #每次调用函数时清空字典
     newestdir.clear()
     dirlist = findfiles(filepath, depth)
-=======
     dirlist = findfiles(filepath)
     #dirlist.pop(0)
->>>>>>> 测试网络文件夹“
     print("当前目录：{}".format(filepath))
 
     for cdir in dirlist:
@@ -108,7 +100,7 @@ def Pt(filepath, newestdir = {}):
     return newestdir
 
 
-<<<<<<< HEAD
+
 checklist1 = ['迅雷下载', '维棠', 'DTLFolder', 'BaiduNetdiskDownload', '360Downloads', '电子书']
 checklist = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
               'liujunwei', 'yuanjun', 'zhanglili', 'zhangyonghui', '杨绵峰']
@@ -124,6 +116,5 @@ def get_result(p):
 
 for i in checklist:
     get_result(i)
-=======
-print("当前目录下最新修改的目录为是：{}".format(sorted(Pt(path4).items(),key=lambda d:d[1])[-1]))
->>>>>>> 测试网络文件夹“
+
+
