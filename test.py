@@ -10,14 +10,15 @@
 ==============================================================
 """
 import os
-import datetime
+import datetime,time
 import threading
 path1 = r'd:/soft/'
 path2 = r'e:/'
 path3 = r'd:/Users/frank/'
-bpath = r'//192.168.1.11/pubin/'
-depth = 5
-def findfiles(filepath, child_list = []):
+bpath1 = r'//192.168.1.11/pubin/'
+bpath10 = r'//192.168.10.11/devin/'
+depth = 4
+def findfiles(filepath, depth, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
     参数 filepath为传入路径参数，child_list列表用于保存传入路径中每个子目录
@@ -26,7 +27,7 @@ def findfiles(filepath, child_list = []):
     :param child_list:      用来保存子目录的列表
     :return: child_list     返回子目录列表
     '''
-    #depth -= 1
+    depth -= 1
     child_list.append(filepath)
     for file in os.listdir(filepath):
         childpath = filepath + file + "/"
@@ -35,7 +36,7 @@ def findfiles(filepath, child_list = []):
             continue
         # 如果有子目录则递归遍历子目录
         if os.path.isdir(childpath):
-            findfiles(childpath)
+            findfiles(childpath, depth)
     #返回所有子目录列表
     return child_list
 
@@ -83,7 +84,7 @@ def Pt(filepath, newestdir = {}):
 
     #每次调用函数时清空字典
     newestdir.clear()
-    dirlist = findfiles(filepath)
+    dirlist = findfiles(filepath, depth)
     print("当前目录：{}".format(filepath))
 
     for cdir in dirlist:
@@ -96,22 +97,49 @@ def Pt(filepath, newestdir = {}):
     dirlist.clear()
     return newestdir
 
-def get_result(p):
-    path = bpath + p + "/"
+
+def get_fullpath_1(p):
+    """
+    根据传入的子目录名，生成完整路径
+    :param p:       传入子目录列表中的一个元素
+    :return:
+    """
+    path = bpath1 + p + "/"
     result = sorted(Pt(path).items(),key=lambda d:d[1])[-1]
     print("当前目录下最新修改的目录为是：{}\n".format(result))
 
-checklist1 = ['迅雷下载', '维棠', 'DTLFolder', 'BaiduNetdiskDownload', '360Downloads', '电子书']
-checklist = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhanglili', 'zhangyonghui', '杨绵峰']
 
+def get_fullpath_10(p):
+    """
+       根据传入的子目录名，生成完整路径
+       :param p:       传入子目录列表中的一个元素
+       :return:
+    """
+    path = bpath10 + p + "/"
+    result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
+    print("最新修改目录：{}\n".format(result))
 
-for i in checklist:
-    t = threading.Thread(target=get_result, args=(i, ))
-    t.start()
-    t.join()
+def get_result_1(checklist1):
+    for i in checklist1:
+        t1 = threading.Thread(target=get_fullpath_1, args=(i, ))
+        t1.start()
+        t1.join()
 
-# for i in checklist:
-#     get_result(i)
+def get_result_10(checklist10):
+    for i in checklist10:
+        t10 = threading.Thread(target=get_fullpath_10, args=(i, ))
+        t10.start()
+        t10.join()
 
+checklist10 = ['huoguangxin', 'hw.liu', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili']
+checklist1 = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
+              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili']
+
+if __name__ == '__main__':
+    start_time = datetime.datetime.now()
+
+    get_result_1(checklist1)
+    get_result_10(checklist10)
+    end_time = datetime.datetime.now()
+    print("开始时间：{}\n结束时间：{}\n总共耗时：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S"),end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
 
