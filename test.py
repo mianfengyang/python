@@ -10,7 +10,7 @@
 ==============================================================
 """
 import os
-import datetime,time
+import datetime
 import threading
 path1 = r'd:/soft/'
 path2 = r'e:/'
@@ -137,9 +137,9 @@ checklist1 = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
 
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
-
     get_result_1(checklist1)
     get_result_10(checklist10)
     end_time = datetime.datetime.now()
-    print("开始时间：{}\n结束时间：{}\n总共耗时：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S"),end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
+    print("开始时间：{}\n结束时间：{}\n总共耗时：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S"),
+                                             end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
 
