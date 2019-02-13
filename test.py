@@ -16,10 +16,8 @@ path1 = r'd:/soft/'
 path2 = r'e:/'
 path3 = r'd:/Users/frank/'
 bpath = r'//192.168.1.11/pubin/'
-path4 = r'C:/Users/'
 depth = 5
-
-def findfiles(filepath, depth, child_list = []):
+def findfiles(filepath, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
     参数 filepath为传入路径参数，child_list列表用于保存传入路径中每个子目录
@@ -28,7 +26,7 @@ def findfiles(filepath, depth, child_list = []):
     :param child_list:      用来保存子目录的列表
     :return: child_list     返回子目录列表
     '''
-    depth -= 1
+    #depth -= 1
     child_list.append(filepath)
     for file in os.listdir(filepath):
         childpath = filepath + file + "/"
@@ -37,7 +35,7 @@ def findfiles(filepath, depth, child_list = []):
             continue
         # 如果有子目录则递归遍历子目录
         if os.path.isdir(childpath):
-            findfiles(childpath,depth)
+            findfiles(childpath)
     #返回所有子目录列表
     return child_list
 
@@ -82,9 +80,10 @@ def Pt(filepath, newestdir = {}):
     :param newestdir:       初始化一个空字典，用来保存最新修改的目录和对应的修改时间
     :return: newestdir
     '''
+
     #每次调用函数时清空字典
     newestdir.clear()
-    dirlist = findfiles(filepath, depth)
+    dirlist = findfiles(filepath)
     print("当前目录：{}".format(filepath))
 
     for cdir in dirlist:
@@ -98,18 +97,21 @@ def Pt(filepath, newestdir = {}):
     return newestdir
 
 
-checklist1 = ['迅雷下载', '维棠', 'DTLFolder', 'BaiduNetdiskDownload', '360Downloads', '电子书']
 
+checklist1 = ['迅雷下载', '维棠', 'DTLFolder', 'BaiduNetdiskDownload', '360Downloads', '电子书']
+checklist = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
+              'liujunwei', 'yuanjun', 'zhanglili', 'zhangyonghui', '杨绵峰']
 def get_result(p):
-    path = path2 + p + "/"
+    path = bpath + p + "/"
     result = sorted(Pt(path).items(),key=lambda d:d[1])[-1]
     print("当前目录下最新修改的目录为是：{}\n".format(result))
 
-# for i in checklist1:
+# for i in checklist:
 #     t = threading.Thread(target=get_result, args=(i, ))
 #     t.start()
 #     t.join()
-#
 
-for i in checklist1:
+for i in checklist:
     get_result(i)
+
+
