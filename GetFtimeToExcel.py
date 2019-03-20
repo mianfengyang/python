@@ -18,7 +18,15 @@ path2 = r'e:/'
 path3 = r'd:/Users/frank/'
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
-depth = 4
+depth = 5
+
+wb = Workbook()
+ws = wb.active
+ws['A1'] = "用户目录"
+ws['B1'] = "最新修改目录"
+ws['C1'] = "最新修改时间"
+
+
 def findfiles(filepath, depth, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
@@ -105,11 +113,12 @@ def get_fullpath_1(p):
     :param p:       传入子目录列表中的一个元素
     :return:
     """
-    path = path1 + p + "/"
     rlist = []
+    path = bpath1 + p + "/"
+
     rlist.append(path)
     result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
-    # print("当前目录下最新修改的目录为是：{}\n".format(result))
+    #print("当前目录下最新修改的目录为是：{}\n".format(result))
     for i in result:
         rlist.append(i)
     #print(rlist)
@@ -123,8 +132,15 @@ def get_fullpath_10(p):
        :return:
     """
     path = bpath10 + p + "/"
+    rlist = []
+    rlist.append(path)
     result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
-    print("最新修改目录：{}\n".format(result))
+    # print("当前目录下最新修改的目录为是：{}\n".format(result))
+    for i in result:
+        rlist.append(i)
+    # print(rlist)
+    return rlist
+
 
 def get_result_1(checklist1):
     for i in checklist1:
@@ -138,24 +154,21 @@ def get_result_10(checklist10):
         t10.start()
         t10.join()
 
-checklist10 = ['huoguangxin', 'hw.liu', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili']
+checklist10 = ['huoguangxin', '吉利', 'hw.liu', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili']
 checklist1 = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
               'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili']
 checklistd = ['google', 'sublime3']
 
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
-    wb = Workbook()
-    ws = wb.active
-    ws['A1'] = "用户目录"
-    ws['B1'] = "最新修改目录"
-    ws['C1'] = "最新修改时间"
 
-    for i in checklistd:
-        tx = get_fullpath_1(i)
-        #print(tx)
-        ws.append(tx)
-    wb.save("资料备份检查.xlsx")
+    for i in checklist1:
+        tx1 = get_fullpath_1(i)
+        ws.append(tx1)
+    for i in checklist10:
+        tx10 = get_fullpath_10(i)
+        ws.append(tx10)
+    wb.save("check_data_backup.xlsx")
     end_time = datetime.datetime.now()
     print("开始时间：{}\n结束时间：{}\n总共耗时：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S"),
                                              end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))

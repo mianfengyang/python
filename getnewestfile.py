@@ -17,7 +17,7 @@ path2 = r'e:/'
 path3 = r'd:/Users/frank/'
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
-depth = 4
+depth = 5
 def findfiles(filepath, depth, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
@@ -92,7 +92,7 @@ def Pt(filepath, newestdir = {}):
         newestdir[cdir] = getmtime(cdir)
     result_dpath = getmaxdepth(dirlist, filepath.count("/"))
     for k, v in result_dpath.items():
-        print("当前目录最大递归深度:{}\n最大深度目录：{}".format(k, v))
+        print("递归深度:{}\n最大深度目录：{}".format(k, v))
     #清空子目录列表，主要是不影响下次调用
     dirlist.clear()
     return newestdir
@@ -106,14 +106,14 @@ def get_fullpath_1(p):
     """
     path = bpath1 + p + "/"
     result = sorted(Pt(path).items(),key=lambda d:d[1])[-1]
-    print("当前目录下最新修改的目录为是：{}\n".format(result))
+    print("最新修改的目录为是：{}\n".format(result))
 
 
 def get_fullpath_10(p):
     """
-       根据传入的子目录名，生成完整路径
-       :param p:       传入子目录列表中的一个元素
-       :return:
+    根据传入的子目录名，生成完整路径
+    :param p:       传入子目录列表中的一个元素
+    :return:
     """
     path = bpath10 + p + "/"
     result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
@@ -142,4 +142,3 @@ if __name__ == '__main__':
     end_time = datetime.datetime.now()
     print("开始时间：{}\n结束时间：{}\n总共耗时：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S"),
                                              end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
-

@@ -12,12 +12,16 @@
 import os
 import datetime
 import threading
+import openpyxl
 path1 = r'd:/soft/'
 path2 = r'e:/'
 path3 = r'd:/Users/frank/'
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
 depth = 4
+result_list = []
+
+
 def findfiles(filepath, depth, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
@@ -85,14 +89,14 @@ def Pt(filepath, newestdir = {}):
     #每次调用函数时清空字典
     newestdir.clear()
     dirlist = findfiles(filepath, depth)
-    print("当前目录：{}".format(filepath))
+    #print("当前目录：{}".format(filepath))
 
     for cdir in dirlist:
         #print("\t包含子目录：{}\t最新修改时间：{}".format(cdir, getmtime(cdir)))
         newestdir[cdir] = getmtime(cdir)
-    result_dpath = getmaxdepth(dirlist, filepath.count("/"))
-    for k, v in result_dpath.items():
-        print("当前目录最大递归深度:{}\n最大深度目录：{}".format(k, v))
+    #result_dpath = getmaxdepth(dirlist, filepath.count("/"))
+    # for k, v in result_dpath.items():
+    #     print("当前目录最大递归深度:{}\n最大深度目录：{}".format(k, v))
     #清空子目录列表，主要是不影响下次调用
     dirlist.clear()
     return newestdir
@@ -106,7 +110,8 @@ def get_fullpath_1(p):
     """
     path = bpath1 + p + "/"
     result = sorted(Pt(path).items(),key=lambda d:d[1])[-1]
-    print("当前目录下最新修改的目录为是：{}\n".format(result))
+    print("当前目录下最新修改的目录是：{}\n".format(result))
+    #print(path)
 
 
 def get_fullpath_10(p):
@@ -117,7 +122,8 @@ def get_fullpath_10(p):
     """
     path = bpath10 + p + "/"
     result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
-    print("最新修改目录：{}\n".format(result))
+    print("当前目录下最新修改的目录是：{}\n".format(result))
+    #print(path)
 
 def get_result_1(checklist1):
     for i in checklist1:
@@ -131,7 +137,7 @@ def get_result_10(checklist10):
         t10.start()
         t10.join()
 
-checklist10 = ['huoguangxin', 'hw.liu', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili']
+checklist10 = ['huoguangxin', 'hw.liu', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili']
 checklist1 = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
               'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili']
 
