@@ -9,4 +9,4 @@ ws['C1'] = "最新修改时间"
 list = [1,2,3,4,5,6]
 ws.append(list)
 
-wb.save("test.xlsx")
+wb.save(r'D:\Users\mianfeng.yang.PUB\Documents\python_test\test.xlsx')

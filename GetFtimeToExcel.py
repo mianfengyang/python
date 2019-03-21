@@ -18,13 +18,9 @@ path2 = r'e:/'
 path3 = r'd:/Users/frank/'
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
-depth = 5
+depth = 4
 
-wb = Workbook()
-ws = wb.active
-ws['A1'] = "用户目录"
-ws['B1'] = "最新修改目录"
-ws['C1'] = "最新修改时间"
+
 
 
 def findfiles(filepath, depth, child_list = []):
@@ -117,6 +113,26 @@ def get_fullpath_1(p):
     path = bpath1 + p + "/"
 
     rlist.append(path)
+    if (p == "huoguangxin" or p == "霍广新"):
+        rlist.append("霍广新")
+    if (p == "hw.liu" or p == "刘宏伟"):
+        rlist.append("刘宏伟")
+    if (p == "jianhong.zhang" or p == "张建红"):
+        rlist.append("张建红")
+    if (p == "jili" or p == "吉利"):
+        rlist.append("吉利")
+    if (p == "libin" or p == "李宾"):
+        rlist.append("李宾")
+    if (p == "liujunwei" or p == "刘军伟"):
+        rlist.append("刘军伟")
+    if (p == "yuanjun" or p == "袁君"):
+        rlist.append("袁君")
+    if (p == "zhangyonghui" or p == "张永辉"):
+        rlist.append("张永辉")
+    if (p == "zhanglili" or p == "张丽丽"):
+        rlist.append("张丽丽")
+    if (p == "yangmianfeng" or p == "杨绵峰"):
+        rlist.append("杨绵峰")
     result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
     #print("当前目录下最新修改的目录为是：{}\n".format(result))
     for i in result:
@@ -134,6 +150,26 @@ def get_fullpath_10(p):
     path = bpath10 + p + "/"
     rlist = []
     rlist.append(path)
+    if (p == "huoguangxin" or p == "霍广新"):
+        rlist.append("霍广新")
+    if (p == "hw.liu" or p == "刘宏伟"):
+        rlist.append("刘宏伟")
+    if (p == "jianhong.zhang" or p == "张建红"):
+        rlist.append("张建红")
+    if (p == "jili" or p == "吉利"):
+        rlist.append("吉利")
+    if (p == "libin" or p == "李宾"):
+        rlist.append("李宾")
+    if (p == "liujunwei" or p == "刘军伟"):
+        rlist.append("刘军伟")
+    if (p == "yuanjun" or p == "袁君"):
+        rlist.append("袁君")
+    if (p == "zhangyonghui" or p == "张永辉"):
+        rlist.append("张永辉")
+    if (p == "zhanglili" or p == "张丽丽"):
+        rlist.append("张丽丽")
+    if (p == "yangmianfeng" or p == "杨绵峰"):
+        rlist.append("杨绵峰")
     result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
     # print("当前目录下最新修改的目录为是：{}\n".format(result))
     for i in result:
@@ -161,14 +197,20 @@ checklistd = ['google', 'sublime3']
 
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
-
+    wb = Workbook()
+    ws = wb.active
+    ws['A1'] = "用户目录"
+    ws['B1'] = "用户"
+    ws['C1'] = "最新修改目录"
+    ws['D1'] = "最新修改时间"
+    ws['E1'] = "备注"
     for i in checklist1:
         tx1 = get_fullpath_1(i)
         ws.append(tx1)
     for i in checklist10:
         tx10 = get_fullpath_10(i)
         ws.append(tx10)
-    wb.save("check_data_backup.xlsx")
+    wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查\check_data_backup.xlsx')
     end_time = datetime.datetime.now()
     print("开始时间：{}\n结束时间：{}\n总共耗时：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S"),
                                              end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
