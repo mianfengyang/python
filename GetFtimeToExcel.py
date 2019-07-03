@@ -23,7 +23,7 @@ depth = 4
 
 
 
-def findfiles(filepath, depth, child_list = []):
+def FindFiles(filepath, depth, child_list = []):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
     参数 filepath为传入路径参数，child_list列表用于保存传入路径中每个子目录
@@ -41,12 +41,12 @@ def findfiles(filepath, depth, child_list = []):
             continue
         # 如果有子目录则递归遍历子目录
         if os.path.isdir(childpath):
-            findfiles(childpath, depth)
+            FindFiles(childpath, depth)
     #返回所有子目录列表
     return child_list
 
 
-def getmaxdepth(dirlist,cdirdepth):
+def GetMaxDepth(dirlist, cdirdepth):
     '''
     找出当前目录子目录的最大深度并以字典的形式返回
     :param dirlist:     传递一个目录列表
@@ -68,14 +68,19 @@ def getmaxdepth(dirlist,cdirdepth):
     return dpath_dict
 
 
-def getmtime(dir):
+def GetMtime(dir):
     '''
     获取当前目录的修改时间并返回
     :param dir:         传递一个目录
     :return: filemtime  返回目录的修改时间
     '''
     filemtime = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).strftime('%Y-%m-%d %H:%M')
+    year = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).year
+    month = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).month
+    print(year, month)
+
     return filemtime
+
 
 
 
@@ -89,13 +94,13 @@ def Pt(filepath, newestdir = {}):
 
     #每次调用函数时清空字典
     newestdir.clear()
-    dirlist = findfiles(filepath, depth)
+    dirlist = FindFiles(filepath, depth)
     #print("当前目录：{}".format(filepath))
 
     for cdir in dirlist:
-        #print("\t包含子目录：{}\t最新修改时间：{}".format(cdir, getmtime(cdir)))
-        newestdir[cdir] = getmtime(cdir)
-    result_dpath = getmaxdepth(dirlist, filepath.count("/"))
+        #print("\t包含子目录：{}\t最新修改时间：{}".format(cdir, GetMtime(cdir)))
+        newestdir[cdir] = GetMtime(cdir)
+    #result_dpath = GetMaxDepth(dirlist, filepath.count("/"))
     # for k, v in result_dpath.items():
     #     print("当前目录最大递归深度:{}\n最大深度目录：{}".format(k, v))
     #清空子目录列表，主要是不影响下次调用
@@ -103,7 +108,7 @@ def Pt(filepath, newestdir = {}):
     return newestdir
 
 
-def get_fullpath_1(p):
+def GetFullPath_1(p):
     """
     根据传入的子目录名，生成完整路径
     :param p:       传入子目录列表中的一个元素
@@ -111,7 +116,6 @@ def get_fullpath_1(p):
     """
     rlist = []
     path = bpath1 + p + "/"
-
     rlist.append(path)
     if (p == "huoguangxin" or p == "霍广新"):
         rlist.append("霍广新")
@@ -133,6 +137,8 @@ def get_fullpath_1(p):
         rlist.append("张丽丽")
     if (p == "yangmianfeng" or p == "杨绵峰"):
         rlist.append("杨绵峰")
+    if (p == "tangbaoyun" or p == "汤宝云"):
+        rlist.append("汤宝云")
     result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
     #print("当前目录下最新修改的目录为是：{}\n".format(result))
     for i in result:
@@ -141,7 +147,7 @@ def get_fullpath_1(p):
     return rlist
 
 
-def get_fullpath_10(p):
+def GetFullPath_10(p):
     """
        根据传入的子目录名，生成完整路径
        :param p:       传入子目录列表中的一个元素
@@ -177,22 +183,22 @@ def get_fullpath_10(p):
     # print(rlist)
     return rlist
 
+# def get_result_1(checklist1):
+#     for i in checklist1:
+#         t1 = threading.Thread(target=GetFullPath_1, args=(i, ))
+#         t1.start()
+#         t1.join()
+#
+# def get_result_10(checklist10):
+#     for i in checklist10:
+#         t10 = threading.Thread(target=GetFullPath_10, args=(i, ))
+#         t10.start()
+#         t10.join()
 
-def get_result_1(checklist1):
-    for i in checklist1:
-        t1 = threading.Thread(target=get_fullpath_1, args=(i, ))
-        t1.start()
-        t1.join()
 
-def get_result_10(checklist10):
-    for i in checklist10:
-        t10 = threading.Thread(target=get_fullpath_10, args=(i, ))
-        t10.start()
-        t10.join()
-
-checklist10 = ['huoguangxin', '吉利', 'hw.liu', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili']
-checklist1 = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili']
+checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili','张永辉', 'hw.liu']
+checklist1 = ["huoguangxin",  'jianhong.zhang', 'jili', 'libin',
+              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
 checklistd = ['google', 'sublime3']
 
 if __name__ == '__main__':
@@ -203,14 +209,16 @@ if __name__ == '__main__':
     ws['B1'] = "用户"
     ws['C1'] = "最新修改目录"
     ws['D1'] = "最新修改时间"
-    ws['E1'] = "备注"
+    ws['E1'] = "备份状态"
+    ws['F1'] = "备注"
     for i in checklist1:
-        tx1 = get_fullpath_1(i)
+        tx1 = GetFullPath_1(i)
         ws.append(tx1)
     for i in checklist10:
-        tx10 = get_fullpath_10(i)
+        tx10 = GetFullPath_10(i)
         ws.append(tx10)
-    wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查\check_data_backup.xlsx')
+    
+    wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
     end_time = datetime.datetime.now()
     print("开始时间：{}\n结束时间：{}\n总共耗时：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S"),
                                              end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
