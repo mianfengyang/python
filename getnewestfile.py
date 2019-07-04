@@ -83,7 +83,6 @@ def GetNewestDir(filepath, newestdir={}):
     :param newestdir:       初始化一个空字典，用来保存最新修改的目录和对应的修改时间
     :return: newestdir
     '''
-
     # 每次调用函数时清空字典
     newestdir.clear()
     dirlist = FindFiles(filepath, depth)
