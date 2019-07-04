@@ -54,11 +54,11 @@ def GetMaxDepth(dirlist, cdirdepth):
     '''
     dpath_dict = {}
     dpath = []
-    for i in diulist:
+    for i in dirlist:
         dpath.append(i.count("/"))
     maxdpath = max(dpath) - cdirdepth
     # 将目录列表按”/“出现的个数进行排序，取出最后一个，也就是拥有最大目录深度的那个
-    lpath = sorted(diulist, key=lambda s: s.count("/"))[-1]
+    lpath = sorted(dirlist, key=lambda s: s.count("/"))[-1]
     # 将目录的最大深度值，最大深度的目录存入字典
     dpath_dict[maxdpath] = lpath
     # 由于函数是递归调用，所以再次调用时要清空字典，这样不会影响下次的值
@@ -73,10 +73,6 @@ def GetMtime(dir):
     :return: filemtime  返回目录的修改时间
     '''
     filemtime = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).strftime('%Y-%m-%d %H:%M')
-    # year = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).year
-    # month = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).month
-    # print(year, month)
-
     return filemtime
 
 
@@ -91,15 +87,8 @@ def GetNewestDir(filepath, newestdir={}):
     # 每次调用函数时清空字典
     newestdir.clear()
     dirlist = FindFiles(filepath, depth)
-    # print("当前目录：{}".format(filepath))
-
     for cdir in dirlist:
-        # print("\t包含子目录：{}\t最新修改时间：{}".format(cdir, GetMtime(cdir)))
         newestdir[cdir] = GetMtime(cdir)
-    # result_dpath = GetMaxDepth(diulist, filepath.count("/"))
-    # for k, v in result_dpath.items():
-    #     print("当前目录最大递归深度:{}\n最大深度目录：{}".format(k, v))
-    # 清空子目录列表，主要是不影响下次调用
     result = sorted(newestdir.items(), key=lambda d: d[1])[-1]
     dirlist.clear()
     return result
@@ -147,9 +136,7 @@ def GetResult_1(p):
     result = GetNewestDir(path)
     for i in result:
         Ntlist.append(i)
-    #print(Ntlist)
     Ntlist.append(GetUser(p))
-
     return Ntlist
 
 
@@ -163,21 +150,12 @@ def GetResult_10(p):
     ulist = []
     ulist.append(path)
     result = GetNewestDir(path)
-    #print("当前目录下最新修改的目录为是：{}\n".format(result))
     for i in result:
         ulist.append(i)
     ulist.append(GetUser(p))
     return ulist
 
 
-<<<<<<< HEAD
-
-checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
-checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin', 'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
-
-
-=======
->>>>>>> 7b09f02444d2e10b05c1f60ec62db8103f6e6270
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
     print("开始时间：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")))
