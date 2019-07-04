@@ -11,17 +11,15 @@
 """
 import os
 import datetime
-import threading
 from openpyxl import Workbook
 
-path1 = r'd:/soft/'
-path2 = r'e:/'
-path3 = r'd:/Users/frank/'
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
 depth = 4
-ulist = []
 user = ""
+checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
+checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
+              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
 
 def FindFiles(filepath, depth, child_list=[]):
     '''
@@ -75,8 +73,8 @@ def GetMtime(dir):
     :return: filemtime  返回目录的修改时间
     '''
     filemtime = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).strftime('%Y-%m-%d %H:%M')
-    year = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).year
-    month = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).month
+    # year = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).year
+    # month = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).month
     # print(year, month)
 
     return filemtime
@@ -102,8 +100,9 @@ def GetNewestDir(filepath, newestdir={}):
     # for k, v in result_dpath.items():
     #     print("当前目录最大递归深度:{}\n最大深度目录：{}".format(k, v))
     # 清空子目录列表，主要是不影响下次调用
+    result = sorted(newestdir.items(), key=lambda d: d[1])[-1]
     dirlist.clear()
-    return newestdir
+    return result
 
 def GetUser(u):
     """
@@ -145,7 +144,7 @@ def GetResult_1(p):
     Ntlist = []
     path = bpath1 + p + "/"
     Ntlist.append(path)
-    result = sorted(GetNewestDir(path).items(), key=lambda d: d[1])[-1]
+    result = GetNewestDir(path)
     for i in result:
         Ntlist.append(i)
     #print(Ntlist)
@@ -163,32 +162,13 @@ def GetResult_10(p):
     path = bpath10 + p + "/"
     ulist = []
     ulist.append(path)
-    result = sorted(GetNewestDir(path).items(), key=lambda d: d[1])[-1]
-    # print("当前目录下最新修改的目录为是：{}\n".format(result))
+    result = GetNewestDir(path)
+    #print("当前目录下最新修改的目录为是：{}\n".format(result))
     for i in result:
         ulist.append(i)
-    # print(ulist)
     ulist.append(GetUser(p))
     return ulist
 
-
-# def get_result_1(checklist1):
-#     for i in checklist1:
-#         t1 = threading.Thread(target=GetResult_1, args=(i, ))
-#         t1.start()
-#         t1.join()
-#
-# def get_result_10(checklist10):
-#     for i in checklist10:
-#         t10 = threading.Thread(target=GetResult_10, args=(i, ))
-#         t10.start()
-#         t10.join()
-
-
-checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
-checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
-checklistd = ['google', 'sublime3']
 
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
