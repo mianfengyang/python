@@ -46,7 +46,7 @@ def FindFiles(filepath, depth, child_list=[]):
     return child_list
 
 
-def GetMaxDepth(diulist, cdirdepth):
+def GetMaxDepth(dirlist, cdirdepth):
     '''
     找出当前目录子目录的最大深度并以字典的形式返回
     :param diulist:     传递一个目录列表
@@ -64,7 +64,7 @@ def GetMaxDepth(diulist, cdirdepth):
     # 将目录的最大深度值，最大深度的目录存入字典
     dpath_dict[maxdpath] = lpath
     # 由于函数是递归调用，所以再次调用时要清空字典，这样不会影响下次的值
-    diulist.clear()
+    dirlist.clear()
     return dpath_dict
 
 
@@ -82,7 +82,7 @@ def GetMtime(dir):
     return filemtime
 
 
-def Pt(filepath, newestdir={}):
+def GetNewestDir(filepath, newestdir={}):
     '''
     打印输出当目录及子目录和目录深度,返回目录及对应修改时间的字典,再把字典按时间排序取出最新一个
     :param filepath:        传递一个路径
@@ -105,10 +105,10 @@ def Pt(filepath, newestdir={}):
     dirlist.clear()
     return newestdir
 
-def GetUserList(u):
+def GetUser(u):
     """
-
-    :return:
+    根据用户目录名返回中文用户名
+    :return: user
     """
     global user
     if (u == "huoguangxin" or u == "霍广新"):
@@ -136,7 +136,7 @@ def GetUserList(u):
     return user
 
 
-def GetFullPath_1(p):
+def GetResult_1(p):
     """
     根据传入的子目录名，生成完整路径
     :param p:       传入子目录列表中的一个元素
@@ -145,16 +145,16 @@ def GetFullPath_1(p):
     Ntlist = []
     path = bpath1 + p + "/"
     Ntlist.append(path)
-    result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
+    result = sorted(GetNewestDir(path).items(), key=lambda d: d[1])[-1]
     for i in result:
         Ntlist.append(i)
     #print(Ntlist)
-    Ntlist.append(GetUserList(p))
+    Ntlist.append(GetUser(p))
 
     return Ntlist
 
 
-def GetFullPath_10(p):
+def GetResult_10(p):
     """
        根据传入的子目录名，生成完整路径
        :param p:       传入子目录列表中的一个元素
@@ -163,24 +163,24 @@ def GetFullPath_10(p):
     path = bpath10 + p + "/"
     ulist = []
     ulist.append(path)
-    result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
+    result = sorted(GetNewestDir(path).items(), key=lambda d: d[1])[-1]
     # print("当前目录下最新修改的目录为是：{}\n".format(result))
     for i in result:
         ulist.append(i)
     # print(ulist)
-    ulist.append(GetUserList(p))
+    ulist.append(GetUser(p))
     return ulist
 
 
 # def get_result_1(checklist1):
 #     for i in checklist1:
-#         t1 = threading.Thread(target=GetFullPath_1, args=(i, ))
+#         t1 = threading.Thread(target=GetResult_1, args=(i, ))
 #         t1.start()
 #         t1.join()
 #
 # def get_result_10(checklist10):
 #     for i in checklist10:
-#         t10 = threading.Thread(target=GetFullPath_10, args=(i, ))
+#         t10 = threading.Thread(target=GetResult_10, args=(i, ))
 #         t10.start()
 #         t10.join()
 
@@ -192,6 +192,7 @@ checklistd = ['google', 'sublime3']
 
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
+    print("开始时间：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")))
     wb = Workbook()
     ws = wb.active
     ws['A1'] = "用户目录"
@@ -201,13 +202,12 @@ if __name__ == '__main__':
     ws['E1'] = "备份状态"
     ws['F1'] = "备注"
     for i in checklist1:
-        tx1 = GetFullPath_1(i)
+        tx1 = GetResult_1(i)
         ws.append(tx1)
     for i in checklist10:
-        tx10 = GetFullPath_10(i)
+        tx10 = GetResult_10(i)
         ws.append(tx10)
 
     wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
     end_time = datetime.datetime.now()
-    print("开始时间：{}\n结束时间：{}\n总共耗时：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S"),
-                                             end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
+    print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
