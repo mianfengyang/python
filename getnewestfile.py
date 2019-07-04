@@ -73,10 +73,6 @@ def GetMtime(dir):
     :return: filemtime  返回目录的修改时间
     '''
     filemtime = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).strftime('%Y-%m-%d %H:%M')
-    # year = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).year
-    # month = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).month
-    # print(year, month)
-
     return filemtime
 
 
@@ -91,15 +87,8 @@ def GetNewestDir(filepath, newestdir={}):
     # 每次调用函数时清空字典
     newestdir.clear()
     dirlist = FindFiles(filepath, depth)
-    # print("当前目录：{}".format(filepath))
-
     for cdir in dirlist:
-        # print("\t包含子目录：{}\t最新修改时间：{}".format(cdir, GetMtime(cdir)))
         newestdir[cdir] = GetMtime(cdir)
-    # result_dpath = GetMaxDepth(diulist, filepath.count("/"))
-    # for k, v in result_dpath.items():
-    #     print("当前目录最大递归深度:{}\n最大深度目录：{}".format(k, v))
-    # 清空子目录列表，主要是不影响下次调用
     result = sorted(newestdir.items(), key=lambda d: d[1])[-1]
     dirlist.clear()
     return result
@@ -163,7 +152,6 @@ def GetResult_10(p):
     ulist = []
     ulist.append(path)
     result = GetNewestDir(path)
-    #print("当前目录下最新修改的目录为是：{}\n".format(result))
     for i in result:
         ulist.append(i)
     ulist.append(GetUser(p))
@@ -187,7 +175,6 @@ if __name__ == '__main__':
     for i in checklist10:
         tx10 = GetResult_10(i)
         ws.append(tx10)
-
     wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
     end_time = datetime.datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
