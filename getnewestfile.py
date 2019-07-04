@@ -11,16 +11,11 @@
 """
 import os
 import datetime
-import threading
 from openpyxl import Workbook
 
-path1 = r'd:/soft/'
-path2 = r'e:/'
-path3 = r'd:/Users/frank/'
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
 depth = 4
-ulist = []
 user = ""
 
 def FindFiles(filepath, depth, child_list=[]):
@@ -172,23 +167,10 @@ def GetResult_10(p):
     return ulist
 
 
-# def get_result_1(checklist1):
-#     for i in checklist1:
-#         t1 = threading.Thread(target=GetResult_1, args=(i, ))
-#         t1.start()
-#         t1.join()
-#
-# def get_result_10(checklist10):
-#     for i in checklist10:
-#         t10 = threading.Thread(target=GetResult_10, args=(i, ))
-#         t10.start()
-#         t10.join()
-
 
 checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
-checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
-checklistd = ['google', 'sublime3']
+checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin', 'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
+
 
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
