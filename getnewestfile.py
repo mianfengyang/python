@@ -54,11 +54,11 @@ def GetMaxDepth(dirlist, cdirdepth):
     '''
     dpath_dict = {}
     dpath = []
-    for i in diulist:
+    for i in dirlist:
         dpath.append(i.count("/"))
     maxdpath = max(dpath) - cdirdepth
     # 将目录列表按”/“出现的个数进行排序，取出最后一个，也就是拥有最大目录深度的那个
-    lpath = sorted(diulist, key=lambda s: s.count("/"))[-1]
+    lpath = sorted(dirlist, key=lambda s: s.count("/"))[-1]
     # 将目录的最大深度值，最大深度的目录存入字典
     dpath_dict[maxdpath] = lpath
     # 由于函数是递归调用，所以再次调用时要清空字典，这样不会影响下次的值
@@ -136,9 +136,7 @@ def GetResult_1(p):
     result = GetNewestDir(path)
     for i in result:
         Ntlist.append(i)
-    #print(Ntlist)
     Ntlist.append(GetUser(p))
-
     return Ntlist
 
 
