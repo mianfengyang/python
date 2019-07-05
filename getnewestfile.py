@@ -2,23 +2,26 @@
 
 """
 ==============================================================
-# @Time    : 2019/2/10 0010
+# @Time    : 2019/2/28 19:18
 # @Author  : mifyang
 # @Email   : mifyang@126.com
-# @File    : test
+# @File    : GetFtimeToExcel
 # @Software: PyCharm
 ==============================================================
 """
 import os
 import datetime
-import threading
-path1 = r'd:/soft/'
-path2 = r'e:/'
-path3 = r'd:/Users/frank/'
+from openpyxl import Workbook
+
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
 depth = 4
-def findfiles(filepath, depth, child_list = []):
+user = ""
+checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
+checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
+              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
+
+def FindFiles(filepath, depth, child_list=[]):
     '''
     递归遍历当前目录，返回当前目录下所有子目录列表
     参数 filepath为传入路径参数，child_list列表用于保存传入路径中每个子目录
@@ -36,15 +39,15 @@ def findfiles(filepath, depth, child_list = []):
             continue
         # 如果有子目录则递归遍历子目录
         if os.path.isdir(childpath):
-            findfiles(childpath, depth)
-    #返回所有子目录列表
+            FindFiles(childpath, depth)
+    # 返回所有子目录列表
     return child_list
 
 
-def getmaxdepth(dirlist,cdirdepth):
+def GetMaxDepth(dirlist, cdirdepth):
     '''
     找出当前目录子目录的最大深度并以字典的形式返回
-    :param dirlist:     传递一个目录列表
+    :param diulist:     传递一个目录列表
     :param cdirdepth:   用于计算给定初始路径的 ”/“ 的个数
     :param dpath:       用于存放子目录的 ”/“ 的个数的列表
     :return: maxdpath   用于计算子目录的深度（"/"的个数）
@@ -54,16 +57,16 @@ def getmaxdepth(dirlist,cdirdepth):
     for i in dirlist:
         dpath.append(i.count("/"))
     maxdpath = max(dpath) - cdirdepth
-    #将目录列表按”/“出现的个数进行排序，取出最后一个，也就是拥有最大目录深度的那个
-    lpath = sorted(dirlist,key=lambda s: s.count("/"))[-1]
-    #将目录的最大深度值，最大深度的目录存入字典
+    # 将目录列表按”/“出现的个数进行排序，取出最后一个，也就是拥有最大目录深度的那个
+    lpath = sorted(dirlist, key=lambda s: s.count("/"))[-1]
+    # 将目录的最大深度值，最大深度的目录存入字典
     dpath_dict[maxdpath] = lpath
-    #由于函数是递归调用，所以再次调用时要清空字典，这样不会影响下次的值
+    # 由于函数是递归调用，所以再次调用时要清空字典，这样不会影响下次的值
     dirlist.clear()
     return dpath_dict
 
 
-def getmtime(dir):
+def GetMtime(dir):
     '''
     获取当前目录的修改时间并返回
     :param dir:         传递一个目录
@@ -73,73 +76,102 @@ def getmtime(dir):
     return filemtime
 
 
-
-def Pt(filepath, newestdir = {}):
+def GetNewestDir(filepath, newestdir={}):
     '''
     打印输出当目录及子目录和目录深度,返回目录及对应修改时间的字典,再把字典按时间排序取出最新一个
     :param filepath:        传递一个路径
     :param newestdir:       初始化一个空字典，用来保存最新修改的目录和对应的修改时间
     :return: newestdir
     '''
-
-    #每次调用函数时清空字典
+    # 每次调用函数时清空字典
     newestdir.clear()
-    dirlist = findfiles(filepath, depth)
-    print("当前目录：{}".format(filepath))
-
+    dirlist = FindFiles(filepath, depth)
     for cdir in dirlist:
-        #print("\t包含子目录：{}\t最新修改时间：{}".format(cdir, getmtime(cdir)))
-        newestdir[cdir] = getmtime(cdir)
-    result_dpath = getmaxdepth(dirlist, filepath.count("/"))
-    for k, v in result_dpath.items():
-        print("当前目录最大递归深度:{}\n最大深度目录：{}".format(k, v))
-    #清空子目录列表，主要是不影响下次调用
+        newestdir[cdir] = GetMtime(cdir)
+    result = sorted(newestdir.items(), key=lambda d: d[1])[-1]
     dirlist.clear()
-    return newestdir
+    return result
+
+def GetUser(u):
+    """
+    根据用户目录名返回中文用户名
+    :return: user
+    """
+    global user
+    if (u == "huoguangxin" or u == "霍广新"):
+        user = "霍广新"
+    if (u == "hw.liu" or u == "刘宏伟"):
+        user = "刘宏伟"
+    if (u == "jianhong.zhang" or u == "张建红"):
+        user = "张建红"
+    if (u == "jili" or u == "吉利"):
+        user = "吉利"
+    if (u == "libin" or u == "李宾"):
+        user = "李宾"
+    if (u == "liujunwei" or u == "刘军伟"):
+        user = "刘军伟"
+    if (u == "yuanjun" or u == "袁君"):
+        user = "袁君"
+    if (u == "zhangyonghui" or u == "张永辉"):
+        user = "张永辉"
+    if (u == "zhanglili" or u == "张丽丽"):
+        user = "张丽丽"
+    if (u == "yangmianfeng" or u == "杨绵峰"):
+        user = "杨绵峰"
+    if (u == "tangbaoyun" or u == "汤宝云"):
+        user = "汤宝云"
+    return user
 
 
-def get_fullpath_1(p):
+def GetResult_1(p):
     """
     根据传入的子目录名，生成完整路径
     :param p:       传入子目录列表中的一个元素
     :return:
     """
+    Ntlist = []
     path = bpath1 + p + "/"
-    result = sorted(Pt(path).items(),key=lambda d:d[1])[-1]
-    print("当前目录下最新修改的目录为是：{}\n".format(result))
+    Ntlist.append(path)
+    result = GetNewestDir(path)
+    for i in result:
+        Ntlist.append(i)
+    Ntlist.append(GetUser(p))
+    return Ntlist
 
 
-def get_fullpath_10(p):
+def GetResult_10(p):
     """
        根据传入的子目录名，生成完整路径
        :param p:       传入子目录列表中的一个元素
        :return:
     """
     path = bpath10 + p + "/"
-    result = sorted(Pt(path).items(), key=lambda d: d[1])[-1]
-    print("最新修改目录：{}\n".format(result))
+    ulist = []
+    ulist.append(path)
+    result = GetNewestDir(path)
+    for i in result:
+        ulist.append(i)
+    ulist.append(GetUser(p))
+    return ulist
 
-def get_result_1(checklist1):
-    for i in checklist1:
-        t1 = threading.Thread(target=get_fullpath_1, args=(i, ))
-        t1.start()
-        t1.join()
-
-def get_result_10(checklist10):
-    for i in checklist10:
-        t10 = threading.Thread(target=get_fullpath_10, args=(i, ))
-        t10.start()
-        t10.join()
-
-checklist10 = ['huoguangxin', 'hw.liu', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili']
-checklist1 = ["huoguangxin", 'hw.liu', 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili']
 
 if __name__ == '__main__':
     start_time = datetime.datetime.now()
-    get_result_1(checklist1)
-    get_result_10(checklist10)
+    print("开始时间：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")))
+    wb = Workbook()
+    ws = wb.active
+    ws['A1'] = "用户目录"
+    ws['B1'] = "最新修改目录"
+    ws['C1'] = "最新修改时间"
+    ws['D1'] = "用户"
+    ws['E1'] = "备份状态"
+    ws['F1'] = "备注"
+    for i in checklist1:
+        tx1 = GetResult_1(i)
+        ws.append(tx1)
+    for i in checklist10:
+        tx10 = GetResult_10(i)
+        ws.append(tx10)
+    wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
     end_time = datetime.datetime.now()
-    print("开始时间：{}\n结束时间：{}\n总共耗时：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S"),
-                                             end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
-
+    print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
