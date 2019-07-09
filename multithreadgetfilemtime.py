@@ -181,6 +181,7 @@ def main():
     # wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
     t = GetFileMtime()
     t.start()
+    t.join()
     end_time = datetime.datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
 
