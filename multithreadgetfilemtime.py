@@ -18,25 +18,13 @@ user = ""
 checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
 checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
               'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
-rlist = []
-filepaths = []
 
 
-for i in checklist1:
-    filepaths.append(bpath1 + i)
-
-for i in checklist10:
-    filepaths.append(bpath10 + i)
+gCondition = threading.Condition()
 
 
-class GetFileMtime(threading.Thread):
-    def run(self):
-        for i in checklist1:
-            self.GetResult_1(i)
 
-        for i in checklist10:
-            self.GetResult_10(i)
-
+class GetFileMtime:
 
     def FindFiles(self, filepath, depth, child_list=[]):
         '''
@@ -60,26 +48,6 @@ class GetFileMtime(threading.Thread):
         # 返回所有子目录列表
         return child_list
 
-    def GetMaxDepth(self, dirlist, cdirdepth):
-        '''
-        找出当前目录子目录的最大深度并以字典的形式返回
-        :param diulist:     传递一个目录列表
-        :param cdirdepth:   用于计算给定初始路径的 ”/“ 的个数
-        :param dpath:       用于存放子目录的 ”/“ 的个数的列表
-        :return: maxdpath   用于计算子目录的深度（"/"的个数）
-        '''
-        dpath_dict = {}
-        dpath = []
-        for i in dirlist:
-            dpath.append(i.count("/"))
-        maxdpath = max(dpath) - cdirdepth
-        # 将目录列表按”/“出现的个数进行排序，取出最后一个，也就是拥有最大目录深度的那个
-        lpath = sorted(dirlist, key=lambda s: s.count("/"))[-1]
-        # 将目录的最大深度值，最大深度的目录存入字典
-        dpath_dict[maxdpath] = lpath
-        # 由于函数是递归调用，所以再次调用时要清空字典，这样不会影响下次的值
-        dirlist.clear()
-        return dpath_dict
 
     def GetMtime(self, dir):
         '''
@@ -99,11 +67,14 @@ class GetFileMtime(threading.Thread):
         '''
         # 每次调用函数时清空字典
         newestdir.clear()
+        #gCondition.acquire()
         dirlist = self.FindFiles(filepath, depth)
         for cdir in dirlist:
             newestdir[cdir] = self.GetMtime(cdir)
         result = sorted(newestdir.items(), key=lambda d: d[1])[-1]
         dirlist.clear()
+        # gCondition.notify_all()
+        # gCondition.release()
         return result
 
     def GetUser(self, u):
@@ -144,11 +115,14 @@ class GetFileMtime(threading.Thread):
         """
         Ntlist = []
         path = bpath1 + p + "/"
+        gCondition.acquire()
         Ntlist.append(path)
         result = self.GetNewestDir(path)
         for i in result:
             Ntlist.append(i)
         Ntlist.append(self.GetUser(p))
+        #gCondition.notify_all()
+        gCondition.release()
         print(Ntlist)
 
     def GetResult_10(self, p):
@@ -159,11 +133,13 @@ class GetFileMtime(threading.Thread):
         """
         path = bpath10 + p + "/"
         ulist = []
+        gCondition.acquire()
         ulist.append(path)
         result = self.GetNewestDir(path)
         for i in result:
             ulist.append(i)
         ulist.append(self.GetUser(p))
+        gCondition.release()
         print(ulist)
 
 def main():
@@ -180,8 +156,15 @@ def main():
     #
     # wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
     t = GetFileMtime()
-    t.start()
-    t.join()
+
+    for i in checklist1:
+        t1 = threading.Thread(target=t.GetResult_1, args=(i,))
+        t1.start()
+    for i in checklist10:
+        t1 = threading.Thread(target=t.GetResult_10, args=(i,))
+        t1.start()
+
+
     end_time = datetime.datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
 
