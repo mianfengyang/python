@@ -12,6 +12,7 @@
 import os
 import datetime
 from openpyxl import Workbook
+import threading
 
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
@@ -136,6 +137,8 @@ def GetResult_1(p):
     for i in result:
         Ntlist.append(i)
     Ntlist.append(GetUser(p))
+    for i in Ntlist:
+        ws.append(i)
     return Ntlist
 
 
