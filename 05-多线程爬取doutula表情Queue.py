@@ -29,7 +29,7 @@ def parse_page(url):
         suffix = os.path.splitext(img_url)[1]
         filename = alt + suffix
         request.urlretrieve(img_url,'images/' + filename)
-        print(filename)
+        #print(filename)
 
 def main():
     for x in range(1,10):
