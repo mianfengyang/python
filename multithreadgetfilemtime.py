@@ -11,162 +11,90 @@
 import threading
 import datetime
 import os
+from queue import Queue
+
+
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
-depth = 4
+bpathtest = r'D:/soft/'
+depth = 5
 user = ""
 checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
 checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
               'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
+testlist = ['google', 'Ghelper_1.4.6.beta', 'X220_Drivers', 'Xmanager Enterprise 5 Build 0987', 'xmind-8-update7-windows']
 
+userpath_queue = Queue(5)
+userdir_queue = Queue(100)
 
-gCondition = threading.Condition()
+userpaths = []
 
+for i in testlist:
+    userpaths.append(bpathtest + i + '/')
+# for i in checklist10:
+#     userpaths.append(bpath10 + i + '/')
 
+class Producer(threading.Thread):
+    def run(self):
 
-class GetFileMtime:
+        while True:
+            if userpath_queue.empty():
+                break
+            userpath = userpath_queue.get()
+            ud = self.FindChildDir(userpath, depth, userdir = [])
+            userdir_queue.put(ud)
 
-    def FindFiles(self, filepath, depth, child_list=[]):
-        '''
-        递归遍历当前目录，返回当前目录下所有子目录列表
-        参数 filepath为传入路径参数，child_list列表用于保存传入路径中每个子目录
-        :param filepath:        传递一个路径
-        :param depth            传递一个最大遍历目录的深度
-        :param child_list:      用来保存子目录的列表
-        :return: child_list     返回子目录列表
-        '''
+    def FindChildDir(self, path, depth, userdir):
         depth -= 1
-        child_list.append(filepath)
-        for file in os.listdir(filepath):
-            childpath = filepath + file + "/"
-            # 如果超出最大深度，不再往下遍历
+        for i in os.listdir(path):
             if depth <= 0:
                 continue
-            # 如果有子目录则递归遍历子目录
-            if os.path.isdir(childpath):
-                self.FindFiles(childpath, depth)
-        # 返回所有子目录列表
-        return child_list
+            if os.path.isfile(path + i):
+                childpath = path + i
+                userdir.append(childpath)
+
+            if os.path.isdir(path + i):
+                childpath = path + i + '/'
+                userdir.append(childpath)
+                self.FindChildDir(childpath, depth, userdir)
+        return userdir
 
 
-    def GetMtime(self, dir):
-        '''
-        获取当前目录的修改时间并返回
-        :param dir:         传递一个目录
-        :return: filemtime  返回目录的修改时间
-        '''
-        filemtime = datetime.datetime.fromtimestamp(os.stat(dir).st_mtime).strftime('%Y-%m-%d %H:%M')
-        return filemtime
+class Consumer(threading.Thread):
+    def run(self):
 
-    def GetNewestDir(self, filepath, newestdir={}):
-        '''
-        打印输出当目录及子目录和目录深度,返回目录及对应修改时间的字典,再把字典按时间排序取出最新一个
-        :param filepath:        传递一个路径
-        :param newestdir:       初始化一个空字典，用来保存最新修改的目录和对应的修改时间
-        :return: newestdir
-        '''
-        # 每次调用函数时清空字典
-        newestdir.clear()
-        #gCondition.acquire()
-        dirlist = self.FindFiles(filepath, depth)
-        for cdir in dirlist:
-            newestdir[cdir] = self.GetMtime(cdir)
-        result = sorted(newestdir.items(), key=lambda d: d[1])[-1]
-        dirlist.clear()
-        # gCondition.notify_all()
-        # gCondition.release()
-        return result
+        while True:
+            if userdir_queue.empty() and userdir_queue.empty():
+                break
+            resultuserdir = userdir_queue.get()
+            print(threading.current_thread().name, resultuserdir)
 
-    def GetUser(self, u):
-        """
-        根据用户目录名返回中文用户名
-        :return: user
-        """
-        global user
-        if (u == "huoguangxin" or u == "霍广新"):
-            user = "霍广新"
-        if (u == "hw.liu" or u == "刘宏伟"):
-            user = "刘宏伟"
-        if (u == "jianhong.zhang" or u == "张建红"):
-            user = "张建红"
-        if (u == "jili" or u == "吉利"):
-            user = "吉利"
-        if (u == "libin" or u == "李宾"):
-            user = "李宾"
-        if (u == "liujunwei" or u == "刘军伟"):
-            user = "刘军伟"
-        if (u == "yuanjun" or u == "袁君"):
-            user = "袁君"
-        if (u == "zhangyonghui" or u == "张永辉"):
-            user = "张永辉"
-        if (u == "zhanglili" or u == "张丽丽"):
-            user = "张丽丽"
-        if (u == "yangmianfeng" or u == "杨绵峰"):
-            user = "杨绵峰"
-        if (u == "tangbaoyun" or u == "汤宝云"):
-            user = "汤宝云"
-        return user
-
-    def GetResult_1(self, p):
-        """
-        根据传入的子目录名，生成完整路径
-        :param p:       传入子目录列表中的一个元素
-        :return:
-        """
-        Ntlist = []
-        path = bpath1 + p + "/"
-        gCondition.acquire()
-        Ntlist.append(path)
-        result = self.GetNewestDir(path)
-        for i in result:
-            Ntlist.append(i)
-        Ntlist.append(self.GetUser(p))
-        #gCondition.notify_all()
-        gCondition.release()
-        print(Ntlist)
-
-    def GetResult_10(self, p):
-        """
-           根据传入的子目录名，生成完整路径
-           :param p:       传入子目录列表中的一个元素
-           :return:
-        """
-        path = bpath10 + p + "/"
-        ulist = []
-        gCondition.acquire()
-        ulist.append(path)
-        result = self.GetNewestDir(path)
-        for i in result:
-            ulist.append(i)
-        ulist.append(self.GetUser(p))
-        gCondition.release()
-        print(ulist)
 
 def main():
+    print("%s主线程开始……" % threading.current_thread().name)
     start_time = datetime.datetime.now()
     print("开始时间：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")))
-    # wb = Workbook()
-    # ws = wb.active
-    # ws['A1'] = "用户目录"
-    # ws['B1'] = "最新修改目录"
-    # ws['C1'] = "最新修改时间"
-    # ws['D1'] = "用户"
-    # ws['E1'] = "备份状态"
-    # ws['F1'] = "备注"
-    #
-    # wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
-    t = GetFileMtime()
 
-    for i in checklist1:
-        t1 = threading.Thread(target=t.GetResult_1, args=(i,))
-        t1.start()
-    for i in checklist10:
-        t1 = threading.Thread(target=t.GetResult_10, args=(i,))
-        t1.start()
+    print()
 
+    for path in userpaths:
+        userpath_queue.put(path)
+
+    thread_list = []
+    for x in range(3):
+        t1 = Producer()
+        thread_list.append(t1)
+        t2 = Consumer()
+        thread_list.append(t2)
+
+    for t in thread_list:
+        t.start()
+        t.join()
 
     end_time = datetime.datetime.now()
+    print()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
+    print("%s主线程结束……" % threading.current_thread().name)
 
 if __name__ == '__main__':
     main()
