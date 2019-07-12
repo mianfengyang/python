@@ -33,9 +33,6 @@ for i in checklist1:
 # for i in checklist10:
 #     userpaths.append(bpath10 + i + '/')
 
-
-
-
 def FindChildDir(path, depth, clist):
     depth -= 1
     #clist.append(path)
@@ -49,27 +46,20 @@ def FindChildDir(path, depth, clist):
     return clist
 
 
-clist = []
-def getuserdir():
-    for path in userpaths:
-        clist.clear()
-        userdir = FindChildDir(path, depth, clist)
-        userdir_queue.put(userdir)
-
-
 def main():
     start_time = datetime.datetime.now()
     print("开始时间：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")))
 
+    
 
-    for x in range(5):
-        t = threading.Thread(target=getuserdir)
-        t.start()
+    a = FindChildDir(r'//192.168.1.11/pubin/杨绵峰/', depth, clist=[])
+    #print(a)
+    userdir_queue.put(a)
+    print(userdir_queue.get())
 
-    while True:
-        if userdir_queue.empty():
-            break
-        print(userdir_queue.get())
+
+
+
     end_time = datetime.datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
 
