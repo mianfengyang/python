@@ -12,6 +12,7 @@ import threading
 import datetime
 import os
 from queue import Queue
+import collections
 
 
 bpath1 = r'//192.168.1.11/pubin/'
@@ -26,7 +27,7 @@ testlist = ['google', 'Ghelper_1.4.6.beta', 'X220_Drivers', 'Xmanager Enterprise
 
 userpath_queue = Queue(100)
 userdir_queue = Queue(100)
-userdir = []
+userdir = {}
 userpaths = []
 
 for i in checklist1:
@@ -34,45 +35,28 @@ for i in checklist1:
 # for i in checklist10:
 #     userpaths.append(bpath10 + i + '/')
 
-class Producer(threading.Thread):
-    def run(self):
 
-        while True:
+def FindChildDir(path, depth, userdir):
+    depth -= 1
+    for i in os.listdir(path):
+        if depth <= 0:
+            continue
+        if os.path.isfile(path + i):
+            childpath = path + i
+            childpath_mtime = datetime.datetime.fromtimestamp(os.stat(childpath).st_mtime).strftime('%Y-%m-%d %H:%M')
+            userdir[childpath] = childpath_mtime
 
-            userpath = userpath_queue.get()
-            ud = self.FindChildDir(userpath, depth, userdir = [])
-            print(ud)
-            userdir_queue.put(ud)
-            if ud == None and userpath_queue.empty():
-                break
+        if os.path.isdir(path + i):
+            childpath = path + i + '/'
+            childpath_mtime = datetime.datetime.fromtimestamp(os.stat(childpath).st_mtime).strftime('%Y-%m-%d %H:%M')
+            userdir[childpath] = childpath_mtime
+            FindChildDir(childpath, depth, userdir)
+    res = sorted(userdir.items(), key=lambda d: d[1])[-1]
+    return res
 
-
-
-    def FindChildDir(self, path, depth, userdir):
-        depth -= 1
-        for i in os.listdir(path):
-            if depth <= 0:
-                continue
-            if os.path.isfile(path + i):
-                childpath = path + i
-                userdir.append(childpath)
-
-            if os.path.isdir(path + i):
-                childpath = path + i + '/'
-                userdir.append(childpath)
-                self.FindChildDir(childpath, depth, userdir)
-        return userdir
-
-
-class Consumer(threading.Thread):
-    def run(self):
-
-        while True:
-            if userpath_queue.empty() and userdir_queue.empty():
-                break
-            resultuserdir = userdir_queue.get()
-            print(threading.current_thread().name, resultuserdir)
-
+def GetLatestFile(path):
+    latestfile = FindChildDir(path,depth,userdir={})
+    print(latestfile)
 
 def main():
     print("%s主线程开始……" % threading.current_thread().name)
@@ -82,19 +66,8 @@ def main():
     print()
 
     for path in userpaths:
-        userpath_queue.put(path)
-
-    thread_list = []
-    for x in range(3):
-        t1 = Producer()
-        thread_list.append(t1)
-        t2 = Consumer()
-        thread_list.append(t2)
-
-    for t in thread_list:
+        t = threading.Thread(target=GetLatestFile,args=(path,))
         t.start()
-        t.join()
-
 
     end_time = datetime.datetime.now()
     print()
