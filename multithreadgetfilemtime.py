@@ -8,7 +8,7 @@
 #      date: 2019-07-09 15:35:06
 =============================================================
 """
-import threading
+from multiprocessing import Process
 import datetime
 import os
 from queue import Queue
@@ -25,8 +25,6 @@ checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
               'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
 testlist = ['google', 'Ghelper_1.4.6.beta', 'X220_Drivers', 'Xmanager Enterprise 5 Build 0987', 'xmind-8-update7-windows']
 
-userpath_queue = Queue(100)
-userdir_queue = Queue(100)
 userdir = {}
 userpaths = []
 
@@ -55,24 +53,31 @@ def FindChildDir(path, depth, userdir):
     return res
 
 def GetLatestFile(path):
+
     latestfile = FindChildDir(path,depth,userdir={})
     print(latestfile)
 
 def main():
-    print("%s主线程开始……" % threading.current_thread().name)
+    print("%s主线程开始……" % Process.name)
     start_time = datetime.datetime.now()
     print("开始时间：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")))
-
     print()
 
-    for path in userpaths:
-        t = threading.Thread(target=GetLatestFile,args=(path,))
+
+    pro_list = []
+    for x in userpaths:
+        t = Process(target=GetLatestFile,args=(x,))
+        pro_list.append(t)
         t.start()
+
+    for x in pro_list:
+        x.join()
+
 
     end_time = datetime.datetime.now()
     print()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
-    print("%s主线程结束……" % threading.current_thread().name)
+    print("%s主线程结束……" % Process.name)
 
 if __name__ == '__main__':
     main()
