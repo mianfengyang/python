@@ -20,7 +20,7 @@ depth = 4
 user = ""
 checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
 checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
+              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云', '严建锋', '惠梦月']
 
 def FindFiles(filepath, depth, child_list=[]):
     '''
@@ -121,6 +121,10 @@ def GetUser(u):
         user = "杨绵峰"
     if (u == "tangbaoyun" or u == "汤宝云"):
         user = "汤宝云"
+    if (u == "huimengyue" or u == "惠梦月"):
+        user = "惠梦月"
+    if (u == "yanjianfeng" or u == "严建锋"):
+        user = "严建锋"
     return user
 
 
@@ -137,8 +141,8 @@ def GetResult_1(p):
     for i in result:
         Ntlist.append(i)
     Ntlist.append(GetUser(p))
-    for i in Ntlist:
-        ws.append(i)
+    # for i in Ntlist:
+    #     ws.append(i)
     return Ntlist
 
 
