@@ -11,8 +11,6 @@
 from multiprocessing import Process
 import datetime
 import os
-from queue import Queue
-import collections
 import time
 
 bpath1 = r'//192.168.1.11/pubin/'
@@ -22,7 +20,7 @@ depth = 4
 user = ""
 checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
 checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
+              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云', '惠梦月', '严建锋']
 testlist = ['google', 'Ghelper_1.4.6.beta', 'X220_Drivers', 'Xmanager Enterprise 5 Build 0987', 'xmind-8-update7-windows']
 
 userdir = {}
@@ -30,8 +28,8 @@ userpaths = []
 
 for i in checklist1:
     userpaths.append(bpath1 + i + '/')
-# for i in checklist10:
-#     userpaths.append(bpath10 + i + '/')
+for i in checklist10:
+    userpaths.append(bpath10 + i + '/')
 
 
 def FindChildDir(path, depth, userdir={}):
@@ -84,8 +82,6 @@ def main():
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
     print("%s主线程结束……" % Process.name)
 
-    # for path in userpaths:
-    #     GetLatestFile(path)
 
 if __name__ == '__main__':
 
