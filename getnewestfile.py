@@ -179,6 +179,12 @@ if __name__ == '__main__':
     for i in checklist10:
         tx10 = GetResult_10(i)
         ws.append(tx10)
+
+    for x in range(2, 24):
+        ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=2019,MONTH(" + "C" + str(
+        x) + ")=7)," + "\"已备份\"" + "," + "\"未备份\"" + ")"
+
     wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
+
     end_time = datetime.datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
