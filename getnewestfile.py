@@ -12,7 +12,7 @@
 import os
 import datetime
 from openpyxl import Workbook
-import threading
+
 
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
@@ -141,8 +141,6 @@ def GetResult_1(p):
     for i in result:
         Ntlist.append(i)
     Ntlist.append(GetUser(p))
-    # for i in Ntlist:
-    #     ws.append(i)
     return Ntlist
 
 
@@ -180,11 +178,14 @@ if __name__ == '__main__':
         tx10 = GetResult_10(i)
         ws.append(tx10)
 
+    #根据表的行数，在指定列批量填入公式用于计算备份状态
+    #要在公式中使用变量，必须把公式打散再拼接
     for x in range(2, 24):
         ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=2019,MONTH(" + "C" + str(
         x) + ")=7)," + "\"已备份\"" + "," + "\"未备份\"" + ")"
 
-    wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
+    #保存数据
+    wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/2019/7月检查情况.xlsx')
 
     end_time = datetime.datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
