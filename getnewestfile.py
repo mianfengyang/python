@@ -171,7 +171,7 @@ if __name__ == '__main__':
     ws['D1'] = "用户"
     ws['E1'] = "备份状态"
     ws['F1'] = "备注"
-    
+
     for i in checklist1:
         tx1 = GetResult_1(i)
         ws.append(tx1)
@@ -181,6 +181,7 @@ if __name__ == '__main__':
 
     #根据表的行数，在指定列批量填入公式用于计算备份状态
     #要在公式中使用变量，必须把公式打散再拼接
+    #此步在excel表中完成相对方便些
     for x in range(2, 24):
         ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=2019,MONTH(" + "C" + str(
         x) + ")=7)," + "\"已备份\"" + "," + "\"未备份\"" + ")"
