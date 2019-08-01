@@ -171,6 +171,7 @@ if __name__ == '__main__':
     ws['D1'] = "用户"
     ws['E1'] = "备份状态"
     ws['F1'] = "备注"
+    
     for i in checklist1:
         tx1 = GetResult_1(i)
         ws.append(tx1)
