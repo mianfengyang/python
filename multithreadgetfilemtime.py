@@ -67,7 +67,7 @@ class Consumer(threading.Thread):
             if userdir_queue.empty() and userdir_queue.empty():
                 break
             resultuserdir = userdir_queue.get()
-            print(threading.current_thread().name, resultuserdir)
+            print(resultuserdir)
 
 
 def main():
@@ -88,6 +88,7 @@ def main():
         thread_list.append(t2)
 
     for t in thread_list:
+        t.setDaemon(True)
         t.start()
         t.join()
 
