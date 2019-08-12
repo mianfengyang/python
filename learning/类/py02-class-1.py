@@ -40,6 +40,6 @@ def main():
     print(a)
     print(name_tuple)
 
-    
+
 if __name__ == '__main__':
     main()
