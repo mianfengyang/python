@@ -15,7 +15,7 @@ import datetime
 from openpyxl import Workbook
 
 
-bpath = r'//192.168.8.6/pesonal/'
+bpath = r'//192.168.8.6/personal/'
 depth = 4
 user = ""
 
