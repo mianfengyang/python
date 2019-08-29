@@ -64,7 +64,18 @@ def mod_user():
 
 def ser_user():
     """查询学员"""
-    pass
+    # 根据学员姓名进行查询
+    user_name = input("请输入要查询的学员的姓名：")
+    print("=" * 80)
+    for i in users:
+        if user_name == i['name']:
+            print("id:{}".format(i['id']))
+            print("name:{}".format(i['name']))
+            print("phone:{}".format(i['phone']))
+            print("=" * 80)
+            break
+    else:
+        print("学员 {} 不存在".format(user_name))
 
 def dis_user():
     """显示所有学员"""
