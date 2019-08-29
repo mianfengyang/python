@@ -69,7 +69,7 @@ def ser_user():
     print("=" * 80)
     for i in users:
         if user_name == i['name']:
-            print("id:{} name:{} phone:{}".format(i['id'], i['name'], i['phone']))
+            print("id:{}\t name:{}\t phone:{}".format(i['id'], i['name'], i['phone']))
             # print("name:{}".format(i['name']))
             # print("phone:{}".format(i['phone']))
             print("=" * 80)
@@ -81,7 +81,7 @@ def dis_user():
     """显示所有学员"""
     print("=" * 80)
     for i in users:
-        print("id:{} name:{} phone:{}".format(i['id'], i['name'], i['phone']))
+        print("id:{}\t name:{}\t phone:{}".format(i['id'], i['name'], i['phone']))
         # print("id:{}".format(i['id']))
         # print("name:{}".format(i['name']))
         # print("phone:{}".format(i['phone']))
