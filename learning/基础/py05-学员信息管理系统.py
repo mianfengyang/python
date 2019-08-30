@@ -60,7 +60,16 @@ def del_user():
 
 def mod_user():
     """修改学员"""
-    pass
+    global users
+    user_name = input("请输入要修改的学员的姓名：")
+    for i in users:
+        if i['name'] == user_name:
+            i['phone'] = input("请输入新的手机号：")
+            print("修改成功")
+            break
+    else:
+        print("学员 {} 不存在".format(user_name))
+
 
 def ser_user():
     """查询学员"""
@@ -70,8 +79,6 @@ def ser_user():
     for i in users:
         if user_name == i['name']:
             print("id:{}\t name:{}\t phone:{}".format(i['id'], i['name'], i['phone']))
-            # print("name:{}".format(i['name']))
-            # print("phone:{}".format(i['phone']))
             print("=" * 80)
             break
     else:
@@ -82,9 +89,6 @@ def dis_user():
     print("=" * 80)
     for i in users:
         print("id:{}\t name:{}\t phone:{}".format(i['id'], i['name'], i['phone']))
-        # print("id:{}".format(i['id']))
-        # print("name:{}".format(i['name']))
-        # print("phone:{}".format(i['phone']))
         print("=" * 80)
     print("所有学员信息显示完成，并回主菜单")
 
