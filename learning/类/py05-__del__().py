@@ -22,7 +22,7 @@ def main():
         def __del__(self):
             print(f"{self}对象已经被删除")
 
-    
+
     haier1 = Washer(100, 200)
     print(haier1)
 

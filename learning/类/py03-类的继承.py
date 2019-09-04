@@ -9,7 +9,7 @@
 =============================================================
 
 1. 子类默认继承父类的所有属性和方法。
-
+2. 语法：class 类名(父类名):
 """
 class Person:
     def __init__(self, name, gender, height, age, mobile, email):
