@@ -22,9 +22,9 @@ def main():
         def __del__(self):
             print(f"{self}对象已经被删除")
 
-        def __
+    
     haier1 = Washer(100, 200)
-    #print(haier1)
+    print(haier1)
 
 if __name__ == '__main__':
     main()
