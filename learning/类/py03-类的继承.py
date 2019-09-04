@@ -7,6 +7,9 @@
 #    author: mianfeng.yang
 #      date: 2019-08-12 15:48:31
 =============================================================
+
+1. 子类默认继承父类的所有属性和方法。
+
 """
 class Person:
     def __init__(self, name, gender, height, age, mobile, email):
