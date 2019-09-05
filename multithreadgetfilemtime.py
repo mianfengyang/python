@@ -8,94 +8,84 @@
 #      date: 2019-07-09 15:35:06
 =============================================================
 """
-import threading
+from multiprocessing import Process
 import datetime
 import os
-from queue import Queue
-
+import time
 
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
 bpathtest = r'D:/soft/'
-depth = 5
+depth = 4
 user = ""
 checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
 checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
+              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云', '惠梦月', '严建锋']
 testlist = ['google', 'Ghelper_1.4.6.beta', 'X220_Drivers', 'Xmanager Enterprise 5 Build 0987', 'xmind-8-update7-windows']
 
-userpath_queue = Queue(5)
-userdir_queue = Queue(100)
-
+userdir = {}
 userpaths = []
 
-for i in testlist:
-    userpaths.append(bpathtest + i + '/')
-# for i in checklist10:
-#     userpaths.append(bpath10 + i + '/')
 
-class Producer(threading.Thread):
-    def run(self):
-
-        while True:
-            if userpath_queue.empty():
-                break
-            userpath = userpath_queue.get()
-            ud = self.FindChildDir(userpath, depth, userdir = [])
-            userdir_queue.put(ud)
-
-    def FindChildDir(self, path, depth, userdir):
-        depth -= 1
-        for i in os.listdir(path):
-            if depth <= 0:
-                continue
-            if os.path.isfile(path + i):
-                childpath = path + i
-                userdir.append(childpath)
-
-            if os.path.isdir(path + i):
-                childpath = path + i + '/'
-                userdir.append(childpath)
-                self.FindChildDir(childpath, depth, userdir)
-        return userdir
+for i in checklist1:
+    userpaths.append(bpath1 + i + '/')
+for i in checklist10:
+    userpaths.append(bpath10 + i + '/')
 
 
-class Consumer(threading.Thread):
-    def run(self):
+def FindChildDir(path, depth, userdir={}):
+    depth -= 1
+    for i in os.listdir(path):
+        if depth <= 0:
+            continue
+        if os.path.isfile(path + i):
+            childpath = path + i
+            childpath_mtime =os.stat(childpath).st_mtime
+            s_time = "2019-07-01"
+            s_time = time.mktime(time.strptime(s_time,"%Y-%m-%d"))
+            if childpath_mtime.__ge__(s_time):
+                userdir[childpath] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(childpath_mtime))
+            # else:
+            #     print("未备份")
+        else:
+            childpath = path + i + '/'
+            FindChildDir(childpath, depth, userdir)
+    return userdir
 
-        while True:
-            if userdir_queue.empty() and userdir_queue.empty():
-                break
-            resultuserdir = userdir_queue.get()
-            print(resultuserdir)
+def GetLatestFile(path):
+
+    latestfile = FindChildDir(path,depth,userdir={})
+    if  latestfile:
+        res = sorted(latestfile.items(),key=lambda s: s[1])[-1]
+        print(res)
 
 
 def main():
-    print("%s主线程开始……" % threading.current_thread().name)
+    print("%s主线程开始……" % Process.name)
     start_time = datetime.datetime.now()
     print("开始时间：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")))
-
     print()
 
-    for path in userpaths:
-        userpath_queue.put(path)
 
-    thread_list = []
-    for x in range(3):
-        t1 = Producer()
-        thread_list.append(t1)
-        t2 = Consumer()
-        thread_list.append(t2)
+    pro_list = []
+    for x in userpaths:
+        t = Process(target=GetLatestFile,args=(x,))
+        pro_list.append(t)
 
-    for t in thread_list:
-        t.setDaemon(True)
-        t.start()
-        t.join()
+    for x in pro_list:
+        x.start()
+
+    for x in pro_list:
+        x.join()
+
+
 
     end_time = datetime.datetime.now()
     print()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
-    print("%s主线程结束……" % threading.current_thread().name)
+    print("%s主线程结束……" % Process.name)
+
 
 if __name__ == '__main__':
+
     main()

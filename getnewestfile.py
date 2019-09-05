@@ -12,7 +12,7 @@
 import os
 import datetime
 from openpyxl import Workbook
-import threading
+
 
 bpath1 = r'//192.168.1.11/pubin/'
 bpath10 = r'//192.168.10.11/devin/'
@@ -20,7 +20,7 @@ depth = 4
 user = ""
 checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
 checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云']
+              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云', '严建锋', '惠梦月']
 
 def FindFiles(filepath, depth, child_list=[]):
     '''
@@ -121,6 +121,10 @@ def GetUser(u):
         user = "杨绵峰"
     if (u == "tangbaoyun" or u == "汤宝云"):
         user = "汤宝云"
+    if (u == "huimengyue" or u == "惠梦月"):
+        user = "惠梦月"
+    if (u == "yanjianfeng" or u == "严建锋"):
+        user = "严建锋"
     return user
 
 
@@ -137,8 +141,6 @@ def GetResult_1(p):
     for i in result:
         Ntlist.append(i)
     Ntlist.append(GetUser(p))
-    for i in Ntlist:
-        ws.append(i)
     return Ntlist
 
 
@@ -169,12 +171,23 @@ if __name__ == '__main__':
     ws['D1'] = "用户"
     ws['E1'] = "备份状态"
     ws['F1'] = "备注"
+
     for i in checklist1:
         tx1 = GetResult_1(i)
         ws.append(tx1)
     for i in checklist10:
         tx10 = GetResult_10(i)
         ws.append(tx10)
-    wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/check_data_backup.xlsx')
+
+    #根据表的行数，在指定列批量填入公式用于计算备份状态
+    #要在公式中使用变量，必须把公式打散再拼接
+    #此步在excel表中完成相对方便些
+    for x in range(2, 24):
+        ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=2019,MONTH(" + "C" + str(
+        x) + ")=7)," + "\"已备份\"" + "," + "\"未备份\"" + ")"
+
+    #保存数据
+    wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/2019/7月检查情况.xlsx')
+
     end_time = datetime.datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
