@@ -187,7 +187,7 @@ if __name__ == '__main__':
         x) + ")=8)," + "\"已备份\"" + "," + "\"未备份\"" + ")"
 
     #保存数据
-    wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/2019/8月检查情况.xlsx')
+    wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/8月检查情况.xlsx')
 
     end_time = datetime.datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))

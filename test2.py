@@ -110,7 +110,7 @@ def main():
     cur_yea = datetime.datetime.now().year
     for x in range(2, 24):
         ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=" + str(cur_yea) + ",MONTH(" + "C" + str(
-            x) + ")>=" + str(cur_mon) +")," + "\"已备份\"" + "," + "\"未备份\"" + ")"
+            x) + ")>=" + str(cur_mon) + ")," + "\"已备份\"" + "," + "\"未备份\"" + ")"
 
     # 保存数据
     wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/x月检查情况.xlsx')
