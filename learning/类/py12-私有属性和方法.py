@@ -10,6 +10,8 @@
 
 1. 私有属性和方法不继承给子类
 2. 写法：属性或方法名前加2个_
+3. 私有属性和方法 可以在类里面设置和修改
+
 """
 
 
@@ -19,8 +21,6 @@ def main():
     class Master(object):
         def __init__(self):
             self.kongfu = '[古法煎饼果子配方]'
-
-
 
         def make_cake(self):
             print(f'运用 {self.kongfu} 制作煎饼果子')
@@ -38,6 +38,12 @@ def main():
 
             # 定义私有属性 私有变量前加2个_
             self.__money = 2000000
+
+        def get_money(self):
+            return self.__money
+
+        def set_money(self, money):
+            self.__money = money
 
         def __info_print(self):
             print("这是私有方法")
@@ -59,6 +65,9 @@ def main():
         pass
 
     xiaoqiu = Tusun()
+    xiaoqiu.get_money()
+    xiaoqiu.set_money(10000000000)
+    print(xiaoqiu.get_money())
 
 if __name__ == '__main__':
     main()
