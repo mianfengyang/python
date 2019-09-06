@@ -38,7 +38,26 @@
         except Exception as result:
             print(result)
 
-6. 注意：一般try下方只放一行尝试执行的代码
+6. 带else的异常
+        try:
+            可能发生错误的代码
+        except Exception as result:
+            print(result)
+        else:
+            print('我是else,当没有异常的时候执行的代码')
+
+7. 异常中的finally: 表示无论是否异常都要执行的代码,例如：关闭文件
+        try:
+            可能发生错误的代码
+        except Exception as result:
+            print(result)
+        else:
+            print('我是else,当没有异常的时候执行的代码')
+        finally:
+            f.close()
+
+
+注意：一般try下方只放一行尝试执行的代码
 
 
 """
