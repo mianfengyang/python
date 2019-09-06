@@ -13,9 +13,10 @@ ws['F1'] = "备注"
 
 ws['c2'] = datetime.datetime.now()
 # ws['E2'] = '=IF(AND(YEAR(C2)=2019,MONTH(C2)=7),"已备份","未备份")'
-
+cur_mon = datetime.datetime.now().month
+cur_yea = datetime.datetime.now().year
 for x in range(2, 24):
-    ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=2019,MONTH(" + "C" + str(x) + ")=7)," + "\"已备份\"" + "," + "\"未备份\"" +")"
+    ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=" + str(cur_yea) + ",MONTH(" + "C" + str(
+        x) + ")>=" + str(cur_mon) +")," + "\"已备份\"" + "," + "\"未备份\"" + ")"
 
-
-wb.save(r'//192.168.1.11/pubin/杨绵峰/工作文件/备份检查/testFunc.xlsx')
+wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/x月检查情况.xlsx')
