@@ -142,5 +142,3 @@ class StudentManager(object):
         finally:
             f.close()
 
-if __name__ == '__main__':
-    pass
