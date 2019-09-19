@@ -20,7 +20,6 @@ depth = 4
 user = ""
 checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
 checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
-<<<<<<< HEAD
               'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云', '惠梦月', '严建锋']
 testlist = ['google', 'Ghelper_1.4.6.beta', 'X220_Drivers', 'Xmanager Enterprise 5 Build 0987', 'xmind-8-update7-windows']
 
@@ -34,9 +33,6 @@ for i in checklist10:
     userpaths.append(bpath10 + i + '/')
 
 
-def FindChildDir(path, depth, userdir={}):
-=======
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云', '严建锋', '惠梦月']
 
 def FindFiles(filepath, depth, child_list=[]):
     '''
@@ -47,7 +43,7 @@ def FindFiles(filepath, depth, child_list=[]):
     :param child_list:      用来保存子目录的列表
     :return: child_list     返回子目录列表
     '''
->>>>>>> 519f7afab7e77fd56fee3ee99b3f6443b0b593e9
+
     depth -= 1
     child_list.append(filepath)
     for file in os.listdir(filepath):
@@ -62,26 +58,7 @@ def FindFiles(filepath, depth, child_list=[]):
     return child_list
 
 
-def GetMaxDepth(dirlist, cdirdepth):
-    '''
-    找出当前目录子目录的最大深度并以字典的形式返回
-    :param diulist:     传递一个目录列表
-    :param cdirdepth:   用于计算给定初始路径的 ”/“ 的个数
-    :param dpath:       用于存放子目录的 ”/“ 的个数的列表
-    :return: maxdpath   用于计算子目录的深度（"/"的个数）
-    '''
-    dpath_dict = {}
-    dpath = []
-    for i in dirlist:
-        dpath.append(i.count("/"))
-    maxdpath = max(dpath) - cdirdepth
-    # 将目录列表按”/“出现的个数进行排序，取出最后一个，也就是拥有最大目录深度的那个
-    lpath = sorted(dirlist, key=lambda s: s.count("/"))[-1]
-    # 将目录的最大深度值，最大深度的目录存入字典
-    dpath_dict[maxdpath] = lpath
-    # 由于函数是递归调用，所以再次调用时要清空字典，这样不会影响下次的值
-    dirlist.clear()
-    return dpath_dict
+
 
 
 def GetMtime(dir):
@@ -179,18 +156,11 @@ def GetResult_10(p):
     return ulist
 
 
-<<<<<<< HEAD
-    latestfile = FindChildDir(path,depth,userdir={})
-    if  latestfile:
-        res = sorted(latestfile.items(),key=lambda s: s[1])[-1]
-        print(res)
 
 
 def main():
     print("%s主线程开始……" % Process.name)
-=======
-if __name__ == '__main__':
->>>>>>> 519f7afab7e77fd56fee3ee99b3f6443b0b593e9
+
     start_time = datetime.datetime.now()
     print("开始时间：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")))
     wb = Workbook()
