@@ -24,25 +24,39 @@ class Producer(Thread):
         self.filepath = filepath
         self.depth = depth
         self.res_queue = res_queue
+        self.child_list = set()
 
     def run(self):
-        res = self.get_rest(self.filepath, self.depth)
-        self.res_queue.put(res)
+        res = self.get_child_dir(self.filepath, self.depth)
+        # print(res)
 
-    def get_rest(self, filepath, depth, child_list = []):
+        res = sorted(res, key=lambda s: s[1])[-1]
+        res_queue.put(res)
 
+
+    def get_result(self, filepath, dir_mtime=[]):
+
+        pass
+
+    def get_child_dir(self, filepath, depth):
+        # child_list.clear()
         depth -= 1
-        child_list.append(filepath)
+
+        self.child_list.add((filepath, os.stat(filepath).st_mtime))
         for file in os.listdir(filepath):
             childpath = filepath + file + "/"
             # 如果超出最大深度，不再往下遍历
             if depth <= 0:
                 continue
-            # 如果有子目录则递归遍历子目录
+            # 如果有子目录则递归遍历子目录child_list
             if os.path.isdir(childpath):
-                self.get_rest(childpath, depth)
+                self.get_child_dir(childpath, depth)
         # 返回所有子目录列表
-        return child_list
+        return self.child_list
+
+    def get_dir_mtime(self, filepath):
+        dir_mtime = os.stat(filepath).st_mtime
+        return dir_mtime
 
 class Consumer(Thread):
     def __init__(self,  res_queue):
@@ -60,6 +74,7 @@ if __name__ == '__main__':
     for i in a:
         t1 = Producer(i, depth, res_queue)
         t1.start()
+        t1.join()
         # print(t1.get_rest(i, depth))
 
     t2 = Consumer(res_queue)
