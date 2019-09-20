@@ -73,5 +73,11 @@ if __name__ == '__main__':
         t1.join()
         # print(t1.get_rest(i, depth))
 
-    t2 = Consumer(res_queue)
-    t2.start()
+    # t2 = Consumer(res_queue)
+    # t2.start()
+    while True:
+        dir1, dir1_time = res_queue.get()
+        dir1_time = datetime.fromtimestamp(dir1_time).strftime('%Y-%m-%d %H:%M')
+        print(dir1, dir1_time)
+        if res_queue.empty():
+            break
