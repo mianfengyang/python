@@ -34,10 +34,6 @@ class Producer(Thread):
         res_queue.put(res)
 
 
-    def get_result(self, filepath, dir_mtime=[]):
-
-        pass
-
     def get_child_dir(self, filepath, depth):
         # child_list.clear()
         depth -= 1
