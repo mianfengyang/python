@@ -25,7 +25,9 @@ def main():
             print(f'运用 {self.kongfu} 制作煎饼果子')
 
     class School(Master):
+
         def __init__(self):
+            super().__init__()
             self.kongfu = '[黑马煎饼果子配方]'
 
         def make_cake(self):
@@ -41,6 +43,7 @@ def main():
 
     class Prentice(School):
         def __init__(self):
+            super().__init__()
             self.kongfu = '[独创煎饼果子配方]'
 
         def make_cake(self):
