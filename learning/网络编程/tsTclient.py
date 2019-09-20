@@ -16,16 +16,8 @@ def chat_cli():
       才能再次发送。
       要想实现全双工模式通信，则可以将发送和接收分开，并使用多线程
     """
-    while True:
-        send_data = input('> ')
-        tcpCliSock.send(send_data.encode('utf-8'))
-        if  send_data == "exit":
-            break
-        recv_data = tcpCliSock.recv(BUFSIZ)
-        print("\nFROM:{}\nDATA:{}".format(HOST, recv_data.decode('utf-8')))
-        if recv_data.decode('utf8') == "exit":
-            break
-    # tcpCliSock.close()
+
+
 
 # 发送数据线程
 # def send_data():
@@ -45,7 +37,10 @@ def chat_cli():
     # tcpCliSock.close()
 
 
+
+
 if __name__ == '__main__':
+
 
     t1 = threading.Thread(target=chat_cli)
     # t1 = threading.Thread(target=send_data)

@@ -20,6 +20,7 @@ tcpSerSock.bind(ADDR)
 tcpSerSock.listen()
 sock, addr = tcpSerSock.accept()
 
+
 def chat_ser():
     """当发送和接收写在一个函数当中时，此时的通信是半双工模式，不能连续发送信息，只有等对方也发送数据过来并接收到了，
     才能再次发送。
