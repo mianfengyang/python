@@ -8,13 +8,19 @@
 # @File    : mthread_checkfile
 # @Software: PyCharm
 ==============================================================
+('c:/windows/appcompat/appraiser/AltData/', 1569149779.8340926)
+('c:/windows/apppatch/zh-CN/', 1563119805.6274726)
+('C:/Windows/Help/mui/', 1537027433.8218148)
+
+
+
 """
 import os
 from threading import Thread
 from datetime import datetime
 from queue import  Queue
 
-depth = 9
+depth = 4
 path = r'c:/windows/'
 a  = ['c:/windows/appcompat/', 'c:/windows/apppatch/', 'C:/Windows/Help/']
 
@@ -25,19 +31,33 @@ class Producer(Thread):
         self.depth = depth
         self.res_queue = res_queue
         self.child_list = set()
+        self.result = []
 
     def run(self):
-        res = self.get_child_dir(self.filepath, self.depth)
-        # print(res)
+        # 1. 获取用户根目录
+        udir = self.get_user_path(self.filepath)
+        self.result.append(udir)
 
-        res = sorted(res, key=lambda s: s[1])[-1]
-        res_queue.put(res)
+        # 2. 找到用户目录里最新的mtime目录及mtime
+        ndir_mtime = self.get_child_dir_mtime(self.filepath, self.depth)
+        ndir, umtime = sorted(ndir_mtime, key=lambda s: s[1])[-1]
+        self.result.append(ndir)
+        self.result.append(datetime.fromtimestamp(umtime).strftime('%Y-%m-%d %H:%M'))
+
+        # 3. 返回用户目录的使用者
+        user = self.get_user(self.filepath)
+        self.result.append(user)
+
+        # 4. 将完整列表放进队列
+        res_queue.put(self.result)
 
 
-    def get_child_dir(self, filepath, depth):
-        # child_list.clear()
+    def get_user_path(self,filepath):
+        return filepath
+
+    def get_child_dir_mtime(self, filepath, depth):
+
         depth -= 1
-
         self.child_list.add((filepath, os.stat(filepath).st_mtime))
         for file in os.listdir(filepath):
             childpath = filepath + file + "/"
@@ -46,24 +66,25 @@ class Producer(Thread):
                 continue
             # 如果有子目录则递归遍历子目录child_list
             if os.path.isdir(childpath):
-                self.get_child_dir(childpath, depth)
-        # 返回所有子目录列表
+                self.get_child_dir_mtime(childpath, depth)
+        # 返回所有子目录列表，利用了集合自动去重功能
         return self.child_list
 
-    def get_dir_mtime(self, filepath):
-        dir_mtime = os.stat(filepath).st_mtime
-        return dir_mtime
+    def get_user(self,filepath):
+        if "appcompat" in filepath:
+            return "appcompat"
+        if "apppatch" in filepath:
+            return "apppatch"
+        if "Help" in filepath:
+            return "Help"
 
-class Consumer(Thread):
+class WriteToExcel:
     def __init__(self,  res_queue):
-        super().__init__()
         self.res_queue = res_queue
 
-    def run(self):
-        while True:
-            print(self.res_queue.get())
-            if self.res_queue.empty():
-                break
+    def get_udir_umtime(self):
+
+        return self.res_queue.get()
 
 if __name__ == '__main__':
     res_queue = Queue()
@@ -71,13 +92,17 @@ if __name__ == '__main__':
         t1 = Producer(i, depth, res_queue)
         t1.start()
         t1.join()
-        # print(t1.get_rest(i, depth))
 
-    # t2 = Consumer(res_queue)
-    # t2.start()
+
+    get_res1 = WriteToExcel(res_queue)
+
     while True:
-        dir1, dir1_time = res_queue.get()
-        dir1_time = datetime.fromtimestamp(dir1_time).strftime('%Y-%m-%d %H:%M')
-        print(dir1, dir1_time)
+
+        print(get_res1.get_udir_umtime())
+
+        # result.append(datetime.fromtimestamp(a[1]).strftime("%Y-%m-%d %H:%M:%S"))
+        # # print(a,datetime.fromtimestamp(b).strftime("%Y-%m-%d %H:%M:%S"))
         if res_queue.empty():
             break
+    # print(result)
+
