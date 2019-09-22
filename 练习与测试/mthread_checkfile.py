@@ -67,7 +67,7 @@ class Producer(Thread):
             # 如果有子目录则递归遍历子目录child_list
             if os.path.isdir(childpath):
                 self.get_child_dir_mtime(childpath, depth)
-        # 返回所有子目录列表，利用了集合自动去重功能
+        # 返回所有子目录集合，利用了集合自动去重功能
         return self.child_list
 
     def get_user(self,filepath):
