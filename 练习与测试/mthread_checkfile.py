@@ -123,7 +123,6 @@ class WriteToExcel():
     def write_to_excel(self):
         while True:
             # print(self.res_queue.get())
-
             ws.append(self.res_queue.get())
             if self.res_queue.empty():
                 break
@@ -157,12 +156,6 @@ if __name__ == '__main__':
 
     w_res = WriteToExcel(res_queue)
     w_res.write_to_excel()
-
-    # print(res_list.__next__())
-    # for i in res_list:
-    #     # ws.append(i)
-    #     print(i)
-
 
     # 获取当前月份
     cur_mon = datetime.now().month
