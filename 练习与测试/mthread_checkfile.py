@@ -12,8 +12,6 @@
 ('c:/windows/apppatch/zh-CN/', 1563119805.6274726)
 ('C:/Windows/Help/mui/', 1537027433.8218148)
 
-
-
 """
 import os
 from threading import Thread
@@ -24,14 +22,15 @@ from openpyxl import Workbook
 depth = 4
 path = r'c:/windows/'
 a = ['c:/windows/appcompat/', 'c:/windows/apppatch/', 'C:/Windows/Help/']
-userlist = ['//192.168.1.11/pubin/huoguangxin/', '//192.168.1.11/pubin/jianhong.zhang/', '//192.168.1.11/pubin/jili/',
-            '//192.168.1.11/pubin/libin/', '//192.168.1.11/pubin/liujunwei/', '//192.168.1.11/pubin/yuanjun/',
-            '//192.168.1.11/pubin/zhangyonghui/', '//192.168.1.11/pubin/杨绵峰/', '//192.168.1.11/pubin/zhanglili/',
-            '//192.168.1.11/pubin/hw.liu/', '//192.168.1.11/pubin/汤宝云/', '//192.168.1.11/pubin/严建锋/',
-            '//192.168.1.11/pubin/惠梦月/', '//192.168.10.11/devin/huoguangxin/', '//192.168.10.11/devin/吉利/',
-            '//192.168.10.11/devin/libin/', '//192.168.10.11/devin/liujunwei/', '//192.168.10.11/devin/yuanjun/',
-            '//192.168.10.11/devin/张建红/', '//192.168.10.11/devin/zhanglili/', '//192.168.10.11/devin/张永辉/',
-            '//192.168.10.11/devin/hw.liu/']
+user_path_list = ['//192.168.1.11/pubin/huoguangxin/', '//192.168.1.11/pubin/jianhong.zhang/',
+                  '//192.168.1.11/pubin/jili/', '//192.168.1.11/pubin/libin/', '//192.168.1.11/pubin/liujunwei/',
+                  '//192.168.1.11/pubin/yuanjun/',
+                  '//192.168.1.11/pubin/zhangyonghui/', '//192.168.1.11/pubin/杨绵峰/', '//192.168.1.11/pubin/zhanglili/',
+                  '//192.168.1.11/pubin/hw.liu/', '//192.168.1.11/pubin/汤宝云/', '//192.168.1.11/pubin/严建锋/',
+                  '//192.168.1.11/pubin/惠梦月/', '//192.168.10.11/devin/huoguangxin/', '//192.168.10.11/devin/吉利/',
+                  '//192.168.10.11/devin/libin/', '//192.168.10.11/devin/liujunwei/', '//192.168.10.11/devin/yuanjun/',
+                  '//192.168.10.11/devin/张建红/', '//192.168.10.11/devin/zhanglili/', '//192.168.10.11/devin/张永辉/',
+                  '//192.168.10.11/devin/hw.liu/']
 
 
 class Producer(Thread):
@@ -39,6 +38,7 @@ class Producer(Thread):
     1. 构造方法中传入目录路径，遍历深度，队列
     2. 最终将计算结果放入队列
     """
+
     def __init__(self, filepath, depth, res_queue):
         super().__init__()
         self.filepath = filepath
@@ -144,6 +144,7 @@ class WriteToExcel:
     1. 在构造方法中，将生产者计算结果的队列传进来
     2. write_to_excel方法将队列中的数据写入excel文件
     """
+
     def __init__(self, res_queue):
         # super().__init__()
         self.res_queue = res_queue
@@ -163,7 +164,10 @@ class WriteToExcel:
             ws.append(self.res_queue.get())
             if self.res_queue.empty():
                 break
+
+        # 保存文件
         wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/' + str(cur_mon) + '-backupcheck.xlsx')
+
 
 if __name__ == '__main__':
     start_time = datetime.now()
@@ -197,9 +201,6 @@ if __name__ == '__main__':
     # for x in range(2, 24):
     #     ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=" + str(cur_yea) + ",MONTH(" + "C" + str(
     #         x) + ")>=" + str(cur_mon) + ")," + "\"已备份\"" + "," + "\"未备份\"" + ")"
-
-    # 保存文件
-
 
     end_time = datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
