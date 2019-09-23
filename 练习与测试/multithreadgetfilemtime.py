@@ -12,12 +12,19 @@ depth = 4
 
 checklist10 = ['huoguangxin', '吉利', 'libin', 'liujunwei', 'yuanjun', '张建红', 'zhanglili', '张永辉', 'hw.liu']
 checklist1 = ["huoguangxin", 'jianhong.zhang', 'jili', 'libin',
-              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云', '严建锋', '惠梦月']
+              'liujunwei', 'yuanjun', 'zhangyonghui', '杨绵峰', 'zhanglili', 'hw.liu', '汤宝云', '惠梦月', '严建锋']
+testlist = ['google', 'Ghelper_1.4.6.beta', 'X220_Drivers', 'Xmanager Enterprise 5 Build 0987', 'xmind-8-update7-windows']
 
-class MyThread(threading.Thread):
-    def __init__(self):
-        pass
-    def run(self) -> None:
+userdir = {}
+userpaths = []
+
+
+for i in checklist1:
+    userpaths.append(bpath1 + i + '/')
+for i in checklist10:
+    userpaths.append(bpath10 + i + '/')
+
+
 
 
 def find_child_dir(filepath, depth):
@@ -28,6 +35,7 @@ def find_child_dir(filepath, depth):
     :param depth            传递一个最大遍历目录的深度
     :yield: 利用生成器函数返回子目录列表
     '''
+
     depth -= 1
     yield filepath, os.stat(filepath).st_mtime
     for file in os.listdir(filepath):
@@ -38,7 +46,44 @@ def find_child_dir(filepath, depth):
             continue
         # 如果有子目录则递归遍历子目录
         if os.path.isdir(childpath):
+
             yield from find_child_dir(childpath, depth)
+
+    # 返回所有子目录列表
+    # return child_list
+
+
+
+
+
+def GetMtime(dir):
+    '''
+    获取当前目录的修改时间并返回
+    :param dir:         传递一个目录
+    :return: filemtime  返回目录的修改时间
+    '''
+    filemtime = os.stat(dir).st_mtime
+    return filemtime
+
+
+def GetNewestDir(filepath):
+    '''
+    打印输出当目录及子目录和目录深度,返回目录及对应修改时间的字典,再把字典按时间排序取出最新一个
+    :param filepath:        传递一个路径
+    :param newestdir:       初始化一个空字典，用来保存最新修改的目录和对应的修改时间
+    :return: newestdir
+    '''
+    # 每次调用函数时清空字典
+    newestdir = []
+    dirlist = FindFiles(filepath, depth)
+    for i in range(len(dirlist) - 1):
+        if GetMtime(dirlist[i]) > GetMtime(dirlist[i+1]):
+            newestdir = [dirlist[i], GetMtime(dirlist[i])]
+        else:
+            newestdir = [dirlist[i+1], GetMtime(dirlist[i+1])]
+    dirlist.clear()
+    return newestdir
+
 
 def GetUser(u):
     """
@@ -90,7 +135,13 @@ def GetResult(bp, p):
 
 
 
+
 if __name__ == "__main__":
+
+
+    print("%s主线程开始……" % Process.name)
+
+
     start_time = datetime.datetime.now()
     print("开始时间：{}".format(start_time.strftime("%Y-%m-%d %H:%M:%S")))
     wb = Workbook()
@@ -122,6 +173,7 @@ if __name__ == "__main__":
 
     # 保存数据
     wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/' + str(cur_mon) + '月检查情况.xlsx')
+
 
     end_time = datetime.datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
