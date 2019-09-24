@@ -24,8 +24,8 @@ path = r'c:/windows/'
 a = ['c:/windows/appcompat/', 'c:/windows/apppatch/', 'C:/Windows/Help/']
 user_path_list = ['//192.168.1.11/pubin/huoguangxin/', '//192.168.1.11/pubin/jianhong.zhang/',
                   '//192.168.1.11/pubin/jili/', '//192.168.1.11/pubin/libin/', '//192.168.1.11/pubin/liujunwei/',
-                  '//192.168.1.11/pubin/yuanjun/',
-                  '//192.168.1.11/pubin/zhangyonghui/', '//192.168.1.11/pubin/杨绵峰/', '//192.168.1.11/pubin/zhanglili/',
+                  '//192.168.1.11/pubin/yuanjun/', '//192.168.1.11/pubin/zhangyonghui/', '//192.168.1.11/pubin/杨绵峰/',
+                  '//192.168.1.11/pubin/zhanglili/',
                   '//192.168.1.11/pubin/hw.liu/', '//192.168.1.11/pubin/汤宝云/', '//192.168.1.11/pubin/严建锋/',
                   '//192.168.1.11/pubin/惠梦月/', '//192.168.10.11/devin/huoguangxin/', '//192.168.10.11/devin/吉利/',
                   '//192.168.10.11/devin/libin/', '//192.168.10.11/devin/liujunwei/', '//192.168.10.11/devin/yuanjun/',
@@ -39,9 +39,9 @@ class Producer(Thread):
     2. 最终将计算结果放入队列
     """
 
-    def __init__(self, filepath, depth, res_queue):
+    def __init__(self, rootpath, depth, res_queue):
         super().__init__()
-        self.filepath = filepath
+        self.rootpath = rootpath
         self.depth = depth
         self.res_queue = res_queue
         self.child_list = set()
@@ -51,18 +51,18 @@ class Producer(Thread):
 
     def run(self):
         # 1. 获取用户根目录
-        udir = self.get_user_path(self.filepath)
+        udir = self.get_user_path(self.rootpath)
         self.result.append(udir)
 
         # 2. 找到用户目录里最新的mtime目录及mtime
-        ndir_mtime = self.get_child_dir_mtime(self.filepath, self.depth)
+        ndir_mtime = self.get_child_dir_mtime(self.rootpath, self.depth)
         ndir, umtime = sorted(ndir_mtime, key=lambda s: s[1])[-1]
         self.result.append(ndir)
         str_umtime = datetime.fromtimestamp(umtime).strftime('%Y-%m-%d %H:%M')
         self.result.append(str_umtime)
 
         # 3. 返回用户目录的使用者
-        user = self.get_user(self.filepath)
+        user = self.get_user(self.rootpath)
         self.result.append(user)
 
         # 4. 计算每用户的备份情况
@@ -75,26 +75,26 @@ class Producer(Thread):
         # 5. 将完整列表放进队列
         self.res_queue.put(self.result)
 
-    def get_user_path(self, filepath):
+    def get_user_path(self, rootpath):
         """
-        :param filepath:
+        :param rootpath:
         :return: 返回用户根目录路径
         """
-        return filepath
+        return rootpath
 
-    def get_child_dir_mtime(self, filepath, depth):
+    def get_child_dir_mtime(self, rootpath, depth):
         """
         递归遍历用户目录及子目录，并将结果放入一个集合中，使用集合是因为其有自动去重功能
-        :param filepath: 用户根目录
+        :param rootpath: 用户根目录
         :param depth: 遍历深度
         :return: 用户目录及深度范围内的所有路径和对应的最后修改时间戳
         """
         # 每递归一次深度减1
         depth -= 1
         # 向集合中添加元素，添加是一个元组，因为add方法一次只能添加1个元素
-        self.child_list.add((filepath, os.stat(filepath).st_mtime))
-        for file in os.listdir(filepath):
-            childpath = filepath + file + "/"
+        self.child_list.add((rootpath, os.stat(rootpath).st_mtime))
+        for file in os.listdir(rootpath):
+            childpath = rootpath + file + "/"
             # 如果超出最大深度，不再往下遍历
             if depth <= 0:
                 continue
@@ -104,37 +104,37 @@ class Producer(Thread):
         # 返回所有子目录集合，利用了集合自动去重功能
         return self.child_list
 
-    def get_user(self, filepath):
+    def get_user(self, rootpath):
         """
         根据用户目录名返回中文用户名
         :return: user
         """
         user = ''
-        if ("huoguangxin" in filepath) or ("霍广新" in filepath):
+        if ("huoguangxin" in rootpath) or ("霍广新" in rootpath):
             user = "霍广新"
-        if ("hw.liu" in filepath) or ("刘宏伟" in filepath):
+        if ("hw.liu" in rootpath) or ("刘宏伟" in rootpath):
             user = "刘宏伟"
-        if ("jianhong.zhang" in filepath) or ("张建红" in filepath):
+        if ("jianhong.zhang" in rootpath) or ("张建红" in rootpath):
             user = "张建红"
-        if ("jili" in filepath) or ("吉利" in filepath):
+        if ("jili" in rootpath) or ("吉利" in rootpath):
             user = "吉利"
-        if ("libin" in filepath) or ("李宾" in filepath):
+        if ("libin" in rootpath) or ("李宾" in rootpath):
             user = "李宾"
-        if ("liujunwei" in filepath) or ("刘军伟" in filepath):
+        if ("liujunwei" in rootpath) or ("刘军伟" in rootpath):
             user = "刘军伟"
-        if ("yuanjun" in filepath) or ("袁君" in filepath):
+        if ("yuanjun" in rootpath) or ("袁君" in rootpath):
             user = "袁君"
-        if ("zhangyonghui" in filepath) or ("张永辉" in filepath):
+        if ("zhangyonghui" in rootpath) or ("张永辉" in rootpath):
             user = "张永辉"
-        if ("zhanglili" in filepath) or ("张丽丽" in filepath):
+        if ("zhanglili" in rootpath) or ("张丽丽" in rootpath):
             user = "张丽丽"
-        if ("杨绵峰" in filepath):
+        if ("杨绵峰" in rootpath):
             user = "杨绵峰"
-        if ("汤宝云" in filepath):
+        if ("汤宝云" in rootpath):
             user = "汤宝云"
-        if ("惠梦月" in filepath):
+        if ("惠梦月" in rootpath):
             user = "惠梦月"
-        if ("严建锋" in filepath):
+        if ("严建锋" in rootpath):
             user = "严建锋"
         return user
 
