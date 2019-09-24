@@ -148,6 +148,8 @@ class WriteToExcel:
     def __init__(self, res_queue):
         # super().__init__()
         self.res_queue = res_queue
+        self.cur_mon = datetime.now().month
+        self.cur_yea = datetime.now().year
 
     def write_to_excel(self):
         wb = Workbook()
@@ -166,7 +168,7 @@ class WriteToExcel:
                 break
 
         # 保存文件
-        wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/' + str(cur_mon) + '-backupcheck.xlsx')
+        wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/' + str(self.cur_mon) + '-backupcheck.xlsx')
 
 
 if __name__ == '__main__':
@@ -177,7 +179,7 @@ if __name__ == '__main__':
     res_queue = Queue()
     # 创建一个生产者线程列表，存放线程
     thread_list = []
-    for i in userlist:
+    for i in user_path_list:
         t = Producer(i, depth, res_queue)
         thread_list.append(t)
     # 启动线程
@@ -193,14 +195,14 @@ if __name__ == '__main__':
     w_res.write_to_excel()
 
     # 获取当前月份
-    cur_mon = datetime.now().month
+    # cur_mon = datetime.now().month
     # 获取当前年份
-    cur_yea = datetime.now().year
+    # cur_yea = datetime.now().year
 
     # 利用excel的公式计算备份状态 这种方式非常的烦锁 直接使用python来解决比较好
     # for x in range(2, 24):
-    #     ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=" + str(cur_yea) + ",MONTH(" + "C" + str(
-    #         x) + ")>=" + str(cur_mon) + ")," + "\"已备份\"" + "," + "\"未备份\"" + ")"
+    # ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=" + str(cur_yea) + ",MONTH(" + "C" + str(#
+    # x) + ")>=" + str(cur_mon) + ")," + "\"已备份\"" + "," + "\"未备份\"" + ")"
 
     end_time = datetime.now()
     print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
