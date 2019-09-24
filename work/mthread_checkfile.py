@@ -201,7 +201,7 @@ if __name__ == '__main__':
 
     # 利用excel的公式计算备份状态 这种方式非常的烦锁 直接使用python来解决比较好
     # for x in range(2, 24):
-    # ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=" + str(cur_yea) + ",MONTH(" + "C" + str(#
+    # ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=" + str(cur_yea) + ",MONTH(" + "C" + str(
     # x) + ")>=" + str(cur_mon) + ")," + "\"已备份\"" + "," + "\"未备份\"" + ")"
 
     end_time = datetime.now()
