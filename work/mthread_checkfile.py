@@ -8,10 +8,6 @@
 # @File    : mthread_checkfile
 # @Software: PyCharm
 ==============================================================
-('c:/windows/appcompat/appraiser/AltData/', 1569149779.8340926)
-('c:/windows/apppatch/zh-CN/', 1563119805.6274726)
-('C:/Windows/Help/mui/', 1537027433.8218148)
-
 """
 import os
 from threading import Thread
@@ -20,8 +16,6 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-path = r'c:/windows/'
-a = ['c:/windows/appcompat/', 'c:/windows/apppatch/', 'C:/Windows/Help/']
 user_path_list = ['//192.168.1.11/pubin/huoguangxin/', '//192.168.1.11/pubin/jianhong.zhang/',
                   '//192.168.1.11/pubin/jili/', '//192.168.1.11/pubin/libin/', '//192.168.1.11/pubin/liujunwei/',
                   '//192.168.1.11/pubin/yuanjun/', '//192.168.1.11/pubin/zhangyonghui/', '//192.168.1.11/pubin/杨绵峰/',
@@ -168,7 +162,7 @@ class WriteToExcel:
                 break
 
         # 保存文件
-        wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/' + str(self.cur_mon) + '-backupcheck.xlsx')
+        wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/' + str(self.cur_mon) + '月备份检查情况.xlsx')
 
 
 if __name__ == '__main__':
