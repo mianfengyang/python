@@ -16,15 +16,19 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-user_path_list = ['//192.168.1.11/pubin/huoguangxin/', '//192.168.1.11/pubin/jianhong.zhang/',
-                  '//192.168.1.11/pubin/jili/', '//192.168.1.11/pubin/libin/', '//192.168.1.11/pubin/liujunwei/',
-                  '//192.168.1.11/pubin/yuanjun/', '//192.168.1.11/pubin/zhangyonghui/', '//192.168.1.11/pubin/杨绵峰/',
-                  '//192.168.1.11/pubin/zhanglili/',
-                  '//192.168.1.11/pubin/hw.liu/', '//192.168.1.11/pubin/汤宝云/', '//192.168.1.11/pubin/严建锋/',
-                  '//192.168.1.11/pubin/惠梦月/', '//192.168.10.11/devin/huoguangxin/', '//192.168.10.11/devin/吉利/',
-                  '//192.168.10.11/devin/libin/', '//192.168.10.11/devin/liujunwei/', '//192.168.10.11/devin/yuanjun/',
-                  '//192.168.10.11/devin/张建红/', '//192.168.10.11/devin/zhanglili/', '//192.168.10.11/devin/张永辉/',
-                  '//192.168.10.11/devin/hw.liu/']
+cur_mon = 11
+user_path_list = ['//192.168.20.11/pubin/jianhong.zhang/','//192.168.20.11/pubin/严建锋/',
+                  '//192.168.20.11/pubin/jili/', '//192.168.20.11/pubin/libin/',
+                  '//192.168.20.11/pubin/yuanjun/', '//192.168.20.11/pubin/zhangyonghui/',
+                  '//192.168.20.11/pubin/zhanglili/','//192.168.20.11/pubin/杨绵峰/',
+                  '//192.168.20.11/pubin/hw.liu/', '//192.168.20.11/pubin/汤宝云/',
+                  '//192.168.20.11/pubin/硬件组专用/惠梦月', '//192.168.20.11/pubin/硬件组专用/史茂杰',
+                  '//192.168.20.11/pubin/硬件组专用/霍广新','//192.168.20.11/pubin/硬件组专用/刘军伟',
+                   '//192.168.10.11/devin/吉利/', '//192.168.10.11/devin/hw.liu/',
+                  '//192.168.10.11/devin/libin/',  '//192.168.10.11/devin/yuanjun/',
+                  '//192.168.10.11/devin/张建红/', '//192.168.10.11/devin/zhanglili/',
+                  '//192.168.10.11/devin/张永辉/'
+                 ]
 
 
 class Producer(Thread):
@@ -33,14 +37,14 @@ class Producer(Thread):
     2. 最终将计算结果放入队列
     """
 
-    def __init__(self, rootpath, depth, res_queue):
+    def __init__(self, rootpath, depth, res_queue,cur_mon):
         super().__init__()
         self.rootpath = rootpath
         self.depth = depth
         self.res_queue = res_queue
         self.child_list = set()
         self.result = []
-        self.cur_mon = datetime.now().month
+        self.cur_mon = cur_mon
         self.cur_yea = datetime.now().year
 
     def run(self):
@@ -61,8 +65,11 @@ class Producer(Thread):
 
         # 4. 计算每用户的备份情况
         if (datetime.fromtimestamp(umtime).date().year == self.cur_yea) and (
-                datetime.fromtimestamp(umtime).date().month >= self.cur_mon):
-            self.result.append("已备份")
+                datetime.fromtimestamp(umtime).date().month >= cur_mon):
+            if "20" in self.rootpath:
+                self.result.append("外网已备份")
+            if "10" in self.rootpath:
+                self.result.append("内网已备份")
         else:
             self.result.append("未备份")
 
@@ -130,6 +137,8 @@ class Producer(Thread):
             user = "惠梦月"
         if ("严建锋" in rootpath):
             user = "严建锋"
+        if ("史茂杰" in rootpath):
+            user = "史茂杰"
         return user
 
 
@@ -139,10 +148,10 @@ class WriteToExcel:
     2. write_to_excel方法将队列中的数据写入excel文件
     """
 
-    def __init__(self, res_queue):
+    def __init__(self, res_queue,cur_mon):
         # super().__init__()
         self.res_queue = res_queue
-        self.cur_mon = datetime.now().month
+        self.cur_mon = cur_mon
         self.cur_yea = datetime.now().year
 
     def write_to_excel(self):
@@ -162,7 +171,7 @@ class WriteToExcel:
                 break
 
         # 保存文件
-        wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/' + str(self.cur_mon) + '月备份检查情况.xlsx')
+        wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/' + str(cur_mon) + '月备份检查情况.xlsx')
 
 
 if __name__ == '__main__':
@@ -174,7 +183,7 @@ if __name__ == '__main__':
     # 创建一个生产者线程列表，存放线程
     thread_list = []
     for i in user_path_list:
-        t = Producer(i, depth, res_queue)
+        t = Producer(i, depth, res_queue,cur_mon)
         thread_list.append(t)
     # 启动线程
     for i in thread_list:
@@ -184,7 +193,7 @@ if __name__ == '__main__':
         j.join()
 
     # 创建写入excel文件的对象
-    w_res = WriteToExcel(res_queue)
+    w_res = WriteToExcel(res_queue,cur_mon)
     # 调用方法写入文件
     w_res.write_to_excel()
 
