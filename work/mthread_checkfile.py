@@ -16,15 +16,15 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-cur_mon = 11
+cur_mon = 12
 user_path_list = ['//192.168.20.11/pubin/jianhong.zhang/','//192.168.20.11/pubin/严建锋/',
-                  '//192.168.20.11/pubin/jili/', '//192.168.20.11/pubin/libin/',
+                  '//192.168.20.11/pubin/libin/',
                   '//192.168.20.11/pubin/yuanjun/', '//192.168.20.11/pubin/zhangyonghui/',
                   '//192.168.20.11/pubin/zhanglili/','//192.168.20.11/pubin/杨绵峰/',
                   '//192.168.20.11/pubin/hw.liu/', '//192.168.20.11/pubin/汤宝云/',
                   '//192.168.20.11/pubin/硬件组专用/惠梦月', '//192.168.20.11/pubin/硬件组专用/史茂杰',
-                  '//192.168.20.11/pubin/硬件组专用/霍广新','//192.168.20.11/pubin/硬件组专用/刘军伟',
-                   '//192.168.10.11/devin/吉利/', '//192.168.10.11/devin/hw.liu/',
+                  '//192.168.20.11/pubin/硬件组专用/刘军伟',
+                  '//192.168.10.11/devin/hw.liu/',
                   '//192.168.10.11/devin/libin/',  '//192.168.10.11/devin/yuanjun/',
                   '//192.168.10.11/devin/张建红/', '//192.168.10.11/devin/zhanglili/',
                   '//192.168.10.11/devin/张永辉/'
@@ -111,14 +111,11 @@ class Producer(Thread):
         :return: user
         """
         user = ''
-        if ("huoguangxin" in rootpath) or ("霍广新" in rootpath):
-            user = "霍广新"
+
         if ("hw.liu" in rootpath) or ("刘宏伟" in rootpath):
             user = "刘宏伟"
         if ("jianhong.zhang" in rootpath) or ("张建红" in rootpath):
             user = "张建红"
-        if ("jili" in rootpath) or ("吉利" in rootpath):
-            user = "吉利"
         if ("libin" in rootpath) or ("李宾" in rootpath):
             user = "李宾"
         if ("liujunwei" in rootpath) or ("刘军伟" in rootpath):
@@ -171,7 +168,7 @@ class WriteToExcel:
                 break
 
         # 保存文件
-        wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2019/' + str(cur_mon) + '月备份检查情况.xlsx')
+        wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/2020/' + str(cur_mon) + '月备份检查情况.xlsx')
 
 
 if __name__ == '__main__':
