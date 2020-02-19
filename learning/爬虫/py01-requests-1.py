@@ -9,5 +9,10 @@
 =============================================================
 """
 import requests
+
+req = requests.request(method='Get', url='https://www.jihaoba.com/haoduan/139/nanjing.htm')
+req.
+
+
 if __name__ == '__main__':
-    pass
+    print(req)
