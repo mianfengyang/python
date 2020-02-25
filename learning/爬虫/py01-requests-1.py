@@ -12,6 +12,7 @@ import re
 import time
 
 from openpyxl import Workbook
+from openpyxl  import load_workbook
 import requests
 from scrapy import Selector
 
@@ -56,7 +57,7 @@ def Parse_url(hd_list,res_list = []):
         for i in hd_7:
             res_list.append(i)
         #print(hd_7)
-        time.sleep(2)
+        time.sleep(5)
     return res_list
 
 
@@ -77,9 +78,9 @@ class WriteToExcel:
         ws2 = wb.create_sheet("联通号段", 1)
         ws3 = wb.create_sheet("电信号段", 2)
 
-        ws1['A1'] = "移动号段"
-        ws2['A1'] = "联通号段"
-        ws3['A1'] = "电信号段"
+        # ws1['A1'] = "移动号段"
+        # ws2['A1'] = "联通号段"
+        # ws3['A1'] = "电信号段"
 
 
         # 不断从队列中取数据，直到队列取空不再取。一次取出的是一个列表，这样可以更好使用append方法批量向excel中写入，一次写一行
@@ -96,13 +97,27 @@ class WriteToExcel:
 
         # 保存文件
         wb.save('phone_hd.xlsx')
+
+def Read_phone_hd_and_write_to_txt(hd):
+    f = open('phone_all_nj.txt', 'a+')
+    wb = load_workbook('phone_hd.xlsx')
+    ws = wb[hd]
+    for row in ws.values:
+        for value in row:
+            f.write(value + '\n')
+    f.close()
+
+
+
 if __name__ == '__main__':
-    # res_list = Parse_url(dx_hd)
-    ws_res1 = WriteToExcel(dx_hd)
-    ws_res1.write_to_excel()
-    ws_res2 = WriteToExcel(lt_hd)
-    ws_res2.write_to_excel()
-    ws_res3 = WriteToExcel(yd_hd)
-    ws_res3.write_to_excel()
+
+    # ws_res1 = WriteToExcel(dx_hd)
+    # ws_res1.write_to_excel()
+    # ws_res2 = WriteToExcel(lt_hd)
+    # ws_res2.write_to_excel()
+    # ws_res3 = WriteToExcel(yd_hd)
+    # ws_res3.write_to_excel()
     # Parse_url(yd_hd)
     # print(Parse_url(dx_hd))
+
+    Read_phone_hd_and_write_to_txt('移动号段')

@@ -18,6 +18,13 @@
 4. 关闭： close()
 """
 
+def test():
+    num_list = [1,2,3,4]
+    f = open('test1.txt', 'w+')
+    for num in num_list:
+        # write()函数的参数必须是 字符串，不能是其它类型，不然会报错，加'\n'是将列表中的元素每行一个来写入
+        f.write(str(num) + '\n')
+    f.close()
 
 def main():
     """r+ w+ a+区别"""
@@ -42,4 +49,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    #main()
+    test()
