@@ -16,18 +16,18 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-cur_mon = 12
-user_path_list = ['//192.168.20.11/pubin/jianhong.zhang/','//192.168.20.11/pubin/严建锋/',
-                  '//192.168.20.11/pubin/libin/',
-                  '//192.168.20.11/pubin/yuanjun/', '//192.168.20.11/pubin/zhangyonghui/',
-                  '//192.168.20.11/pubin/zhanglili/','//192.168.20.11/pubin/杨绵峰/',
-                  '//192.168.20.11/pubin/hw.liu/', '//192.168.20.11/pubin/汤宝云/',
-                  '//192.168.20.11/pubin/硬件组专用/惠梦月', '//192.168.20.11/pubin/硬件组专用/史茂杰',
-                  '//192.168.20.11/pubin/硬件组专用/刘军伟',
-                  '//192.168.10.11/devin/hw.liu/',
-                  '//192.168.10.11/devin/libin/',  '//192.168.10.11/devin/yuanjun/',
-                  '//192.168.10.11/devin/张建红/', '//192.168.10.11/devin/zhanglili/',
-                  '//192.168.10.11/devin/张永辉/'
+cur_mon = 3
+user_path_list = ['//192.168.21.11/pubin/jianhong.zhang/','//192.168.21.11/pubin/严建锋/',
+                  '//192.168.21.11/pubin/libin/',
+                  '//192.168.21.11/pubin/yuanjun/', '//192.168.21.11/pubin/zhangyonghui/',
+                  '//192.168.21.11/pubin/zhanglili/','//192.168.21.11/pubin/杨绵峰/',
+                  '//192.168.21.11/pubin/hw.liu/', '//192.168.21.11/pubin/汤宝云/',
+                  '//192.168.21.11/pubin/硬件组专用/惠梦月', '//192.168.21.11/pubin/硬件组专用/史茂杰',
+                  '//192.168.21.11/pubin/硬件组专用/刘军伟',
+                  '//192.168.22.11/devin/hw.liu/',
+                  '//192.168.22.11/devin/libin/',  '//192.168.22.11/devin/yuanjun/',
+                  '//192.168.22.11/devin/张建红/', '//192.168.22.11/devin/zhanglili/',
+                  '//192.168.22.11/devin/张永辉/'
                  ]
 
 
@@ -66,9 +66,9 @@ class Producer(Thread):
         # 4. 计算每用户的备份情况
         if (datetime.fromtimestamp(umtime).date().year == self.cur_yea) and (
                 datetime.fromtimestamp(umtime).date().month >= cur_mon):
-            if "20" in self.rootpath:
+            if "21" in self.rootpath:
                 self.result.append("外网已备份")
-            if "10" in self.rootpath:
+            if "22" in self.rootpath:
                 self.result.append("内网已备份")
         else:
             self.result.append("未备份")
