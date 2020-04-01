@@ -11,7 +11,7 @@
 """
 
 """
-shutdown命令的语法格式是：shutdown [-i/-l/-s/-r/-a][-f][-m[\ComputerName]][-t XX][-c"message"][-d[u][p]:xx:yy]
+shutdown命令的语法格式是：shutdown [-i/-l/-s/-r/-a][-f][-m[\\ComputerName]][-t XX][-c"message"][-d[u][p]:xx:yy]
 
 各参数的含义为
 
@@ -87,7 +87,7 @@ command = "shutdown -h +1"
 
 def shutdown_win(list):
     for host in list:
-        os.system("shutdown /s /m \\\\{h} /t {time} /d u:6:12 /c {message}".format(h=host, time=60, message=msg))
+        os.system("shutdown /s /m \\\\{h} /t {time} /d U:6:12 /c {message}".format(h=host, time=60, message=msg))
 
 def ssh_exec_command(host, user, command):
     try:
@@ -113,6 +113,7 @@ def ssh_exec_command(host, user, command):
        
         
 if __name__ == '__main__':
+    pass
     # shutdown_win(win_hosts)
-    # os.system("shutdown -s -m \\\\{h} -t {time} -d u:6:12 -c {message}".format(h=test_lin_host, time=60, message=msg))
-    #ssh_exec_command(test_lin_host, user, command)
+    # os.system("shutdown /s /m \\\\{h} /t {time} /d u:6:12 /c {message}".format(h=test_win_host, time=60, message=msg))
+    # ssh_exec_command(test_lin_host, user, command)

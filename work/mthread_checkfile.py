@@ -18,16 +18,16 @@ from openpyxl import Workbook
 depth = 4
 cur_mon = 3
 user_path_list = ['//192.168.21.11/pubin/jianhong.zhang/','//192.168.21.11/pubin/严建锋/',
-                  '//192.168.21.11/pubin/libin/',
+                  '//192.168.21.11/pubin/libin/', '//192.168.21.11/pubin/张百云/',
                   '//192.168.21.11/pubin/yuanjun/', '//192.168.21.11/pubin/zhangyonghui/',
                   '//192.168.21.11/pubin/zhanglili/','//192.168.21.11/pubin/杨绵峰/',
                   '//192.168.21.11/pubin/hw.liu/', '//192.168.21.11/pubin/汤宝云/',
                   '//192.168.21.11/pubin/硬件组专用/惠梦月', '//192.168.21.11/pubin/硬件组专用/史茂杰',
-                  '//192.168.21.11/pubin/硬件组专用/刘军伟',
-                  '//192.168.22.11/devin/hw.liu/',
+                  '//192.168.21.11/pubin/硬件组专用/刘军伟','//192.168.21.11/pubin/周志祥/',
+                  '//192.168.22.11/devin/hw.liu/', '//192.168.22.11/devin/张百云/',
                   '//192.168.22.11/devin/libin/',  '//192.168.22.11/devin/yuanjun/',
                   '//192.168.22.11/devin/张建红/', '//192.168.22.11/devin/zhanglili/',
-                  '//192.168.22.11/devin/张永辉/'
+                  '//192.168.22.11/devin/张永辉/','//192.168.22.11/devin/周志祥/',
                  ]
 
 
@@ -50,7 +50,7 @@ class Producer(Thread):
     def run(self):
         # 1. 获取用户根目录
         udir = self.get_user_path(self.rootpath)
-        self.result.append(udir)
+        # self.result.append(udir)
 
         # 2. 找到用户目录里最新的mtime目录及mtime
         ndir_mtime = self.get_child_dir_mtime(self.rootpath, self.depth)
@@ -136,6 +136,10 @@ class Producer(Thread):
             user = "严建锋"
         if ("史茂杰" in rootpath):
             user = "史茂杰"
+        if ("张百云" in rootpath):
+            user = "张百云"
+        if ("周志祥" in rootpath):
+            user = "周志祥"
         return user
 
 
@@ -154,12 +158,11 @@ class WriteToExcel:
     def write_to_excel(self):
         wb = Workbook()
         ws = wb.active
-        ws['A1'] = "用户目录"
-        ws['B1'] = "最新修改目录"
-        ws['C1'] = "最新修改时间"
-        ws['D1'] = "用户"
-        ws['E1'] = "备份状态"
-        ws['F1'] = "备注"
+        ws['A1'] = "最新修改目录"
+        ws['B1'] = "最新修改时间"
+        ws['C1'] = "用户"
+        ws['D1'] = "备份状态"
+        ws['E1'] = "备注"
 
         # 不断从队列中取数据，直到队列取空不再取。一次取出的是一个列表，这样可以更好使用append方法批量向excel中写入，一次写一行
         while True:
