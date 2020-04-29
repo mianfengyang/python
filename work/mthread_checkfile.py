@@ -16,18 +16,21 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-cur_mon = 3
-user_path_list = ['//192.168.21.11/pubin/jianhong.zhang/','//192.168.21.11/pubin/严建锋/',
+cur_mon = 4
+user_path_list = ['//192.168.21.11/pubin/jianhong.zhang/',
                   '//192.168.21.11/pubin/libin/', '//192.168.21.11/pubin/张百云/',
                   '//192.168.21.11/pubin/yuanjun/', '//192.168.21.11/pubin/zhangyonghui/',
                   '//192.168.21.11/pubin/zhanglili/','//192.168.21.11/pubin/杨绵峰/',
                   '//192.168.21.11/pubin/hw.liu/', '//192.168.21.11/pubin/汤宝云/',
+                  
                   '//192.168.21.11/pubin/硬件组专用/惠梦月', '//192.168.21.11/pubin/硬件组专用/史茂杰',
+                  '//192.168.21.11/pubin/硬件组专用/杨云霞', '//192.168.21.11/pubin/硬件组专用/陈璐',
                   '//192.168.21.11/pubin/硬件组专用/刘军伟','//192.168.21.11/pubin/周志祥/',
                   '//192.168.22.11/devin/hw.liu/', '//192.168.22.11/devin/张百云/',
                   '//192.168.22.11/devin/libin/',  '//192.168.22.11/devin/yuanjun/',
                   '//192.168.22.11/devin/张建红/', '//192.168.22.11/devin/zhanglili/',
                   '//192.168.22.11/devin/张永辉/','//192.168.22.11/devin/周志祥/',
+                  '//192.168.22.11/devin/余佳/'
                  ]
 
 
@@ -112,19 +115,19 @@ class Producer(Thread):
         """
         user = ''
 
-        if ("hw.liu" in rootpath) or ("刘宏伟" in rootpath):
+        if (("hw.liu" in rootpath) or ("刘宏伟" in rootpath)):
             user = "刘宏伟"
-        if ("jianhong.zhang" in rootpath) or ("张建红" in rootpath):
+        if (("jianhong.zhang" in rootpath) or ("张建红" in rootpath)):
             user = "张建红"
-        if ("libin" in rootpath) or ("李宾" in rootpath):
+        if (("libin" in rootpath) or ("李宾" in rootpath)):
             user = "李宾"
-        if ("liujunwei" in rootpath) or ("刘军伟" in rootpath):
+        if (("liujunwei" in rootpath) or ("刘军伟" in rootpath)):
             user = "刘军伟"
-        if ("yuanjun" in rootpath) or ("袁君" in rootpath):
+        if (("yuanjun" in rootpath) or ("袁君" in rootpath)):
             user = "袁君"
-        if ("zhangyonghui" in rootpath) or ("张永辉" in rootpath):
+        if (("zhangyonghui" in rootpath) or ("张永辉" in rootpath)):
             user = "张永辉"
-        if ("zhanglili" in rootpath) or ("张丽丽" in rootpath):
+        if (("zhanglili" in rootpath) or ("张丽丽" in rootpath)):
             user = "张丽丽"
         if ("杨绵峰" in rootpath):
             user = "杨绵峰"
@@ -132,14 +135,18 @@ class Producer(Thread):
             user = "汤宝云"
         if ("惠梦月" in rootpath):
             user = "惠梦月"
-        if ("严建锋" in rootpath):
+        if ("杨云霞" in rootpath):
             user = "严建锋"
         if ("史茂杰" in rootpath):
             user = "史茂杰"
+        if ("陈璐" in rootpath):
+            user = "陈璐"
         if ("张百云" in rootpath):
             user = "张百云"
         if ("周志祥" in rootpath):
             user = "周志祥"
+        if ("余佳" in rootpath):
+            user = "余佳"
         return user
 
 
