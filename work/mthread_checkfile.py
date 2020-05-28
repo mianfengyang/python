@@ -16,21 +16,23 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-cur_mon = 4
+cur_mon = 5
 user_path_list = ['//192.168.21.11/pubin/jianhong.zhang/',
-                  '//192.168.21.11/pubin/libin/', '//192.168.21.11/pubin/张百云/',
+                  '//192.168.21.11/pubin/libin/', '//192.168.21.11/pubin/孙立娟/',
                   '//192.168.21.11/pubin/yuanjun/', '//192.168.21.11/pubin/zhangyonghui/',
                   '//192.168.21.11/pubin/zhanglili/','//192.168.21.11/pubin/杨绵峰/',
                   '//192.168.21.11/pubin/hw.liu/', '//192.168.21.11/pubin/汤宝云/',
-                  
+                  '//192.168.21.11/pubin/王萍/', '//192.168.21.11/pubin/袁鑫/',
+                  '//192.168.21.11/pubin/曹蓓/', '//192.168.21.11/pubin/余佳/',
                   '//192.168.21.11/pubin/硬件组专用/惠梦月', '//192.168.21.11/pubin/硬件组专用/史茂杰',
                   '//192.168.21.11/pubin/硬件组专用/杨云霞', '//192.168.21.11/pubin/硬件组专用/陈璐',
                   '//192.168.21.11/pubin/硬件组专用/刘军伟','//192.168.21.11/pubin/周志祥/',
-                  '//192.168.22.11/devin/hw.liu/', '//192.168.22.11/devin/张百云/',
+                  '//192.168.22.11/devin/hw.liu/', '//192.168.22.11/devin/孙立娟/',
                   '//192.168.22.11/devin/libin/',  '//192.168.22.11/devin/yuanjun/',
                   '//192.168.22.11/devin/张建红/', '//192.168.22.11/devin/zhanglili/',
                   '//192.168.22.11/devin/张永辉/','//192.168.22.11/devin/周志祥/',
-                  '//192.168.22.11/devin/余佳/'
+                  '//192.168.22.11/devin/余佳/', '//192.168.22.11/pubin/袁鑫/',
+                  '//192.168.22.11/pubin/曹蓓/'
                  ]
 
 
@@ -136,17 +138,21 @@ class Producer(Thread):
         if ("惠梦月" in rootpath):
             user = "惠梦月"
         if ("杨云霞" in rootpath):
-            user = "严建锋"
+            user = "杨云霞"
         if ("史茂杰" in rootpath):
             user = "史茂杰"
         if ("陈璐" in rootpath):
             user = "陈璐"
-        if ("张百云" in rootpath):
-            user = "张百云"
+        if ("孙立娟" in rootpath):
+            user = "孙立娟"
         if ("周志祥" in rootpath):
             user = "周志祥"
         if ("余佳" in rootpath):
             user = "余佳"
+        if ("曹蓓" in rootpath):
+            user = "曹蓓"
+        if ("袁鑫" in rootpath):
+            user = "袁鑫"
         return user
 
 
