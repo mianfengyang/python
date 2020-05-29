@@ -24,9 +24,9 @@ user_path_list = ['//192.168.21.11/pubin/jianhong.zhang/',
                   '//192.168.21.11/pubin/hw.liu/', '//192.168.21.11/pubin/汤宝云/',
                   '//192.168.21.11/pubin/王萍/', '//192.168.21.11/pubin/袁鑫/',
                   '//192.168.21.11/pubin/曹蓓/', '//192.168.21.11/pubin/余佳/',
-                  '//192.168.21.11/pubin/硬件组专用/惠梦月', '//192.168.21.11/pubin/硬件组专用/史茂杰',
-                  '//192.168.21.11/pubin/硬件组专用/杨云霞', '//192.168.21.11/pubin/硬件组专用/陈璐',
-                  '//192.168.21.11/pubin/硬件组专用/刘军伟','//192.168.21.11/pubin/周志祥/',
+                  '//192.168.21.11/pubin/硬件组专用/惠梦月/', '//192.168.21.11/pubin/硬件组专用/史茂杰/',
+                  '//192.168.21.11/pubin/硬件组专用/杨云霞/', '//192.168.21.11/pubin/硬件组专用/陈璐/',
+                  '//192.168.21.11/pubin/硬件组专用/刘军伟/','//192.168.21.11/pubin/周志祥/',
                   '//192.168.22.11/devin/hw.liu/', '//192.168.22.11/devin/孙立娟/',
                   '//192.168.22.11/devin/libin/',  '//192.168.22.11/devin/yuanjun/',
                   '//192.168.22.11/devin/张建红/', '//192.168.22.11/devin/zhanglili/',
@@ -54,7 +54,7 @@ class Producer(Thread):
 
     def run(self):
         # 1. 获取用户根目录
-        udir = self.get_user_path(self.rootpath)
+        #udir = self.get_user_path(self.rootpath)
         # self.result.append(udir)
 
         # 2. 找到用户目录里最新的mtime目录及mtime
@@ -153,6 +153,8 @@ class Producer(Thread):
             user = "曹蓓"
         if ("袁鑫" in rootpath):
             user = "袁鑫"
+        if ("王萍" in rootpath):
+            user = "王萍"
         return user
 
 
