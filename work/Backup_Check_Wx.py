@@ -16,7 +16,7 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-cur_mon = 6
+cur_mon = 7
 user_path_list = ['//192.168.31.240/采购部/王宇/', '//192.168.31.240/研发/王鼎/',
                   '//192.168.31.240/研发/聂莹霞/', '//192.168.31.240/研发/钱峰/',
                   '//192.168.31.240/研发/王明慧/', '//192.168.31.240/综合办/杨日/',
@@ -104,45 +104,26 @@ class Producer(Thread):
 		:return: user
 		"""
 		user = ''
-		
-		if (("hw.liu" in rootpath) or ("刘宏伟" in rootpath)):
-			user = "刘宏伟"
-		if (("jianhong.zhang" in rootpath) or ("张建红" in rootpath)):
-			user = "张建红"
-		if (("libin" in rootpath) or ("李宾" in rootpath)):
-			user = "李宾"
-		if (("liujunwei" in rootpath) or ("刘军伟" in rootpath)):
-			user = "刘军伟"
-		if (("yuanjun" in rootpath) or ("袁君" in rootpath)):
-			user = "袁君"
-		if (("zhangyonghui" in rootpath) or ("张永辉" in rootpath)):
-			user = "张永辉"
-		if (("zhanglili" in rootpath) or ("张丽丽" in rootpath)):
-			user = "张丽丽"
-		if ("杨绵峰" in rootpath):
-			user = "杨绵峰"
-		if ("汤宝云" in rootpath):
-			user = "汤宝云"
+
+		if ("王宇" in rootpath):
+			user = "王宇"
+		if ("聂莹霞" in rootpath):
+			user = "聂莹霞"
 		if ("惠梦月" in rootpath):
 			user = "惠梦月"
-		if ("杨云霞" in rootpath):
-			user = "杨云霞"
-		if ("史茂杰" in rootpath):
-			user = "史茂杰"
-		if ("陈璐" in rootpath):
-			user = "陈璐"
-		if ("孙立娟" in rootpath):
-			user = "孙立娟"
-		if ("周志祥" in rootpath):
-			user = "周志祥"
-		if ("余佳" in rootpath):
-			user = "余佳"
-		if ("曹蓓" in rootpath):
-			user = "曹蓓"
-		if ("袁鑫" in rootpath):
-			user = "袁鑫"
-		if ("王萍" in rootpath):
-			user = "王萍"
+		if ("王明慧" in rootpath):
+			user = "王明慧"
+		if ("郁苏阳" in rootpath):
+			user = "郁苏阳"
+		if ("吴静雨" in rootpath):
+			user = "吴静雨"
+		if ("王鼎" in rootpath):
+			user = "王鼎"
+		if ("钱峰" in rootpath):
+			user = "钱峰"
+		if ("付军" in rootpath):
+			user = "付军"
+		
 		return user
 
 
@@ -174,7 +155,7 @@ class WriteToExcel:
 				break
 		
 		# 保存文件
-		wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/无锡/2020/' + str(cur_mon) + '月备份检查情况.xlsx')
+		wb.save(r'D:/Desktop/杨绵峰/工作文件/备份检查/无锡/2020/' + '无锡-' + str(cur_mon) + '月备份检查情况.xlsx')
 
 
 if __name__ == '__main__':
@@ -200,15 +181,6 @@ if __name__ == '__main__':
 	# 调用方法写入文件
 	w_res.write_to_excel()
 	
-	# 获取当前月份
-	# cur_mon = datetime.now().month
-	# 获取当前年份
-	# cur_yea = datetime.now().year
-	
-	# 利用excel的公式计算备份状态 这种方式非常的烦锁 直接使用python来解决比较好
-	# for x in range(2, 24):
-	# ws.cell(row=x, column=5).value = "=IF(AND(YEAR(" + "C" + str(x) + ")=" + str(cur_yea) + ",MONTH(" + "C" + str(
-	# x) + ")>=" + str(cur_mon) + ")," + "\"已备份\"" + "," + "\"未备份\"" + ")"
 	
 	end_time = datetime.now()
 	print("结束时间：{}\n总共耗时：{}".format(end_time.strftime("%Y-%m-%d %H:%M:%S"), end_time - start_time))
