@@ -109,8 +109,6 @@ class Producer(Thread):
 			user = "王宇"
 		if ("聂莹霞" in rootpath):
 			user = "聂莹霞"
-		if ("惠梦月" in rootpath):
-			user = "惠梦月"
 		if ("王明慧" in rootpath):
 			user = "王明慧"
 		if ("郁苏阳" in rootpath):

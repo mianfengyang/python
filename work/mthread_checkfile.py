@@ -156,8 +156,7 @@ class Producer(Thread):
             user = "袁鑫"
         if ("王萍" in rootpath):
             user = "王萍"
-        if ("刘硕" in rootpath):
-            user = "刘硕"
+        
         if ("龚杰" in rootpath):
             user = "龚杰"
         return user
