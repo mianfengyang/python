@@ -16,7 +16,7 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-cur_mon = 9
+cur_mon = 10
 user_path_list = ['//192.168.21.11/pubin/jianhong.zhang/',
                   '//192.168.21.11/pubin/libin/',
                   '//192.168.21.11/pubin/孙立娟/',
@@ -38,11 +38,6 @@ user_path_list = ['//192.168.21.11/pubin/jianhong.zhang/',
                   '//192.168.22.11/devin/libin/',
                   '//192.168.22.11/devin/张建红/',
                   '//192.168.22.11/devin/zhanglili/',
-                  '//192.168.22.11/devin/周志祥/',
-                  '//192.168.22.11/devin/余佳/',
-                  '//192.168.22.11/devin/袁鑫/',
-                  '//192.168.22.11/devin/曹蓓/'
-                 ]
 
 
 class Producer(Thread):
@@ -158,6 +153,7 @@ class Producer(Thread):
             user = "袁鑫"
         if ("王萍" in rootpath):
             user = "王萍"
+
         return user
 
 
