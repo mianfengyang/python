@@ -17,27 +17,37 @@ from openpyxl import Workbook
 
 depth = 4
 cur_mon = 10
-user_path_list = ['//192.168.21.11/pubin/jianhong.zhang/',
+user_path_list = ['//192.168.21.11/pubin/张建红/',
                   '//192.168.21.11/pubin/libin/',
                   '//192.168.21.11/pubin/孙立娟/',
-                  '//192.168.21.11/pubin/zhanglili/',
-                  '//192.168.21.11/pubin/杨绵峰/',
-                  '//192.168.21.11/pubin/hw.liu/',
-                  '//192.168.21.11/pubin/汤宝云/',
-                  '//192.168.21.11/pubin/王萍/',
-                  '//192.168.21.11/pubin/袁鑫/',
                   '//192.168.21.11/pubin/曹蓓/',
                   '//192.168.21.11/pubin/余佳/',
+                  '//192.168.21.11/pubin/潘云飞/',
+                  '//192.168.21.11/pubin/zhanglili/',
+                  '//192.168.21.11/pubin/杨绵峰/',
+                  '//192.168.21.11/pubin/刘宏伟/',
+                  '//192.168.21.11/pubin/汤宝云/',
+                  '//192.168.21.11/pubin/徐广杰/',
+                  '//192.168.21.11/pubin/周克鹏/',
+                  '//192.168.21.11/pubin/熊文/',
+                  '//192.168.21.11/pubin/闵龙军/',
+                  '//192.168.21.11/pubin/杨东/',
+                  '//192.168.21.11/pubin/袁鑫/',
                   '//192.168.21.11/pubin/硬件组专用/惠梦月/',
                   '//192.168.21.11/pubin/硬件组专用/杨云霞/',
                   '//192.168.21.11/pubin/硬件组专用/陈璐/',
                   '//192.168.21.11/pubin/硬件组专用/刘军伟/',
                   '//192.168.21.11/pubin/周志祥/',
-                  '//192.168.22.11/devin/hw.liu/',
-                  '//192.168.22.11/devin/孙立娟/',
+                  '//192.168.22.11/devin/刘宏伟/',
                   '//192.168.22.11/devin/libin/',
                   '//192.168.22.11/devin/张建红/',
                   '//192.168.22.11/devin/zhanglili/',
+                  '//192.168.22.11/devin/潘云飞/',
+                  '//192.168.22.11/devin/孙立娟/',
+                  '//192.168.22.11/devin/曹蓓/',
+                  '//192.168.22.11/devin/余佳/',
+                  '//192.168.22.11/devin/杨康/'
+                  ]
 
 
 class Producer(Thread):
@@ -149,10 +159,18 @@ class Producer(Thread):
             user = "余佳"
         if ("曹蓓" in rootpath):
             user = "曹蓓"
+        if ("潘云飞" in rootpath):
+            user = "潘云飞"
         if ("袁鑫" in rootpath):
             user = "袁鑫"
         if ("王萍" in rootpath):
             user = "王萍"
+        if ("闵龙军" in rootpath):
+            user = "闵龙军"
+        if ("杨东" in rootpath):
+            user = "杨东"
+        if ("杨康" in rootpath):
+            user = "杨康"
 
         return user
 
