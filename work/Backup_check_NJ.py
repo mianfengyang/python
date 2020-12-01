@@ -16,37 +16,39 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-cur_mon = 10
-user_path_list = ['//192.168.21.11/pubin/张建红/',
-                  '//192.168.21.11/pubin/libin/',
-                  '//192.168.21.11/pubin/孙立娟/',
+cur_mon = 11
+user_path_list = ['//192.168.21.11/pubin/杨绵峰/',
+                  '//192.168.21.11/pubin/算法组/孙立娟/',
                   '//192.168.21.11/pubin/曹蓓/',
                   '//192.168.21.11/pubin/余佳/',
-                  '//192.168.21.11/pubin/潘云飞/',
+                  '//192.168.21.11/pubin/算法组/潘云飞/',
                   '//192.168.21.11/pubin/zhanglili/',
-                  '//192.168.21.11/pubin/杨绵峰/',
-                  '//192.168.21.11/pubin/刘宏伟/',
-                  '//192.168.21.11/pubin/汤宝云/',
-                  '//192.168.21.11/pubin/徐广杰/',
-                  '//192.168.21.11/pubin/周克鹏/',
-                  '//192.168.21.11/pubin/熊文/',
+                  '//192.168.21.11/pubin/张建红/',
+                  '//192.168.21.11/pubin/周志祥/',
                   '//192.168.21.11/pubin/闵龙军/',
                   '//192.168.21.11/pubin/杨东/',
-                  '//192.168.21.11/pubin/袁鑫/',
+                  '//192.168.21.11/pubin/系统软件组/刘宏伟/',
+                  '//192.168.21.11/pubin/系统软件组/袁鑫/',
+                  '//192.168.21.11/pubin/系统软件组/杨康/',
+                  '//192.168.21.11/pubin/系统软件组/libin/',
+                  '//192.168.21.11/pubin/综合办/汤宝云/',
+                  '//192.168.21.11/pubin/销售组/徐广杰/',
+                  '//192.168.21.11/pubin/销售组/熊文/',
                   '//192.168.21.11/pubin/硬件组专用/惠梦月/',
                   '//192.168.21.11/pubin/硬件组专用/杨云霞/',
                   '//192.168.21.11/pubin/硬件组专用/陈璐/',
                   '//192.168.21.11/pubin/硬件组专用/刘军伟/',
-                  '//192.168.21.11/pubin/周志祥/',
-                  '//192.168.22.11/devin/刘宏伟/',
-                  '//192.168.22.11/devin/libin/',
+
+                  '//192.168.22.11/devin/系统软件组/liuhongwei/',
+                  '//192.168.22.11/devin/系统软件组/libin/',
+                  '//192.168.22.11/devin/系统软件组/yangkang/',
+                  '//192.168.22.11/devin/系统软件组/yuanxin/',
                   '//192.168.22.11/devin/张建红/',
                   '//192.168.22.11/devin/zhanglili/',
                   '//192.168.22.11/devin/潘云飞/',
                   '//192.168.22.11/devin/孙立娟/',
                   '//192.168.22.11/devin/曹蓓/',
-                  '//192.168.22.11/devin/余佳/',
-                  '//192.168.22.11/devin/杨康/'
+                  '//192.168.22.11/devin/余佳/'
                   ]
 
 
@@ -133,6 +135,10 @@ class Producer(Thread):
 
         if (("hw.liu" in rootpath) or ("刘宏伟" in rootpath)):
             user = "刘宏伟"
+        if (("杨康" in rootpath) or ("yangkang" in rootpath)):
+            user = "杨康"
+        if (("袁鑫" in rootpath) or ("yuanxin" in rootpath)):
+            user = "杨康"
         if (("jianhong.zhang" in rootpath) or ("张建红" in rootpath)):
             user = "张建红"
         if (("libin" in rootpath) or ("李宾" in rootpath)):
@@ -169,8 +175,7 @@ class Producer(Thread):
             user = "闵龙军"
         if ("杨东" in rootpath):
             user = "杨东"
-        if ("杨康" in rootpath):
-            user = "杨康"
+        
 
         return user
 
