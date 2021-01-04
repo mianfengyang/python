@@ -16,7 +16,7 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-cur_mon = 11
+cur_mon = 12
 user_path_list = ['//192.168.31.240/研发/王鼎/',
                   '//192.168.31.240/研发/聂莹霞/',
                   '//192.168.31.240/研发/钱峰/',
@@ -60,7 +60,7 @@ class Producer(Thread):
 		#self.result.append(user)
 		
 		# 4. 计算每用户的备份情况
-		if (datetime.fromtimestamp(umtime).date().year == self.cur_yea) and (
+		if (datetime.fromtimestamp(umtime).date().year >= self.cur_yea) and (
 			datetime.fromtimestamp(umtime).date().month >= cur_mon):
 			
 			self.result.append("已备份")

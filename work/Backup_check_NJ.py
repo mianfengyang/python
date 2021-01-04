@@ -16,11 +16,11 @@ from queue import Queue
 from openpyxl import Workbook
 
 depth = 4
-cur_mon = 11
+cur_mon = 12
 user_path_list = ['//192.168.21.11/pubin/杨绵峰/',
                   '//192.168.21.11/pubin/算法组/孙立娟/',
-                  '//192.168.21.11/pubin/曹蓓/',
-                  '//192.168.21.11/pubin/余佳/',
+                  '//192.168.21.11/pubin/算法组/曹蓓/',
+                  '//192.168.21.11/pubin/算法组/余佳/',
                   '//192.168.21.11/pubin/算法组/潘云飞/',
                   '//192.168.21.11/pubin/zhanglili/',
                   '//192.168.21.11/pubin/张建红/',
@@ -33,7 +33,6 @@ user_path_list = ['//192.168.21.11/pubin/杨绵峰/',
                   '//192.168.21.11/pubin/系统软件组/libin/',
                   '//192.168.21.11/pubin/综合办/汤宝云/',
                   '//192.168.21.11/pubin/销售组/徐广杰/',
-                  '//192.168.21.11/pubin/销售组/熊文/',
                   '//192.168.21.11/pubin/硬件组专用/惠梦月/',
                   '//192.168.21.11/pubin/硬件组专用/杨云霞/',
                   '//192.168.21.11/pubin/硬件组专用/陈璐/',
@@ -85,7 +84,7 @@ class Producer(Thread):
         self.result.append(user)
 
         # 4. 计算每用户的备份情况
-        if (datetime.fromtimestamp(umtime).date().year == self.cur_yea) and (
+        if (datetime.fromtimestamp(umtime).date().year >= self.cur_yea) and (
                 datetime.fromtimestamp(umtime).date().month >= cur_mon):
             if "21" in self.rootpath:
                 self.result.append("外网已备份")
@@ -133,12 +132,12 @@ class Producer(Thread):
         """
         user = ''
 
-        if (("hw.liu" in rootpath) or ("刘宏伟" in rootpath)):
+        if (("hw.liu" in rootpath) or ("刘宏伟" in rootpath) or ("liuhongwei" in rootpath)):
             user = "刘宏伟"
         if (("杨康" in rootpath) or ("yangkang" in rootpath)):
             user = "杨康"
         if (("袁鑫" in rootpath) or ("yuanxin" in rootpath)):
-            user = "杨康"
+            user = "袁鑫"
         if (("jianhong.zhang" in rootpath) or ("张建红" in rootpath)):
             user = "张建红"
         if (("libin" in rootpath) or ("李宾" in rootpath)):
@@ -167,8 +166,6 @@ class Producer(Thread):
             user = "曹蓓"
         if ("潘云飞" in rootpath):
             user = "潘云飞"
-        if ("袁鑫" in rootpath):
-            user = "袁鑫"
         if ("王萍" in rootpath):
             user = "王萍"
         if ("闵龙军" in rootpath):
