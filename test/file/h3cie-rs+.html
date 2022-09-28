@@ -1,0 +1,1111 @@
+
+
+
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <!-- 上述4个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="keywords" content="新华三,新华三集团,路由器,大数据,交换机,物联网云计算,服务器,SDN,NFV,智慧城市,数字经济,数字化转型,数据中心" />
+    <meta name="description" content="新华三集团是业界领先的数字化解决方案领导者，致力于成为客户业务创新、数字化转型最可信赖的合作伙伴。新华三拥有H3C?品牌的全系列服务器、存储、网络、安全等产品，能够提供大互联、大安全、云计算、大数据和IT咨询服务在内的全方位数字化解决方案和产品。" />
+    <meta name="author" content="新华三集团" />
+    <meta name="Copyright" content="www.h3c.com,版权所有,不得随意转载" />
+    <title>新华三 - 融绘数字未来，共享美好生活</title>
+    <!-- icon添加 -->
+    <link rel="icon" type="image/x-icon" href="https://www.h3c.com/cn/tres/NewWebUI/images/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="https://www.h3c.com/cn/tres/WebUI/styles/bootstrap.css" />
+
+    <link type="text/css" rel="stylesheet" href="https://www.h3c.com/cn/tres/WebUI/styles/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.h3c.com/cn/tres/NewWebUI/styles/vender/swiper.min.css" />
+    <!--重置css 包含了normalize.css/main.css-->
+    <link rel="stylesheet" type="text/css" href="https://www.h3c.com/cn/tres/NewWebUI/styles/vender/reset.css" />
+      <link rel="stylesheet" type="text/css" href="https://www.h3c.com/cn/tres/NewWebUI/2019/styles/vender/common.css" />
+    <!--首页css-->
+    <link rel="stylesheet" type="text/css" href="https://www.h3c.com/cn/tres/NewWebUI/styles/onestyle.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.h3c.com/cn/tres/NewWebUI/styles/secondstyle.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.h3c.com/cn/tres/NewWebUI/styles/classutility.css" />
+    
+ <link rel="stylesheet" type="text/css" href="https://www.h3c.com/cn/tres/NewWebUI/styles/program.css" /> 
+   
+    
+    <script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/json2.js" type="text/javascript" charset="utf-8"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/html5shiv.min.js"></script>
+      <script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/respond.min.js"></script>
+      <script type="text/javascript" src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/selectivizr.js"></script>
+    <![endif]-->
+   <script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="https://www.h3c.com/cn/tres/WebUI/scripts/bootstrap.min.js"></script>
+        
+
+    <script type="text/javascript" language="javascript" src="../../Js/IframeAutoFit.js"></script>
+
+
+</head>
+<!-- Extra white-space below is just to make it easier to read. :-) -->
+<!--[if lt IE 7 ]>   <body class="ie6">          <![endif]-->
+<!--[if IE 7 ]>      <body class="ie7">          <![endif]-->
+<!--[if IE 8 ]>      <body class="ie8">          <![endif]-->
+<!--[if IE 9 ]>      <body class="ie9">          <![endif]-->
+<!--[if (gt IE 9) ]> <body class="modern">       <![endif]-->
+<!--[!(IE)]><!-->
+
+
+<body>
+    <!--<![endif]-->
+        
+
+    <!--<![endif]-->
+    <div id="technicalWrap">
+        <!-- 导航栏开始 -->
+        <!--头部PC开始-->
+   <header class="headBox headroom headPc noindex">
+    <div class="header noindex">
+        <a href="/cn/">
+            <div class="logoBox">
+                <img src="/cn/tres/NewWebUI/images/index/logo.png" class="logo" />
+            </div>
+        </a>
+        <div class="headRightBox">
+            <div class="rigisterBox clearfix">
+                <div class="rigiHead"><a href="/cn/Home/Login/">登录</a></div>
+                <div class="rigiHead"><a href="/cn/Home/Registration/">注册</a></div>
+                            <div class="rigiHead border0 rigiLast country">国家 / 地区
+                    <ul>
+                        <li><a class="active" href="#">China - 简体中文</a></li>
+                        <li><a href="/en">Global - English</a></li>
+                        <li><a href="/ru">Russia - Русский</a></li>
+                        <li><a href="/jp">Japan - 日本語</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="searchBox">
+                <form action="https://search.h3c.com/basesearch.aspx" method="get">
+                    <input type="text" name="q0" id="q0" value="" class="inputSearch" placeholder="搜索..." autocomplete="off" />
+                    <div class="searchIconBox">
+                         <img src="/cn/tres/NewWebUI/images/index/headSearchIcon.png" class="headSearchIcon" />
+                    </div>
+                    <input type="submit" name="Submit" id="" value="" class="searchIconBox searchInput" />
+                </form>
+            </div>
+        </div>
+        <div class="headContentBox noindex" style="display:block">
+            <nav class="navBox clearfix">
+                <div class="navQuick">
+                      快捷导航<img src="/cn/tres/NewWebUI/images/index/quickIcon.png" class="quickIcon" />
+                </div>
+                <div class="nav">
+                    <a href="/cn/Products___Technology/">产品技术</a>
+                </div>
+                <div class="nav">
+                    <a href="/cn/Solution/">解决方案</a>
+                </div>
+                <div class="nav">
+                    <a href="/cn/Technical_Service/">技术咨询与服务</a>
+                </div>
+                <div class="nav">
+                    <a href="/cn/Service/">产品支持与服务</a>
+                </div>
+                <div class="nav">
+                    <a href="/cn/HowToBuy/">如何购买</a>
+                </div>
+                <div class="nav">
+                    <a href="/cn/Training/">新华三人才研学中心</a>
+                </div>
+                <div class="nav">
+                    <a href="/cn/Partner/">合作伙伴</a>
+                </div>
+                <div class="nav margin0">
+                    <a href="/cn/About_H3C/">关于我们</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="headerDetailBox none noindex">
+        <div class="headerDetailInnerBox">
+            <!--快捷导航-->
+            <div class="quickTabContentBox clearfix isHover tab-content0 headerDetailInnerPadding1 none">
+                <div class="quickTabContent">
+                    <h3>新华三焦点</h3>
+                    <ul>
+<li><a href="/cn/pub/minisite/201811/number/Harvard.html">数字化转型关键战略</a></li>
+<li><a href="/cn/pub/minisite/201811/number/index.html">数字化转型领导者</a></li>
+<li><a href="http://deindex.h3c.com/">城市数字经济指数（2018）</a></li>
+                    </ul>
+                </div>
+                <div class="quickTabContent">
+                    <h3>最新产品技术</h3>
+                    <ul>
+<li><a href="/cn/pub/minisite/201802/flex/default.html">HPE Superdome Flex 服务器</a></li>
+<li><a href="/cn/pub/minisite/201708/firewall/default.html">新华三全新下一代防火墙</a></li>
+<li><a href="/cn/pub/minisite/201712/loT/default.html">安全芯 IM2210-NB模组</a></li>
+                    </ul>
+                </div>
+                <div class="quickTabContent">
+                    <h3>热门解决方案</h3>
+                    <ul>
+<li><a href="/cn/Solution/TechnologySolution/InterConnect/">大互联</a></li>
+<li><a href="/cn/Solution/TechnologySolution/BigData/">大数据</a></li>
+<li><a href="/cn/Solution/TechnologySolution/Security/">大安全</a></li>
+<li><a href="/cn/Solution/TechnologySolution/CloudComputing/">云计算</a></li>
+                    </ul>
+                </div>
+                <div class="quickTabContent">
+                    <h3>如何购买</h3>
+                    <ul>
+                        <li><a href="/cn/BizPortal/OnlineSurvey/OnLineFeedBackForBuyPage.aspx">产品购买</a></li>
+                        <li><a href="/cn/BizPortal/OnlineSurvey/OnLineFeedBackForBuyPage.aspx">项目咨询</a></li>
+                        <li><a href="/cn/BizPortal/ChannelPartner/AuthAgent/PartnerAgentSearch.aspx">经销商查询</a></li>
+                    </ul>
+                </div>
+                <div class="quickTabContent lately">
+                    <h3>最近浏览</h3>
+                    <ul>
+                        <!--<li>
+                            <a href="javascript:void(0)">合作伙伴登录</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">知了社区</a>
+                        </li>-->
+                    </ul>
+                </div>
+                <div class="quickTabContent">
+                    <h3>快捷功能</h3>
+                    <ul>
+<li><a href="/cn/BizPortal/OnlineSurvey/OnLineFeedBackForBuyPage.aspx">如何购买</a></li>
+<li><a href="/cn/BizPortal/ChannelPartner/AuthAgent/RegisterDealer.aspx">加盟新华三</a></li>
+<li><a href="/cn/BizPortal/ChannelPartner/AuthAgent/PartnerAgentSearch.aspx">合作伙伴查询</a></li>
+<li><a href="/cn/BizPortal/ChannelPartner/AuthAgent/BaseInfoModify.aspx">渠道业务管理</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--产品技术-->
+            <div class="quickTabContentBox noHover tab-content1 pdTop10 headerDetailInnerPadding none">
+               <!--<div class="quickTabContent pdTop20 quickTabContentAdd quickTabContentImg">
+                    <a href="/cn/About_H3C/News_Media/Company_News/201708/1026780_30008_0.htm">
+                        <div class="quickTabInner pd0">
+                            <img src="/cn/tres/NewWebUI/images/index/jiejueDetail.jpg" class="jiejueDetail" />
+                        </div>
+                    </a>
+                </div>-->
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Products___Technology/EnterpriseProduct/">企业级产品</a></h3>
+                        <ul class="clearfix">
+                            <li>
+                                <a href="/cn/Products___Technology/Products/Router/">路由器</a>
+                                <a href="/cn/Products___Technology/Products/New_network/">新网络(SDN&NFV)</a>
+                                <a href="/cn/Products___Technology/Products/IP_Security/">大安全</a>
+                                <a href="/cn/Products___Technology/Products/Server/">服务器</a>
+                                <a href="/cn/Products___Technology/Products/H3C_Soft/">软件</a>
+                                <a href="/cn/Products___Technology/Products/Big_Data/">大数据</a>
+                                <a href="/cn/Products___Technology/Products/Mini/">Mini商用产品</a>
+                                <a href="/cn/Products___Technology/Products/Transmission/">传输产品</a>
+                            </li>
+                            <li>
+                                <a href="/cn/Products___Technology/Products/Switches/">交换机</a>
+                                <a href="/cn/Products___Technology/Products/IP_Wlan/">无线</a>
+                                <a href="/cn/Products___Technology/Products/Storage/">存储</a>
+                                <a href="/cn/Products___Technology/Products/Fusion-Architecture/">超融合架构</a>
+                                <a href="/cn/Products___Technology/Products/H3Cloud/">云计算</a>
+                                <a href="/cn/Products___Technology/Products/IoT/">物联网</a>
+                                <a href="/cn/Products___Technology/Products/LTE/">LTE无线专网</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Products___Technology/IntelligentTerminalProducts/">智能终端产品</a></h3>
+                        <ul>
+                            <li>
+                                <a href="/cn/Products___Technology/IntelligentTerminalProducts/Intelligence-Home/">智慧家居</a>
+                            </li>
+                            <li>
+                                <a href="/cn/Products___Technology/IntelligentTerminalProducts/Standard-Network/">标准网络</a>
+                            </li>
+                            <li>
+                                <a href="/cn/Products___Technology/IntelligentTerminalProducts/Intelligence-Center/">家庭中枢</a>
+                            </li>
+                            <li>
+                                <a href="/cn/Products___Technology/IntelligentTerminalProducts/Angle/">天使无线</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Products___Technology/Technology/">操作系统</a></h3>
+                        <ul>
+                            <li><a href="/cn/Products___Technology/Technology/ComwareV7/" title="ComwareV7">ComwareV7</a></li>
+                            <li><a href="/cn/Products___Technology/Technology/ComwareV5/" title="ComwareV5">ComwareV5</a></li>
+                            <li><a href="/cn/Products___Technology/Technology/H3CloudOS/" title="H3Cloud OS">H3Cloud OS</a></li>
+                            <li><a href="/cn/Products___Technology/Technology/LvZhouOS/" title="H3C 绿洲OS">H3C 绿洲OS</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--解决方案-->
+            <div class="quickTabContentBox clearfix noHover tab-content2 pdTop10 headerDetailInnerPadding none">
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Solution/TechnologySolution/">技术解决方案</a></h3>
+                        <ul class="clearfix">
+                            <li>
+                                <a href="/cn/Solution/TechnologySolution/InterConnect/">大互联</a>
+                                <a href="/cn/Solution/TechnologySolution/Security/">大安全</a>
+                            </li>
+                            <li>
+                                <a href="/cn/Solution/TechnologySolution/BigData/">大数据</a>
+                                <a href="/cn/Solution/TechnologySolution/CloudComputing/">云计算</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner wc88">
+                        <h3><a href="/cn/Solution/IndustrySolution/">行业解决方案</a></h3>
+                        <ul class="clearfix">
+                            <li>
+                                <a href="/cn/Solution/IndustrySolution/Operational/">运营商</a>
+                                <a href="/cn/Solution/IndustrySolution/Finance/">金融</a>
+                                <a href="/cn/Solution/IndustrySolution/Education/Higher_Education/">教育</a>
+                                <a href="/cn/Solution/IndustrySolution/Electricity/">电力</a>
+                                <a href="/cn/Solution/IndustrySolution/Medical/">医疗健康</a>
+                                <a href="/cn/Solution/IndustrySolution/TV_Solution/">广电</a>
+                            </li>
+                            <li>
+                                 <a href="/cn/Solution/IndustrySolution/New_Smart_City/">新型智慧城市</a>
+                                <a href="/cn/Solution/IndustrySolution/Govermment/">政府</a>
+                                <a href="/cn/Solution/IndustrySolution/Energy/">能源</a>
+                                <a href="/cn/Solution/IndustrySolution/Traffic/">交通</a>
+                                <a href="/cn/Solution/IndustrySolution/Manufacturing/">制造业</a>
+                                <a href="/cn/Solution/IndustrySolution/Media/">互联网</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Solution/SMBSolution/">SMB解决方案</a></h3>
+                        <ul class="clearfix">
+                               <li>
+                                <a href="/cn/Solution/SMBSolution/Government/" title="区域政府">区域政府</a>
+                                <a href="/cn/Solution/SMBSolution/VideoSurveillance/"  title="视频监控">视频监控</a>
+                                <a href="/cn/Solution/SMBSolution/SmallCompanies/" title="中小企业">中小企业</a>
+                                <a href="/cn/Solution/SMBSolution/WiNet/" title="WiNet智慧网络">WiNet智慧网络</a>
+                                <a href="/cn/Solution/SMBSolution/InternetBar/"  title="网吧">网吧</a>
+                            </li>
+                            <li>
+                                <a href="/cn/Solution/SMBSolution/HealthCare/" title="医疗卫生">医疗卫生</a>
+                                <a href="/cn/Solution/SMBSolution/RetailChain/" title="零售连锁">零售连锁</a>
+                                <a href="/cn/Solution/SMBSolution/Education/" title="普教职教">普教职教</a>
+                                <a href="/cn/Solution/SMBSolution/Hotels/" title="酒店楼宇">酒店楼宇</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--技术咨询服务-->
+            <div class="quickTabContentBox clearfix noHover tab-content3 headerDetailInnerPadding1 none">
+               <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Technical_Service/Top_level_Planning/">顶层规划</a></h3>
+                        <ul>
+<li><a href="/cn/Technical_Service/Top_level_Planning/New_Smart_City/" title="智慧城市">智慧城市</a></li>
+<li><a href="/cn/Technical_Service/Top_level_Planning/Smart_Park/" title="智慧园区">智慧园区</a></li>
+<li><a href="/cn/Technical_Service/Top_level_Planning/Wisdom_Architecture/" title="智慧建筑">智慧建筑</a></li>
+<li><a href="/cn/Technical_Service/Top_level_Planning/Intelligence_Alliance/" title="智慧物联">智慧物联</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Technical_Service/Architecture_Consulting/">架构咨询</a></h3>
+                        <ul>
+<li><a href="/cn/Technical_Service/Architecture_Consulting/IT_Infrastructure/" title="IT基础架构咨询">IT基础架构咨询</a></li>
+<li><a href="/cn/Technical_Service/Architecture_Consulting/Network/" title="网络规划咨询">网络规划咨询</a></li>
+<li><a href="/cn/Technical_Service/Architecture_Consulting/Continuity_Disaster_Tolerance/" title="业务连续性与容灾">业务连续性与容灾</a></li>
+<li><a href="/cn/Technical_Service/Architecture_Consulting/Data_Center_Migration/" title="数据中心迁移">数据中心迁移</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Technical_Service/Agile_Transformation_And_Testing/">敏捷转型与测试</a></h3>
+                        <ul>
+<li><a href="/cn/Technical_Service/Agile_Transformation_And_Testing/Application_Quality_Consultation/" title="应用质量咨询">应用质量咨询</a></li>
+<li><a href="/cn/Technical_Service/Agile_Transformation_And_Testing/Professional_Testing/" title="专业测试">专业测试</a></li>
+<li><a href="/cn/Technical_Service/Agile_Transformation_And_Testing/Agile_DevOps_Transformation/" title="敏捷&DevOps转型">敏捷&DevOps转型</a></li>
+<li><a href="/cn/Technical_Service/Agile_Transformation_And_Testing/Application_Development/" title="应用开发">应用开发</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Technical_Service/Application_And_Integration/">应用与集成</a></h3>
+                        <ul>
+<li><a href="/cn/Technical_Service/Application_And_Integration/Enterprise_Information/" title="系统集成">系统集成</a></li>
+<li><a href="/cn/Technical_Service/Application_And_Integration/Enterprise_Project_Management/" title="项目管理">项目管理</a></li>
+<li><a href="/cn/Technical_Service/Application_And_Integration/Enterprise_Process_Management/" title="流程管理">流程管理</a></li>
+<li><a href="/cn/Technical_Service/Application_And_Integration/Data_Service/" title="数据服务">数据服务</a></li>
+<li><a href="/cn/Technical_Service/Application_And_Integration/Big_Data_Poverty_Alleviation/" title="大数据精准扶贫">大数据精准扶贫</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Technical_Service/Operation_And_Maintenance/">运维与运营</a></h3>
+                        <ul>
+<li><a href="/cn/Technical_Service/Operation_And_Maintenance/Operations_Consulting/" title="运维咨询与外包">运维咨询与外包</a></li>
+<li><a href="/cn/Technical_Service/Operation_And_Maintenance/U_center_Intelligence/" title="U-Center智能运维">U-Center智能运维</a></li>
+<li><a href="/cn/Technical_Service/Operation_And_Maintenance/Performance_Optimization/" title="性能优化与容量管理">性能优化与容量管理</a></li>
+<li><a href="/cn/Technical_Service/Operation_And_Maintenance/Intelligent_Remote/" title="智能远程运维(安仔)">智能远程运维(安仔)</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Technical_Service/DataCenter/">数据中心</a></h3>
+                        <ul>
+<li><a href="/cn/Technical_Service/DataCenter/Consultation/" title="咨询">咨询</a></li>
+<li><a href="/cn/Technical_Service/DataCenter/Design/" title="设计">设计</a></li>
+<li><a href="/cn/Technical_Service/DataCenter/Implementation/" title="实施">实施</a></li>
+<li><a href="/cn/Technical_Service/DataCenter/Verification_and_maintenance/" title="验证及运维">验证及运维</a></li>
+<li><a href="/cn/Technical_Service/DataCenter/Digital_Transformation(BIM)/" title="数字化数据中心(BIM)">数字化数据中心(BIM)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--产品支持与服务-->
+            <div class="quickTabContentBox clearfix noHover tab-content4 headerDetailInnerPadding none">
+               <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Service/Support_Services/">产品支持服务</a></h3>
+                        <ul>
+<li><a href="/cn/Service/Support_Services/Basic_Services/" title="基础服务">基础服务</a></li>
+<li><a href="/cn/Service/Support_Services/Cloud_Computing_Services/" title="云计算服务">云计算服务</a></li>
+<li><a href="/cn/Service/Support_Services/Security_Service/" title="安全服务">安全服务</a></li>
+<li><a href="/cn/Service/Support_Services/Big_Data_Service/" title="大数据服务">大数据服务</a></li>
+<li><a href="/cn/Service/Support_Services/Intelligent_Terminal_Service/" title="智能终端服务">智能终端服务</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Service/Online_Help/">服务支持中心</a></h3>
+                        <ul class="clearfix">
+                            <li>
+                                <a href="http://help.h3c.com/daheng/chatClient/chatbox.jsp?companyID=8960&configID=20&enterurl=%e6%9c%8d%e5%8a%a1%e5%af%bc%e8%88%aa%e7%bb%88%e7%ab%af" target="_blank">智能终端在线客服</a>
+                                <a href="http://es.h3c.com/" target="_blank">保修期查询</a>
+                                <a href="/cn/Service/Policy_Trends/Authorize_License/Achieve_License/">授权业务</a>
+                                <a href="http://zhiliao.h3c.com/"   target="_blank">知了社区</a>
+                                <a href="http://h20565.www2.hpe.com/portal/site/hpsc?ac.admitted=1450165241217.125225703.1851288163"   target="_blank">HPE产品支持中心</a>
+                            </li>
+                            <li>
+                                <a href="http://livechat.force.com/" target="_blank">在线技术支持<br /><span style="font-size: .8em;">(服务器及存储)</span></a>
+                                <a href="https://channel.h3c.com/channel/system/VerifyBarcode.jsp">条码防伪查询</a>
+                                <a href="/cn/Service/Policy_Trends/Product_Periods/">产品生命周期</a>
+                                <a href="http://bbs.h3c.com/"  target="_blank">智能终端社区</a>
+                                <a href="http://ssc.hpe.com/portal/site/ssc" target="_blank">金牌支持中心</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Service/Document_Software/">文档与软件</a></h3>
+                        <ul>
+                           <li><a href="/cn/Service/Document_Software/Document_Center/">文档中心</a></li>
+                           <li><a href="/cn/Service/Document_Software/TechnicalInfo/PorductMaintanInfo/">技术资料</a></li>
+                           <li><a href="/cn/Service/Document_Software/Software_Download/">软件下载</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Service/Policy_Trends/">政策动态</a></h3>
+                        <ul>
+                           <li><a href="/cn/Service/Policy_Trends/Service_Notice/">服务公告</a></li>
+                           <li><a href="/cn/Service/Policy_Trends/Service_News/">服务新闻</a></li>
+                           <li><a href="/cn/Service/Policy_Trends/Terms_of_service/">维保服务说明</a></li>
+                           <li><a href="/cn/Service/Policy_Trends/Channel_Service/">渠道服务标准</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--如何购买-->
+            <div class="quickTabContentBox clearfix noHover tab-content5 headerDetailInnerPadding none">
+                <div class="quickTabContent ">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/HowToBuy/">如何购买</a></h3>
+                        <ul>
+                            <li>
+                                <a href="/cn/About_H3C/Contact_Us/Shopping/">产品购买</a>
+                            </li>
+                            <li>
+                                <a href="/cn/BizPortal/OnlineSurvey/OnLineFeedBackForBuyPage.aspx">项目咨询</a>
+                            </li>
+                            <li>
+                                <a href="/cn/BizPortal/ChannelPartner/AuthAgent/PartnerAgentSearch.aspx">经销商查询</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--新华三人才研学中心-->
+            <div class="quickTabContentBox clearfix noHover tab-content6 headerDetailInnerPadding none">
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Training/CommercialCollege_Management/">商学管理</a></h3>
+                        <ul>
+<li><a href="/cn/Training/CommercialCollege_Management/CommercialCollege_Introduce/" title="商学院介绍">商学院介绍</a></li>
+<li><a href="/cn/Training/CommercialCollege_Management/Solution/" title="解决方案">解决方案</a></li>
+<li><a href="/cn/Training/CommercialCollege_Management/Training_Products/" title="培训产品">培训产品</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Training/IT_Management/">IT管理</a></h3>
+                        <ul>
+<li><a href="/cn/Training/IT_Management/IT_Management_Introduce/" title="IT管理学院介绍">IT管理学院介绍</a></li>
+<li><a href="/cn/Training/IT_Management/Solution/" title="解决方案">解决方案</a></li>
+<li><a href="/cn/Training/IT_Management/Training_Course/" title="培训课程">培训课程</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Training/Technical_Certification/">技术认证</a></h3>
+                        <ul>
+                            <li><a href="/cn/Training/Technical_Certification/Technical_Certification_Introduce/">技术认证学院介绍</a></li>
+                            <li><a href="/cn/Training/Technical_Certification/Technical_Certification/">技术认证</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Training/Technical_Training/">技术培训</a></h3>
+                        <ul>
+                            <li><a href="/cn/Training/Technical_Training/Technical_Training_Introduce/">技术培训学院介绍</a></li>
+                            <li><a href="/cn/Training/Technical_Training/Training_Course/">培训课程</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Training/School_Enterprise_Cooperation/">校企合作</a></h3>
+                        <ul>
+                              <li><a href="/cn/Training/School_Enterprise_Cooperation/Introduction_Of_School_Enterprise_Cooperation/">校企合作介绍</a></li>
+                              <li><a href="/cn/Training/School_Enterprise_Cooperation/Authorization_Level/">校企合作模式</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Training/Alliance_Development/">人才联盟</a></h3>
+                        <ul>
+                            <li><a href="/cn/Training/Alliance_Development/Alliance_Introduce/">人才联盟介绍</a></li>
+                            <li><a href="/cn/Training/Alliance_Development/Training_Partners/">培训合作伙伴</a></li>
+                            <li><a href="/cn/Training/Alliance_Development/Educational_Partners/">教育合作伙伴</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--合作伙伴-->
+            <div class="quickTabContentBox clearfix noHover tab-content7 headerDetailInnerPadding1 none">
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Partner/Become_Partner/">成为合作伙伴</a></h3>
+                        <ul>
+                            <li><a href="/cn/BizPortal/ChannelPartner/AuthAgent/RegisterDealer.aspx">加盟新华三</a></li>
+                            <li><a href="/cn/Partner/Join_H3C/Technic_Service_Attestation/">星级服务资质认证标准</a></li>
+                            <li><a href="/cn/Partner/Join_H3C/Partner_PreSales_Authentication/">渠道售前资质认证标准</a></li>
+                            <li><a href="/cn/Partner/Join_H3C/Green_Channel/">渠道自主营销绿色通道</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Partner/HasBecome_Partner/">已成为合作伙伴</a></h3>
+                        <ul>
+                            <li><a href="/cn/BizPortal/ChannelPartner/AuthAgent/PartnerAgentSearch.aspx">合作伙伴查询</a></li>
+                            <li><a href="/cn/Partner/HasBecome_Partner/Policy___Notice/">渠道政策与公告</a></li>
+                            <li><a href="/cn/BizPortal/ChannelPartner/AuthAgent/BaseInfoModify.aspx">渠道业务管理</a></li>
+                            <li><a href="http://orderscqry.h3c.com/BizPortal/ChannelPartner/VisualOrder/OrderInfoManage.aspx">订单供应查询</a></li>
+                            <li><a href="http://cpps.h3c.com/cpps/login.jsp?loginstatus=-1">业务流程中心</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Partner/Partner_Resource_Center/">合作伙伴资源中心</a></h3>
+                        <ul>
+                            <li><a href="/cn/Partner/Partner_Resource_Center/Products_Technology/">产品技术</a></li>
+                            <li><a href="/cn/Solution/">解决方案</a></li>
+                            <li><a href="/cn/Service/Document_Software/TechnicalInfo/PorductMaintanInfo/">技术资料</a></li>
+                            <li><a href="/cn/Partner/Business___SMB_Area/">分销专区</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Partner/Partner_Training_Certification/">合作伙伴培训与认证</a></h3>
+                        <ul>
+                            <li><a href="/cn/Partner/Partner_Training_Certification/Partner_Training_PreSales/">售前能力认证</a></li>
+                            <li><a href="/cn/Training/Technical_Certification/Technical_Certification/">售后技术认证</a></li>
+                            <li><a href="/cn/BizPortal/TrainingPartner/LiveCourse/LiveCalss.aspx">新华三直播课堂</a></li>
+                        
+                            <li><a href="http://learning.h3c.com/"   target="_blank">新华三大讲堂</a></li>
+                          
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/Partner/Solution_Alliance/">解决方案联盟</a></h3>
+                        <ul>
+                            <li><a href="/cn/Partner/Solution_Alliance/Industry_Solutions/">行业方案联盟</a></li>
+                            <li><a href="http://developer.h3c.com/"  target="_blank">数字化创新实验室</a></li>
+                            <li><a href="/cn/Partner/Solution_Alliance/Technical_Solutions/">技术方案联盟</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--关于我们-->
+            <div class="quickTabContentBox clearfix noHover tab-content8 headerDetailInnerPadding none">
+               <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3><a href="/cn/About_H3C/Company_Information/">公司概况</a></h3>
+                        <ul>
+                            <li>
+                                <a href="/cn/About_H3C/Company_Information/Company_Introduce/">公司简介</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Company_Information/Messagefrompresident/">总裁寄语</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Company_Information/Management/">管理团队</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Company_Information/Development_Course/">发展历史</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Company_Information/FocusMoment/">焦点时刻</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Company_Information/Company_Culture/">品牌理念</a>
+                            </li>
+ <li>
+                                <a href="/cn/About_H3C/Company_Information/Culture/">领航者文化</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Company_Information/CompanyVideo/">公司视频</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> 
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                         <h3><a href="/cn/About_H3C/News_Media/">公司动态</a></h3>
+                        <ul>
+                            <li>
+                                <a href="/cn/About_H3C/News_Media/Company_News/">公司新闻</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/News_Media/Media_Broadcast/">媒体播报</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/News_Media/Company_Event/">公司活动</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3>公司刊物</h3>
+                        <ul>
+                            <li>
+                                <a href="http://paper.h3c.com">《新华三》</a>
+                            </li>
+                            <li>
+                                <a href="http://newitnavi.h3c.com">《数字化领航》</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                       <h3><a href="/cn/About_H3C/Contact_Us/">联系我们</a></h3>
+                        <ul>
+                            <li>
+                                <a href="/cn/About_H3C/Contact_Us/Headquarters/">公司总部</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Contact_Us/Office/">办事处</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Contact_Us/Media_Contact/">媒体联络</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Contact_Us/Feedback/">意见反馈</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Contact_Us/ProAnn/">采购公告</a>
+                            </li>
+                            <li>
+                                <a href="/cn/About_H3C/Contact_Us/Shopping/">如何购买</a>
+                            </li>
+                            <li>
+                                <a href="/cn/Aspx/FeedBack/ComplianceForCN.aspx">在线举报</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="quickTabContent">
+                    <div class="quickTabInner">
+                        <h3>加入我们</h3>
+                        <ul>
+                            <li>
+                                <a href="http://h3c.zhiye.com/">社会招聘</a>
+                            </li>
+                            <li>
+                                <a href="http://campus.51job.com/H3C/">校园招聘</a>
+                            </li>
+                            <li>
+                                <a href="http://www.unigroup.com.cn/jobs/cpyc/">紫光集团招聘</a>
+                            </li>
+                            <li>
+                                <a href="http://www.uniswdc.com/content/web/624cd88b-fa93-11e6-8576-00163e023386.htm">紫光西数招聘</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--头部PC结束-->
+<!--头部Mbl开始-->
+<header class="headBox headMbl">
+    <div class="headMblTop headMblTopAct">
+        <a href="/cn/">
+            <img src="/cn/tres/NewWebUI/images/index/logo.png" class="logo" />
+        </a>
+        <div class="headMblgoSearch">
+            <img src="/cn/tres/NewWebUI/images/index/SearchMblIcon.png" num="0" class="headSearchIconMbl" />
+            <img src="/cn/tres/NewWebUI/images/index/menuBtn.png" num="0" class="menuBtnMbl" />
+        </div>
+    </div>
+    <div class="headMblSearch none">
+        <div class="headMblSearchShadow"></div>
+        <div class="headMblSearchInnerBox">
+            <form action="https://search.h3c.com/basesearch.aspx" method="get">
+                <input type="text" name="q0" id="q1" value="" class="headMblSearchInnerBtn" placeholder="搜索" autocomplete="off" />
+                <img src="/cn/tres/NewWebUI/images/index/searchBtn.png" class="searchBtn" />
+                <input type="submit" class="searchBtn searchInput" value="" />
+            </form>
+        </div>
+    </div>
+    <div class="headMblChoose none">
+    </div>
+   <div class="lang none">
+        <div class="selector"><span>国家 / 地区</span></div>
+        <ul>
+            <li><a class="active" href="javascript:;">China - 简体中文</a></li>
+            <li><a href="/en">Global - English</a></li>
+            <li><a href="/ru">Russia - Русский</a></li>
+            <li><a href="/jp">Japan - 日本語</a></li>
+        </ul>
+    </div>
+</header>
+<!--头部Mbl结束-->
+        <!-- 导航栏结束 -->
+        
+        
+    <!--去除头部的尺寸-->
+    <div class="removerH">
+    </div>
+    <section id="crumbs" class="colmunPc">
+            <!--NavBar Begin-->
+    <div class="columWrapBox">
+        <a class="blue3" href="/cn/">首页</a>
+        <img src="/cn/tres/images/arrow.gif" border="0">
+        <a class="blue3" href="/cn/Training/">新华三人才研学中心</a>
+        <img src="/cn/tres/images/arrow.gif" border="0">
+        <a class="blue3" href="/cn/Training/Technical_Certification/Technical_Certification/">技术认证</a>
+        <img src="/cn/tres/images/arrow.gif" border="0">
+         <a class="blue3" href="#">教材</a>
+        <img src="/cn/tres/images/arrow.gif" border="0">
+      在线电子教材
+    </div>
+</section>
+    <section class="ChanneTraining clearfix">
+    <div class="programWrapBox">
+        <div class="rightCon clearfix">
+            <h2 class="title">在线电子教材</h2>
+            <form name="aspnetForm" method="post" action="TeachingMaterialCertification.aspx" id="aspnetForm" class="form form-horizontal input-table">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/cn/bizportal/WebResource.axd?d=YHyFDJEqoPHPoEr51pFHSUKbHL8idxlpSorrC0DP-Z0IdbwFr3Yg344AqXIXtQWZkaUKgoeKS0mWE_gG7EJWAAdj9xk1&amp;t=637730075120000000" type="text/javascript"></script>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="2DA19DC1" />
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+</div>
+                 <div class="inputs">
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">教材认证名称：</label>
+                        <div class="col-sm-4">
+                             <select name="ctl00$ContentBody$ddlAchievement_type" id="ctl00_ContentBody_ddlAchievement_type" class="form-control">
+	<option value="0">请选择</option>
+	<option value="1">H3C认证网络工程师(H3CNE)</option>
+	<option selected="selected" value="2">H3C认证路由交换网络高级工程师(H3CSE-RS)</option>
+	<option value="3">H3C认证路由交换互联网络专家(H3CIE-RS+)</option>
+	<option value="4">H3C认证网络安全工程师(H3CNE-Security)</option>
+	<option value="6">H3C认证无线高级工程师(H3CSE-WLAN)</option>
+	<option value="7">H3C认证SDN技术工程师(H3CNE-SDN)</option>
+	<option value="9">H3C认证服务器工程师(H3CNE-Server)</option>
+	<option value="10">H3C认证工程师-刀片服务器(H3CNE-Blade)</option>
+	<option value="11">H3C认证工程项目管理工程师(H3CNE-PM)</option>
+	<option value="12">H3C认证云简网络产品专家(H3CS-Cloudnet)</option>
+	<option value="13">H3C认证云计算工程师(H3CNE-Cloud)</option>
+	<option value="14">H3C认证IPv6技术高级工程师(H3CSE-IPv6)</option>
+	<option value="15">H3C认证网络安全高级工程师(H3CSE-Security)</option>
+	<option value="16">H3C认证云计算高级工程师(H3CSE-Cloud)</option>
+	<option value="17">H3C认证大数据平台工程师（H3CNE-DataEngine)</option>
+	<option value="18">H3C认证工程师-MSA存储(H3CNE-MSA)</option>
+	<option value="19">H3C认证U-Center智能运维专家（H3CS-UCenter）</option>
+	<option value="20">H3C认证智能管理中心产品专家（H3CS-iMC）</option>
+	<option value="21">H3C认证物联网技术工程师(H3CNE-IoT)</option>
+	<option value="22">H3C认证云桌面解决方案专家（H3CS-CDS）</option>
+	<option value="23">H3C认证无线互联网络专家(H3CIE-WLAN)</option>
+	<option value="24">H3C认证高级工程师-X86服务器（H3CSE-X86Server）</option>
+	<option value="25">H3C认证服务器高级工程师（H3CSE- Server）</option>
+	<option value="26">H3C认证存储工程师（H3CNE- Storage）</option>
+	<option value="27">H3C认证UIS产品专家（H3CS-UIS）</option>
+	<option value="28">H3C认证分布式存储专家（H3CS-DS）</option>
+	<option value="29">H3C认证SDN高级工程师(H3CSE-SDN)</option>
+	<option value="30">H3C认证数据中心工程师（H3CNE- DC）</option>
+	<option value="31">H3C认证路由交换网络工程师（H3CNE-RS+）</option>
+
+</select>
+                        </div>
+                        
+                               <label class="col-sm-2 control-label">教材类型名称：</label>
+                        <div class="col-sm-4">
+                                    <select name="ctl00$ContentBody$ddlAttQuaLevel" id="ctl00_ContentBody_ddlAttQuaLevel" class="form-control">
+	<option value="">请选择</option>
+	<option selected="selected" value="学习指导书">学习指导书</option>
+	<option value="实验指导书">实验指导书</option>
+
+</select>
+                        </div>
+                        
+                    </div>
+                   
+                 </div>
+         
+                 
+                
+                
+                <div class="form-group form-center-btn">
+                  
+                     <input type="submit" name="ctl00$ContentBody$btnQuery" value="查 询" id="ctl00_ContentBody_btnQuery" class="btns" style="cursor:hand; color:White; background-color:#e60213; border:none; border-color:#e60213; width:85px; height:34px;" />
+           
+
+                </div>
+        <hr />
+            <div class="table-responsive query-table">
+                
+                    	<div>
+	<table class="table" cellspacing="0" rules="all" border="1" id="ctl00_ContentBody_ProGdCert" style="width:100%;border-collapse:collapse;">
+		<tr style="background-color:#F0F0F0;">
+			<th scope="col">认证类型</th><th scope="col">教材类型</th><th scope="col">章节名称</th><th scope="col">在线阅读</th>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">构建H3C高性能园区网络_第1篇_园区网概述</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=a0b1e661c9d24e3a954eac7e0f5dd5a5 '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">构建H3C高性能园区网络_第2篇_VLAN技术</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=9321f44a6218423d8ec3ee008c3e6da0 '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">构建H3C高性能园区网络_第3篇_生成树协议</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=fd21fd553d4044ec83f62e1409f3719f '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">构建H3C高性能园区网络_第4篇_高可靠性技术</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=8f9efec323e54651849c57aef546475f '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">构建H3C高性能园区网络_第5篇_IP组播</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=2361ebbb33ce4e5996f5b85e4b972ec1 '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">构建H3C高性能园区网络_第6篇_园区网安全技术</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=434308286eca41a5bf37547c5b8c72e5 '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">构建H3C高性能园区网络_第7篇_园区网管理维护</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=4191468ac4124540b275737b2c2d6e9b '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">H3C大规模网络路由技术_第1篇_大规模网络路由概述</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=7af354ead32c48d49df9ac1ce640d50a '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">H3C大规模网络路由技术_第2篇_路由基础</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=a7d08a95e894403795dc06790cab82c6 '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">H3C大规模网络路由技术_第3篇_OSPF</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=bb3d02d545bb4a4ca1cc7529e56f24c6 '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">H3C大规模网络路由技术_第4篇_IS-IS</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=85cd146db8de413d83f9aa6978fda59f '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">H3C大规模网络路由技术_第5篇_控制IGP路由</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=e7948f38eee74d66b06bbd24a1f67e41 '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">H3C大规模网络路由技术_第6篇_BGP-4</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=646549a1e4c24144994f58be7fce41e1 '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">H3C大规模网络路由技术_第7篇_IPv6基础</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=0bee9986ab5a492a95bb24bba8c80c3f '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr><tr>
+			<td align="center">H3C认证路由交换网络高级工程师(H3CSE-RS)</td><td align="center">学习指导书</td><td align="center">构建安全优化的广域网_第1篇_广域网安全和优化概述</td><td align="center" style="width:8%;">
+                                                <a id="hrefSalesAmount" href='ReadingMaterials.aspx?TeachingID=9f6113671a7c4bd38168f465353dc9fd '  target="_blank">在线阅读
+                                              </a>
+                                            </td>
+		</tr>
+	</table>
+</div>
+            </div>
+             <p class="table-m-t">请左右滑动表格查看</p>
+             
+              <div class="news-page">
+                  
+<table width="100%" align="center"  class="ucpage">
+    <tr id="ctl00_ContentBody_ucPager_FootBar" align="center" name="FootBar">
+	<td align="left">
+        </td>
+	<td align="right" style="height:30px;">
+            <input type="image" name="ctl00$ContentBody$ucPager$btnFirst" id="ctl00_ContentBody_ucPager_btnFirst" disabled="disabled" src="../../image/first_off.gif" style="border-width:0px;" />
+            <input type="image" name="ctl00$ContentBody$ucPager$btnPrev" id="ctl00_ContentBody_ucPager_btnPrev" disabled="disabled" class="inpimgbut6" src="../../image/previous_off.gif" style="border-width:0px;" />
+            <font face="宋体"> <span id="ctl00_ContentBody_ucPager_lbPageLabel" style="color:Navy;font-size:11pt;">1/2</span>
+            </font>
+            <input type="image" name="ctl00$ContentBody$ucPager$btnNext" id="ctl00_ContentBody_ucPager_btnNext" class="inpimgbut6" src="../../image/next_on.gif" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentBody$ucPager$btnNext&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" style="border-width:0px;" />
+            <input type="image" name="ctl00$ContentBody$ucPager$btnLast" id="ctl00_ContentBody_ucPager_btnLast" class="inpingbut11" src="../../image/last_on.gif" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentBody$ucPager$btnLast&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" style="border-width:0px;" />
+            <font color="navy"  size="2">
+                <input name="ctl00$ContentBody$ucPager$txtPageIndex" type="text" value="1" id="ctl00_ContentBody_ucPager_txtPageIndex" class="page-text" onkeypress="return event.keyCode>=48&amp;&amp;event.keyCode&lt;=57||(this.value.indexOf('.')&lt;0?event.keyCode==46:false)" onpaste="return !clipboardData.getData('text').match(/\D/)" style="height:30px;width:100px;border: #ccc 1px solid;
+                      font-size: 11px;" />
+                
+                <input type="submit" name="ctl00$ContentBody$ucPager$btnGo" value="跳 转" onclick="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ContentBody$ucPager$btnGo&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="ctl00_ContentBody_ucPager_btnGo" style="cursor:hand; color:White; background-color:#e60213; border:none; border-color:#e60213; width:70px; height:30px;" />
+             
+            </font>
+        </td>
+</tr>
+
+</table>
+
+              </div>
+              
+                  <script type="text/javascript">
+
+
+
+     
+    </script>
+           </form>      
+    
+         </div>
+    </div>
+</section>
+
+        
+
+
+
+<!--底部Pc开始-->
+<footer class="footer footerPc">
+    <div class="footerInnerBox clearfix">
+        <div class="footerInner">
+            <h2>按访问者</h2>
+            <a href="http://www.h3c.com/cn/Solution/IndustrySolution/Govermment/">政府</a>
+            <a href="http://www.h3c.com/cn/Solution/IndustrySolution/Operational/">运营商</a>
+            <a href="http://www.h3c.com/cn/Solution/IndustrySolution/TV_Solution/">广电</a>
+            <a href="http://www.h3c.com/cn/Partner/Business___SMB_Area/">分销专区</a>
+            <a href="http://www.h3c.com/cn/Products___Technology/IntelligentTerminalProducts/">智能终端</a>
+            <a href="http://www.h3c.com/cn/Partner/">合作伙伴</a>
+            <a href="http://career.h3c.com/">求职者</a>
+        </div>
+        <div class="footerInner">
+            <h2>如何购买</h2>
+            <a href="http://www.h3c.com/cn/About_H3C/Contact_Us/Shopping/">产品购买</a>
+            <a href="http://www.h3c.com/cn/BizPortal/OnlineSurvey/OnLineFeedBackForBuyPage.aspx">项目咨询</a>
+            <a href="http://www.h3c.com/cn/BizPortal/ChannelPartner/AuthAgent/PartnerAgentSearch.aspx">经销商查询</a>
+        </div>
+        <div class="footerInner">
+            <h2>公司刊物</h2>
+            <a href="http://newitnavi.h3c.com/">《数字化领航》</a>
+            <a href="http://paper.h3c.com/">《新华三》</a>
+        </div>
+        <div class="footerInner">
+            <h2>关于新华三</h2>
+            <a href="http://www.h3c.com/cn/About_H3C/Company_Information/Company_Introduce/">公司简介</a>
+            <a href="http://www.h3c.com/cn/About_H3C/Company_Information/Management/">管理团队</a>
+            <a href="http://www.h3c.com/cn/About_H3C/Company_Information/Development_Course/">发展历史</a>
+            <a href="http://www.h3c.com/cn/About_H3C/Company_Information/FocusMoment/">焦点时刻</a>
+        </div>
+        <div class="footerInner">
+            <h2>联系新华三</h2>
+            <a href="http://www.h3c.com/cn/About_H3C/Contact_Us/Headquarters/">公司总部</a>
+            <a href="http://www.h3c.com/cn/About_H3C/Contact_Us/Office/">办事处</a>
+            <a href="http://www.h3c.com/cn/BizPortal/ChannelPartner/AuthAgent/PartnerAgentSearch.aspx">代理商</a>
+        </div>
+        <div class="footerInner">
+            <h2>常用链接</h2>
+            <a href="http://zhiliao.h3c.com/">知了社区</a>
+            <a href="http://bbs.h3c.com/">智能终端社区</a>
+            <a href="http://www.h3c.com/cn/Products___Technology/Products/Home/Product_Icon/">产品图标</a>
+        </div>
+        <div class="footerInner footerInnerLast">
+            <h2 class="footerChooseHead border0" num=2>关注我们，了解新华三 </h2>
+            <div class="footerBtnBox clearfix">
+                <div class="footerBtn">
+                    <div class="footerBtnInner">
+                        官方微博 <img src="http://www.h3c.com/cn/tres/NewWebUI/images/index/weiboIcon.png" class="footIcon" />
+                    </div>
+                    <div class="footerBtnOut">
+                        <p>官方微博</p>
+                        <img src="http://www.h3c.com/cn/tres/NewWebUI/images/index/weiBo.jpg" class="weiImg" />
+                    </div>
+                </div>
+                <div class="footerBtn footerBtnLast margin0">
+                    <div class="footerBtnInner">
+                        官方微信 <img src="http://www.h3c.com/cn/tres/NewWebUI/images/index/wechatIcon.png" class="footIcon" />
+                    </div>
+                    <div class="footerBtnOut">
+                        <p>官方微信</p>
+                        <img src="http://www.h3c.com/cn/tres/NewWebUI/images/index/weChat.jpg" class="weiImg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footerInnerBox footerInnerLastBox clearfix">
+        <div class="footerLine"></div>
+        <div class="footerInnerLastInnerBox">
+            <div class="footerInnerLeft clearfix">
+                <a href="http://www.h3c.com/cn/Home/sitemap/">网站地图</a>
+                <span>|</span>
+                <a href="http://www.h3c.com/cn/Home/Legal___Privacy/">版权声明</a>
+                <span>|</span>
+                <a href="http://www.h3c.com/cn/About_H3C/Contact_Us/">联系我们</a>
+            </div>
+            <div class="footerInnerRight">
+            </div>
+        </div>
+    </div>
+</footer>
+<!--底部Pc结束-->
+<!--底部mbl开始-->
+<footer class="footer footerMbl">
+    <div class="footerInnerBox clearfix">
+        <div class="footerChooseOutBox">
+        </div>
+        <div class="footerChooseBox footerMblChooseBox  borderBottom">
+        </div>
+        <div class="footerInnerBox footerInnerLastBox clearfix padding0">
+        </div>
+    </div>
+</footer>
+<!--底部mbl结束-->
+    </div>
+
+  
+       
+
+
+    <script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/jwplayer.js"></script>
+
+<!--[if lt IE 10]>
+  <script type="text/javascript" src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/jquery.placeholder.min.js"></script>
+    <script>
+        $(function(){
+            $('input[placeholder]').placeholder();
+        });
+     </script>
+<![endif]-->
+<!--检测浏览器的css3和HTML5的属性的js -->
+<script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/modernizr-2.6.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<!--头部导航固定切换js-->
+<script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/vender/headroom.js" type="text/javascript" charset="utf-8"></script>
+<!--头部和底部引入的js-->
+<script src="https://www.h3c.com/cn/tres/NewWebUI/2019/scripts/head.js" type="text/javascript" charset="utf-8"></script>
+<!--首页引入的js-->
+<script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/index.js?v=2.9" type="text/javascript" charset="utf-8"></script>
+<script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/secondscript.js?v=2.9" type="text/javascript" charset="utf-8"></script>
+<script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/onestylejs.js?v=1.3" type="text/javascript" charset="utf-8"></script>
+<script src="https://www.h3c.com/cn/tres/WebUI/scripts/util.js?v=7.4" type="text/javascript"></script>
+<script src="https://www.h3c.com/cn/tres/WebUI/scripts/footer.js?v=9.13" type="text/javascript" charset="utf-8"></script>
+
+<script src="https://www.h3c.com/cn/tres/NewWebUI/scripts/program.js"></script>
+
+
+
+
+</body>
+</html>
