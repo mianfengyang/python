@@ -21,7 +21,7 @@ def get_os_type():
     return platform.system()
      
 
-def process_url_txt(os_type,url,dir_W_txt,dir_L_txt,dir_W_yml,dir_L_yml):
+def save_url_txt_and_yml(os_type,url,dir_W_txt,dir_L_txt,dir_W_yml,dir_L_yml):
     if os_type == "Windows":
         dir_txt = dir_W_txt
         dir_yml = dir_W_yml
@@ -29,7 +29,7 @@ def process_url_txt(os_type,url,dir_W_txt,dir_L_txt,dir_W_yml,dir_L_yml):
         dir_txt = dir_L_txt
         dir_yml = dir_L_yml
     matchPattern_url = re.compile(url)
-    f = open(dir_txt,"a")
+    file = open(dir_txt,"a")
     while 1:
         line = file.readline()
         if not line:
@@ -37,8 +37,8 @@ def process_url_txt(os_type,url,dir_W_txt,dir_L_txt,dir_W_yml,dir_L_yml):
         elif matchPattern_url.search(line):
             pass
         else:
-            f.write(str(datetime.date.today()) + "\t" + url + "\n")
-    f.close()
+            file.write(str(datetime.date.today()) + "\t" + url + "\n")
+    file.close()
     requests.packages.urllib3.disable_warnings()
     req = requests.get(url,verify=False,headers=headers).text
     with open(dir_yml,"w",encoding="utf-8") as file:
@@ -59,7 +59,7 @@ def get_yml_to_file(dir_W_txt,dir_L_txt,dir_W_yml,dir_L_yml):
     clash_url = re.split("：",clash_url)[-1]
     print(clash_url)
     os_type = get_os_type()
-    process_url_txt(os_type,clash_url,dir_W_txt,dir_L_txt,dir_W_yml,dir_L_yml)
+    save_url_txt_and_yml(os_type,clash_url,dir_W_txt,dir_L_txt,dir_W_yml,dir_L_yml)
 
 def filter_yml(os_type,dir_W_yml,dir_L_yml,dir_target_W_yml,dir_target_L_yml):
     lineList = []
@@ -96,6 +96,7 @@ def get_yml_date(os_type,dir_target_W_yml,dir_target_L_yml):
     cur_date = str(datetime.date.today())
     if os.path.isfile(dir):
         filemt = time.localtime(os.stat(dir).st_mtime)
+        filemt = time.strftime("%Y-%m-%d", filemt)
         if filemt == cur_date:
             return True
         else:
@@ -104,7 +105,7 @@ def get_yml_date(os_type,dir_target_W_yml,dir_target_L_yml):
 
 def main(dir_W_txt,dir_L_txt,dir_W_yml,dir_L_yml,dir_target_W_yml,dir_target_L_yml):
     os_type = get_os_type()
-    if get_yml_date(os_type,dir_W_yml,dir_L_yml):
+    if get_yml_date(os_type,dir_target_W_yml,dir_target_L_yml):
         print("current clash File is taoday, not update!")
     else:
         get_yml_to_file(dir_W_txt,dir_L_txt,dir_W_yml,dir_L_yml)
