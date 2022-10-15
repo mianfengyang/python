@@ -20,6 +20,7 @@ url_sub_tail = "-yps1573.pdf"
 download_url = []
 save_dir = "D:\\Software\\Documents\\network\\H3C\\H3CSE"
 test_url = "https://www.h3c.com/cn/BizPortal/TrainingPartner/TeachingMaterial/ReadingMaterials.aspx?TeachingID=d7adf2135b364dea907795b98e27edd7"
+
 def get_url_sub_pdf_urlcode(list):
     for pdf_name in list:
         url_sub_pdf_urlcode_list.append(quote(pdf_name))
