@@ -32,7 +32,7 @@ def save_url_yml(os_type,url,dir_W_yml,dir_L_yml):
     if os_type == "Linux":
         dir_yml = dir_L_yml
     requests.packages.urllib3.disable_warnings()
-    req = requests.get(url,verify=True,headers=headers).text
+    req = requests.get(url,verify=False,headers=headers).text
     with open(dir_yml,"w",encoding="utf-8") as file:
         file.write(req)
 
