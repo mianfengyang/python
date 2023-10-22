@@ -26,23 +26,19 @@ class upFreeNode:
         if self.ostype == "Linux":
             self.fs_yml = fs_L_yml
             self.fd_yml = fd_L_yml
-
-
-    def mergeDownloadUrl(self):
         self.curYear = datetime.datetime.today().strftime('%Y')
         self.curMonth = datetime.datetime.today().strftime('%m')
         self.curDay = datetime.datetime.today().strftime('%d')
         self.baseUrl = "https://freenode.me/wp-content/uploads/"
         self.downloadUrl = self.baseUrl + self.curYear + '/' + self.curMonth + '/' + self.curMonth + self.curDay + '.yaml'
-        return self.downloadUrl
+        self.ua = UserAgent()
+        self.headers = {'User-Agent':self.ua.random}
+        self.proxies = {'http': 'http://127.0.0.1:7899'}
 
 
-    def getYamlFromUrl(self):
-        ua = UserAgent()
-        headers = {'User-Agent':ua.random}
-        proxies = {'http': 'http://127.0.0.1:7899'}
+    def getYamlByRequests(self):
         requests.packages.urllib3.disable_warnings()
-        req = requests.get(self.downloadUrl,verify=False,headers=headers,proxies=proxies)
+        req = requests.get(self.downloadUrl,verify=False,headers=self.headers,proxies=self.proxies)
         req.encoding = 'utf-8'
         req = req.text
         with open(self.fs_yml,"w",encoding="utf-8") as file:
@@ -72,10 +68,13 @@ class upFreeNode:
             file.write(i)
         file.close()
 
-
-if __name__ == "__main__":
+def main():
     frn = upFreeNode(fs_L_yml,fs_W_yml,fd_L_yml,fd_W_yml)
-    frn.mergeDownloadUrl()
-    frn.getYamlFromUrl()
+    frn.getYamlByRequests()
     #frn.preFilterYml()
     frn.filterYml()
+    print("Update Success")
+
+
+if __name__ == "__main__":
+    main()
