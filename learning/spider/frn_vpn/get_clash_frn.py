@@ -1,23 +1,18 @@
-import re
 import os
-import sys
 import platform
+import datetime
+import re
+
 import requests
 from fake_useragent import UserAgent
 from retry import retry
-import datetime
-
 
 fs_L_yml = "/home/frank/.config/clash/freenode.yml"
 fs_W_yml = "D:\\project\\python\\learning\\spider\\frn_vpn\\frn.yml"
 fd_L_yml = "/home/frank/.config/clash/profiles/1692090343227.yml"
 fd_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1693528527309.yml"
 
-#downloadUrl = sys.argv[1]
-
-
-class upFreeNode:
-
+class UpFreeNode:
     def __init__(self,fs_L_yml,fs_W_yml,fd_L_yml,fd_W_yml) -> None:
         self.ostype = platform.system()
         if self.ostype == "Windows":
@@ -26,15 +21,24 @@ class upFreeNode:
         if self.ostype == "Linux":
             self.fs_yml = fs_L_yml
             self.fd_yml = fd_L_yml
-        self.curYear = datetime.datetime.today().strftime('%Y')
-        self.curMonth = datetime.datetime.today().strftime('%m')
-        self.curDay = datetime.datetime.today().strftime('%d')
-        self.baseUrl = "https://freenode.me/wp-content/uploads/"
-        self.downloadUrl = self.baseUrl + self.curYear + '/' + self.curMonth + '/' + self.curMonth + self.curDay + '.yaml'
         self.ua = UserAgent()
         self.headers = {'User-Agent':self.ua.random}
         self.proxies = {'http': 'http://127.0.0.1:7899'}
-
+        self.curYear = datetime.datetime.today().strftime('%Y')
+        self.curMonth = datetime.datetime.today().strftime('%m')
+        self.curDay = datetime.datetime.today().strftime('%d')
+        self.day = int(self.curDay) - 1
+        if self.day < 10:
+            self.day = "0" + str(self.day)
+        else:
+            self.day = str(self.day)
+        self.baseUrl = "https://freenode.me/wp-content/uploads/"
+        self.downloadUrl = self.baseUrl + self.curYear + '/' + self.curMonth + '/' + self.curMonth + self.curDay + '.yaml'
+        req_code = requests.get(self.downloadUrl,headers=self.headers,proxies=self.proxies)
+        if req_code.status_code != 200:
+            self.downloadUrl = self.baseUrl + self.curYear + "/" + self.curMonth + "/" + self.curMonth + self.day + ".yaml"
+        else:
+            self.downloadUrl = self.downloadUrl
 
     def getYamlByRequests(self):
         requests.packages.urllib3.disable_warnings()
@@ -59,7 +63,7 @@ class upFreeNode:
             elif matchPattern_hk.search(line):
                 pass
             elif matchPattern_dns.search(line):
-                lineList.append(line.replace("119.29.29.29","114.114.114.114"))
+                lineList.append(line.replace("119.29.29.29","218.2.135.1"))
             else:
                 lineList.append(line)
         file.close()
@@ -69,11 +73,11 @@ class upFreeNode:
         file.close()
 
 def main():
-    frn = upFreeNode(fs_L_yml,fs_W_yml,fd_L_yml,fd_W_yml)
+    frn = UpFreeNode(fs_L_yml,fs_W_yml,fd_L_yml,fd_W_yml)
     frn.getYamlByRequests()
     #frn.preFilterYml()
     frn.filterYml()
-    print("Update Success")
+    print("Update Success " + frn.downloadUrl)
 
 
 if __name__ == "__main__":

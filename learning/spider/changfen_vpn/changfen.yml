@@ -1,7 +1,7 @@
 ####################################
 # 创建者：v2rayse.com
 # 客户端：Clash
-# 创建时间：2023-08-11 08:03:02
+# 创建时间：2023-10-25 07:37:53
 # 使用模版：ACL4SSR.ini
 # 节点数量：31
 # 节点类型：ss, vmess, trojan
@@ -12,266 +12,330 @@ log-level: info
 external-controller: 0.0.0.0:9090
 dns:
   enabled: true
-  nameserver:
-    - 119.29.29.29
+  listen: 0.0.0.0:1053
+  ipv6: true
+  default-nameserver:
     - 223.5.5.5
-  fallback:
-    - 8.8.8.8
-    - 8.8.4.4
-    - tls://1.0.0.1:853
-    - tls://dns.google:853
+    - 114.114.114.114
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - '*.linksys.com'
+    - '*.linksyssmartwifi.com'
+    - swscan.apple.com
+    - mesu.apple.com
+    - '*.msftconnecttest.com'
+    - '*.msftncsi.com'
+    - time.*.com
+    - time.*.gov
+    - time.*.edu.cn
+    - time.*.apple.com
+    - time1.*.com
+    - time2.*.com
+    - time3.*.com
+    - time4.*.com
+    - time5.*.com
+    - time6.*.com
+    - time7.*.com
+    - ntp.*.com
+    - ntp.*.com
+    - ntp1.*.com
+    - ntp2.*.com
+    - ntp3.*.com
+    - ntp4.*.com
+    - ntp5.*.com
+    - ntp6.*.com
+    - ntp7.*.com
+    - '*.time.edu.cn'
+    - '*.ntp.org.cn'
+    - +.pool.ntp.org
+    - time1.cloud.tencent.com
+    - +.music.163.com
+    - '*.126.net'
+    - musicapi.taihe.com
+    - music.taihe.com
+    - songsearch.kugou.com
+    - trackercdn.kugou.com
+    - '*.kuwo.cn'
+    - api-jooxtt.sanook.com
+    - api.joox.com
+    - joox.com
+    - +.y.qq.com
+    - +.music.tc.qq.com
+    - aqqmusic.tc.qq.com
+    - +.stream.qqmusic.qq.com
+    - '*.xiami.com'
+    - +.music.migu.cn
+    - +.srv.nintendo.net
+    - +.stun.playstation.net
+    - xbox.*.microsoft.com
+    - +.xboxlive.com
+    - localhost.ptlogin2.qq.com
+    - proxy.golang.org
+    - stun.*.*
+    - stun.*.*.*
+    - '*.mcdn.bilivideo.cn'
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback-filter:
+    geoip: false
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
 
 proxies:
-  - {"name":"🇯🇵_JP_日本_1","type":"ss","server":"3.113.7.154","port":443,"password":"amazonskr05","cipher":"aes-256-cfb"}
-  - {"name":"🇹🇼_TW_台湾","type":"ss","server":"103.177.33.180","port":443,"password":"9e44e9ffe5c2","cipher":"chacha20-ietf-poly1305","plugin":"v2ray-plugin","plugin-opts":{"mode":"websocket","host":"wtw1000mline004.chilines.club","path":"/isaifqaagpi","mux":true}}
-  - {"name":"🇺🇸_US_美国_1","type":"ss","server":"194.116.173.21","port":9038,"password":"gYCYXfkUQEs2TaJQ","cipher":"aes-256-cfb"}
-  - {"name":"🇺🇸_US_美国_2","type":"ss","server":"45.63.106.86","port":54253,"password":"MdADCcEjqI","cipher":"aes-256-gcm"}
-  - {"name":"🇰🇷_KR_韩国_1","type":"ss","server":"43.201.7.243","port":443,"password":"amazonskr05","cipher":"aes-256-cfb"}
-  - {"name":"🇰🇷_KR_韩国_2","type":"ss","server":"43.202.42.149","port":443,"password":"amazonskr05","cipher":"aes-256-cfb"}
-  - {"name":"🇰🇷_KR_韩国_3","type":"ss","server":"221.150.109.5","port":9555,"password":"qwerREWQ@@","cipher":"aes-256-cfb"}
-  - {"name":"🇺🇸_US_美国_3","type":"vmess","server":"45.63.106.86","port":37869,"cipher":"auto","uuid":"4c90d167-e65b-4419-d455-eb635724d2ed","alterId":0,"tls":false,"skip-cert-verify":true}
-  - {"name":"🇺🇸_US_美国_4","type":"trojan","server":"45.63.106.86","port":17831,"udp":true,"password":"vbmwVEzFLS","skip-cert-verify":true,"network":"tcp"}
-  - {"name":"🇺🇸_US_美国_5","type":"trojan","server":"45.63.106.86","port":42903,"udp":true,"password":"TmxGNUA1jL","skip-cert-verify":true,"network":"tcp"}
-  - {"name":"🇺🇸_US_美国_6","type":"trojan","server":"45.63.106.86","port":39277,"udp":true,"password":"KYAawE5EGp","skip-cert-verify":true,"network":"tcp"}
-  - {"name":"🇸🇬_SG_新加坡","type":"ss","server":"13.213.44.183","port":443,"password":"amazonskr05","cipher":"aes-256-cfb"}
-  - {"name":"🇺🇸_US_美国_7","type":"vmess","server":"142.0.132.12","port":443,"cipher":"auto","uuid":"418048af-a293-4b99-9b0c-98ca3580dd24","alterId":64,"tls":true,"skip-cert-verify":true,"servername":"www.22866947.xyz","network":"ws","ws-opts":{"path":"/path/1690021167515"}}
-  - {"name":"🇯🇵_JP_日本_2","type":"trojan","server":"jp2.fighting.win","port":10001,"udp":true,"password":"8861ad96-45d4-42f7-9703-7de363a39a0f","skip-cert-verify":true,"network":"tcp"}
-  - {"name":"🇯🇵_JP_日本_3","type":"trojan","server":"jp1.fighting.win","port":10001,"udp":true,"password":"8861ad96-45d4-42f7-9703-7de363a39a0f","skip-cert-verify":true,"network":"tcp"}
-  - {"name":"🇯🇵_JP_日本_4","type":"trojan","server":"jp4.fighting.win","port":10001,"udp":true,"password":"8861ad96-45d4-42f7-9703-7de363a39a0f","skip-cert-verify":true,"network":"tcp"}
-  - {"name":"🇺🇸_US_美国_8","type":"trojan","server":"15.204.209.50","port":80,"udp":true,"password":"7ea37e4f-325b-416f-901a-67012367307f","sni":"telewebion.com","skip-cert-verify":true,"network":"tcp"}
-  - {"name":"🇨🇦_CA_加拿大->🇫🇷_FR_法国","type":"vmess","server":"Shopify.com","port":2086,"cipher":"auto","uuid":"250f4331-8c3e-4b87-a86b-5c5fbf9ddba8","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/aries","headers":{"host":"Fr.cloudflare.quest"}}}
-  - {"name":"🇺🇸_US_美国_9","type":"vmess","server":"mci.bamarambash.monster","port":443,"cipher":"auto","uuid":"8f74ec8a-971c-11ed-a8fc-0242ac120002","alterId":0,"tls":true,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/b8767a6a-1c30-11ee-ba76-9ee097a90b8b","headers":{"host":"b8767a6a-1c30-11ee-ba76-9ee097a90b8b.bamarambash.monster"}}}
-  - {"name":"🇨🇾_CY_塞浦路斯->🇬🇧_GB_英国","type":"vmess","server":"wi.saintink.eu.org","port":443,"cipher":"auto","uuid":"927094d3-d678-4763-8591-e240d0bcae87","alterId":0,"tls":true,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/vuk2.0bad.com/chat","headers":{"host":"sub2.saintink.eu.org"}}}
-  - {"name":"🇨🇳_CN_中国->🇺🇸_US_美国","type":"vmess","server":"cdn.node.user-sub.pddns-usersdk.com","port":13003,"cipher":"auto","uuid":"5f9f4df4-5398-35d1-9a6a-44a8a575832d","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/ef483582-6269-468c-93af-c511eccb8a69","headers":{"host":"cdn.node.user-sub.pddns-usersdk.com"}}}
-  - {"name":"🇺🇸_US_美国_10","type":"vmess","server":"64.32.20.97","port":40039,"cipher":"auto","uuid":"c1bad9a6-1482-4941-a0c4-e85f3cbbcb5a","alterId":64,"tls":false,"skip-cert-verify":true,"network":"tcp"}
-  - {"name":"🇺🇸_US_美国->🇩🇪_DE_德国","type":"vmess","server":"51vfly1.win","port":443,"cipher":"auto","uuid":"9681f99e-d251-477a-d777-1d01ee550481","alterId":0,"tls":true,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/myblog"}}
-  - {"name":"🇺🇸_US_美国_11","type":"vmess","server":"cf2.992688.xyz","port":8080,"cipher":"auto","uuid":"0ea60ebb-632d-4226-893a-cccc2053dbf5","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"haxus3.vpn66.eu.org"}}}
-  - {"name":"🇺🇸_US_美国->🇳🇱_NL_荷兰","type":"vmess","server":"172.64.229.116","port":8880,"cipher":"auto","uuid":"4b5e4565-322f-4223-a891-78a84f189726","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/XQ2WCa29jfDMGBcbnQ","headers":{"host":"netherlands.yj2022.gq"}}}
-  - {"name":"🇩🇪_DE_德国","type":"vmess","server":"cdn.anycast.eu.org","port":443,"cipher":"auto","uuid":"e3a37909-487c-4748-8ba4-945290267018","alterId":0,"tls":true,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"e3a37909","headers":{"host":"dd2.1808.cf"}}}
-  - {"name":"🇺🇸_US_美国_12","type":"vmess","server":"cloudconebbb.gorgorchicken.one","port":8443,"cipher":"auto","uuid":"aa0c4744-9568-4bee-a08b-73668a9b2a42","alterId":0,"tls":true,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/cloudconebbb","headers":{"host":"cloudconebbb.gorgorchicken.one"}}}
-  - {"name":"🇺🇸_US_美国_13","type":"vmess","server":"cloudconeaaa.gorgorchicken.one","port":8443,"cipher":"auto","uuid":"1cec1ebc-b489-4769-f2d9-e079b5832a60","alterId":0,"tls":true,"skip-cert-verify":true,"servername":"cloudconeaaa.gorgorchicken.one","network":"ws","ws-opts":{"path":"/cloudconeaaa","headers":{"host":"cloudconeaaa.gorgorchicken.one"}}}
-  - {"name":"🇺🇸_US_美国_14","type":"vmess","server":"104.18.64.251","port":8880,"cipher":"auto","uuid":"4b5e4565-322f-4223-a891-78a84f189726","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/GdtYWlsLmNvbSJ9LCJjb3V","headers":{"host":"newyork.yj2022.gq"}}}
-  - {"name":"🇨🇳_CN_中国->🇸🇬_SG_新加坡","type":"vmess","server":"a5.wuxianliulianng.xyz","port":8443,"cipher":"auto","uuid":"8d1cb29f-4fba-43df-9ed5-d7dc98c7656d","alterId":0,"tls":true,"skip-cert-verify":true,"servername":"3.wuxianliulianng.xyz","network":"ws","ws-opts":{"path":"/sometimesnaive","headers":{"host":"3.wuxianliulianng.xyz"}}}
-  - {"name":"🇨🇳_CN_中国","type":"vmess","server":"101.42.30.206","port":80,"cipher":"auto","uuid":"24bc9855-8f7c-4543-e29d-970045f205f2","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/"}}
+  - {"name":"🇫🇷_FR_法国_1","type":"ss","server":"51.158.54.209","port":443,"password":"asdKkaskJKfnsa","cipher":"aes-256-cfb"}
+  - {"name":"🇫🇷_FR_法国_2","type":"ss","server":"51.159.221.224","port":443,"password":"asdKkaskJKfnsa","cipher":"aes-256-cfb"}
+  - {"name":"🇫🇷_FR_法国_3","type":"ss","server":"51.158.37.62","port":443,"password":"asdKkaskJKfnsa","cipher":"aes-256-cfb"}
+  - {"name":"🇺🇸_US_美国->🇳🇱_NL_荷兰","type":"vmess","server":"45.199.138.191","port":30000,"cipher":"auto","uuid":"418048af-a293-4b99-9b0c-98ca3580dd24","alterId":64,"tls":true,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/path/1696251522438","headers":{"host":"www.42077230.xyz"}}}
+  - {"name":"🇺🇸_US_美国_1","type":"ss","server":"89.187.181.179","port":443,"password":"asdKkaskJKfnsa","cipher":"aes-256-cfb"}
+  - {"name":"🇺🇸_US_美国_2","type":"vmess","server":"195.123.240.170","port":41916,"cipher":"auto","uuid":"12772df9-485f-413c-edbf-3f562d61de4e","alterId":0,"tls":false,"skip-cert-verify":true,"network":"tcp"}
+  - {"name":"🇫🇷_FR_法国_4","type":"ss","server":"51.158.54.211","port":443,"password":"asdKkaskJKfnsa","cipher":"aes-256-cfb"}
+  - {"name":"🇫🇷_FR_法国_5","type":"ss","server":"51.159.221.231","port":443,"password":"asdKkaskJKfnsa","cipher":"aes-256-cfb"}
+  - {"name":"🇨🇳_CN_中国","type":"vmess","server":"124.220.57.75","port":80,"cipher":"auto","uuid":"1b3dd95b-f6dc-4f20-97aa-3b365358419c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"124.220.57.75"}}}
+  - {"name":"🇺🇸_US_美国->🇮🇳_IN_印度","type":"vmess","server":"mm2.shabijichang.com","port":80,"cipher":"auto","uuid":"c458695d-6908-45c3-9512-e0c46418454c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"mm2.shabijichang.com"}}}
+  - {"name":"🇫🇷_FR_法国_6","type":"ss","server":"51.159.221.223","port":443,"password":"asdKkaskJKfnsa","cipher":"aes-256-cfb"}
+  - {"name":"🇺🇸_US_美国_3","type":"vmess","server":"fhc2.shabijichang.com","port":80,"cipher":"auto","uuid":"c458695d-6908-45c3-9512-e0c46418454c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"fhc2.shabijichang.com"}}}
+  - {"name":"🇺🇸_US_美国_4","type":"vmess","server":"jd2.shabijichang.com","port":80,"cipher":"auto","uuid":"56278a1a-c7cc-459f-b00c-3037e4f99590","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"jd2.shabijichang.com"}}}
+  - {"name":"🇺🇸_US_美国->🇬🇧_GB_英国","type":"vmess","server":"mrb2.shabijichang.com","port":80,"cipher":"auto","uuid":"c458695d-6908-45c3-9512-e0c46418454c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"mrb2.shabijichang.com"}}}
+  - {"name":"🇺🇸_US_美国_5","type":"vmess","server":"104.21.75.246","port":80,"cipher":"auto","uuid":"c458695d-6908-45c3-9512-e0c46418454c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"sbl2.shabijichang.com"}}}
+  - {"name":"🇺🇸_US_美国_6","type":"vmess","server":"172.67.184.13","port":80,"cipher":"auto","uuid":"c458695d-6908-45c3-9512-e0c46418454c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"sbl2.shabijichang.com"}}}
+  - {"name":"🇺🇸_US_美国_7","type":"ss","server":"54.186.250.178","port":443,"password":"amazonskr05","cipher":"aes-256-cfb"}
+  - {"name":"🇺🇸_US_美国_8","type":"vmess","server":"wnd3.shabijichang.com","port":80,"cipher":"auto","uuid":"c458695d-6908-45c3-9512-e0c46418454c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"wnd3.shabijichang.com"}}}
+  - {"name":"🇺🇸_US_美国_9","type":"vmess","server":"5.161.159.21","port":443,"cipher":"auto","uuid":"3d1fab6e-3bd6-472b-8d9c-9934c04eaf40","alterId":0,"tls":false,"skip-cert-verify":true,"network":"http"}
+  - {"name":"🇺🇸_US_美国_10","type":"vmess","server":"waynn.makeup","port":443,"cipher":"auto","uuid":"03fcc618-b93d-6796-6aed-8a38c975d581","alterId":0,"tls":true,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"linkvws","headers":{"host":"waynn.makeup"}}}
+  - {"name":"🇺🇸_US_美国_11","type":"vmess","server":"ml2.shabijichang.com","port":80,"cipher":"auto","uuid":"10ea3b2a-b615-45f1-b1b7-c62bafe8c80c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"ml2.shabijichang.com"}}}
+  - {"name":"🇺🇸_US_美国_12","type":"vmess","server":"107.167.16.85","port":443,"cipher":"auto","uuid":"7640a1e7-9701-428e-a4b2-19b3e7dd6f9f","alterId":64,"tls":true,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/path/080822272914","headers":{"host":"www.51109057.xyz"}}}
+  - {"name":"🇵🇰_PK_巴基斯坦_1","type":"trojan","server":"us1-reality.fp3kemyh-cm4s-2hak-2gb9-w3534umy2sq5.9d8f269f96b25232-759cbb36d6548597.kaufen","port":443,"udp":true,"password":"a3f221f8-43d6-4363-8624-ce62d3db0202","sni":"13-231-155-134.nhost.00cdn.com","skip-cert-verify":true,"network":"tcp"}
+  - {"name":"🇦🇫_AF_阿富汗","type":"ss","server":"121.127.46.147","port":989,"password":"f8f7aCzcPKbsF8p3","cipher":"aes-256-cfb"}
+  - {"name":"🇺🇸_US_美国_13","type":"vmess","server":"wnd2.shabijichang.com","port":80,"cipher":"auto","uuid":"c458695d-6908-45c3-9512-e0c46418454c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"wnd2.shabijichang.com"}}}
+  - {"name":"🇩🇪_DE_德国_1","type":"trojan","server":"5.104.108.109","port":443,"udp":true,"password":"2a9abeb7-6f97-4d33-9069-f6e009d88455","skip-cert-verify":true,"network":"tcp"}
+  - {"name":"🇩🇪_DE_德国_2","type":"trojan","server":"5.104.108.120","port":443,"udp":true,"password":"2a9abeb7-6f97-4d33-9069-f6e009d88455","sni":"20-24-33-134.nhost.00cdn.com","skip-cert-verify":true,"network":"tcp"}
+  - {"name":"🇫🇷_FR_法国_7","type":"trojan","server":"13.39.98.163","port":22222,"udp":true,"password":"telegram-id-privatevpns","sni":"trj.rollingnext.co.uk","skip-cert-verify":true,"network":"tcp"}
+  - {"name":"🇵🇰_PK_巴基斯坦_2","type":"trojan","server":"jp1-reality.fp3kemyh-cm4s-2hak-2gb9-w3534umy2sq5.9d8f269f96b25232-759cbb36d6548597.kaufen","port":443,"udp":true,"password":"7e23957d-535a-4dc6-9482-e6f44518da87","sni":"13-231-155-134.nhost.00cdn.com","skip-cert-verify":true,"network":"tcp"}
+  - {"name":"🇺🇸_US_美国_14","type":"vmess","server":"45.199.138.186","port":30000,"cipher":"auto","uuid":"4ec0ae62-de09-4029-904a-0313d4628ecf","alterId":64,"tls":true,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/path/1696682720138","headers":{"host":"www.19229362.xyz"}}}
+  - {"name":"🇺🇸_US_美国_15","type":"vmess","server":"asb2.shabijichang.com","port":80,"cipher":"auto","uuid":"c458695d-6908-45c3-9512-e0c46418454c","alterId":0,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"asb2.shabijichang.com"}}}
 proxy-groups:
   - name: 🚀 节点选择
     type: select
     proxies:
       - ♻️ 自动选择
       - DIRECT
-      - 🇯🇵_JP_日本_1
-      - 🇹🇼_TW_台湾
+      - 🇫🇷_FR_法国_1
+      - 🇫🇷_FR_法国_2
+      - 🇫🇷_FR_法国_3
+      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
       - 🇺🇸_US_美国_1
       - 🇺🇸_US_美国_2
-      - 🇰🇷_KR_韩国_1
-      - 🇰🇷_KR_韩国_2
-      - 🇰🇷_KR_韩国_3
+      - 🇫🇷_FR_法国_4
+      - 🇫🇷_FR_法国_5
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国->🇮🇳_IN_印度
+      - 🇫🇷_FR_法国_6
       - 🇺🇸_US_美国_3
       - 🇺🇸_US_美国_4
+      - 🇺🇸_US_美国->🇬🇧_GB_英国
       - 🇺🇸_US_美国_5
       - 🇺🇸_US_美国_6
-      - 🇸🇬_SG_新加坡
       - 🇺🇸_US_美国_7
-      - 🇯🇵_JP_日本_2
-      - 🇯🇵_JP_日本_3
-      - 🇯🇵_JP_日本_4
       - 🇺🇸_US_美国_8
-      - 🇨🇦_CA_加拿大->🇫🇷_FR_法国
       - 🇺🇸_US_美国_9
-      - 🇨🇾_CY_塞浦路斯->🇬🇧_GB_英国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇺🇸_US_美国_10
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
       - 🇺🇸_US_美国_11
-      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
-      - 🇩🇪_DE_德国
       - 🇺🇸_US_美国_12
+      - 🇵🇰_PK_巴基斯坦_1
+      - 🇦🇫_AF_阿富汗
       - 🇺🇸_US_美国_13
+      - 🇩🇪_DE_德国_1
+      - 🇩🇪_DE_德国_2
+      - 🇫🇷_FR_法国_7
+      - 🇵🇰_PK_巴基斯坦_2
       - 🇺🇸_US_美国_14
-      - 🇨🇳_CN_中国->🇸🇬_SG_新加坡
-      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_15
   - name: ♻️ 自动选择
     type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
     proxies:
-      - 🇯🇵_JP_日本_1
-      - 🇹🇼_TW_台湾
+      - 🇫🇷_FR_法国_1
+      - 🇫🇷_FR_法国_2
+      - 🇫🇷_FR_法国_3
+      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
       - 🇺🇸_US_美国_1
       - 🇺🇸_US_美国_2
-      - 🇰🇷_KR_韩国_1
-      - 🇰🇷_KR_韩国_2
-      - 🇰🇷_KR_韩国_3
+      - 🇫🇷_FR_法国_4
+      - 🇫🇷_FR_法国_5
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国->🇮🇳_IN_印度
+      - 🇫🇷_FR_法国_6
       - 🇺🇸_US_美国_3
       - 🇺🇸_US_美国_4
+      - 🇺🇸_US_美国->🇬🇧_GB_英国
       - 🇺🇸_US_美国_5
       - 🇺🇸_US_美国_6
-      - 🇸🇬_SG_新加坡
       - 🇺🇸_US_美国_7
-      - 🇯🇵_JP_日本_2
-      - 🇯🇵_JP_日本_3
-      - 🇯🇵_JP_日本_4
       - 🇺🇸_US_美国_8
-      - 🇨🇦_CA_加拿大->🇫🇷_FR_法国
       - 🇺🇸_US_美国_9
-      - 🇨🇾_CY_塞浦路斯->🇬🇧_GB_英国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇺🇸_US_美国_10
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
       - 🇺🇸_US_美国_11
-      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
-      - 🇩🇪_DE_德国
       - 🇺🇸_US_美国_12
+      - 🇵🇰_PK_巴基斯坦_1
+      - 🇦🇫_AF_阿富汗
       - 🇺🇸_US_美国_13
+      - 🇩🇪_DE_德国_1
+      - 🇩🇪_DE_德国_2
+      - 🇫🇷_FR_法国_7
+      - 🇵🇰_PK_巴基斯坦_2
       - 🇺🇸_US_美国_14
-      - 🇨🇳_CN_中国->🇸🇬_SG_新加坡
-      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_15
   - name: 🌍 国外媒体
     type: select
     proxies:
       - 🚀 节点选择
       - ♻️ 自动选择
       - 🎯 全球直连
-      - 🇯🇵_JP_日本_1
-      - 🇹🇼_TW_台湾
+      - 🇫🇷_FR_法国_1
+      - 🇫🇷_FR_法国_2
+      - 🇫🇷_FR_法国_3
+      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
       - 🇺🇸_US_美国_1
       - 🇺🇸_US_美国_2
-      - 🇰🇷_KR_韩国_1
-      - 🇰🇷_KR_韩国_2
-      - 🇰🇷_KR_韩国_3
+      - 🇫🇷_FR_法国_4
+      - 🇫🇷_FR_法国_5
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国->🇮🇳_IN_印度
+      - 🇫🇷_FR_法国_6
       - 🇺🇸_US_美国_3
       - 🇺🇸_US_美国_4
+      - 🇺🇸_US_美国->🇬🇧_GB_英国
       - 🇺🇸_US_美国_5
       - 🇺🇸_US_美国_6
-      - 🇸🇬_SG_新加坡
       - 🇺🇸_US_美国_7
-      - 🇯🇵_JP_日本_2
-      - 🇯🇵_JP_日本_3
-      - 🇯🇵_JP_日本_4
       - 🇺🇸_US_美国_8
-      - 🇨🇦_CA_加拿大->🇫🇷_FR_法国
       - 🇺🇸_US_美国_9
-      - 🇨🇾_CY_塞浦路斯->🇬🇧_GB_英国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇺🇸_US_美国_10
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
       - 🇺🇸_US_美国_11
-      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
-      - 🇩🇪_DE_德国
       - 🇺🇸_US_美国_12
+      - 🇵🇰_PK_巴基斯坦_1
+      - 🇦🇫_AF_阿富汗
       - 🇺🇸_US_美国_13
+      - 🇩🇪_DE_德国_1
+      - 🇩🇪_DE_德国_2
+      - 🇫🇷_FR_法国_7
+      - 🇵🇰_PK_巴基斯坦_2
       - 🇺🇸_US_美国_14
-      - 🇨🇳_CN_中国->🇸🇬_SG_新加坡
-      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_15
   - name: 📲 电报信息
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
-      - 🇯🇵_JP_日本_1
-      - 🇹🇼_TW_台湾
+      - 🇫🇷_FR_法国_1
+      - 🇫🇷_FR_法国_2
+      - 🇫🇷_FR_法国_3
+      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
       - 🇺🇸_US_美国_1
       - 🇺🇸_US_美国_2
-      - 🇰🇷_KR_韩国_1
-      - 🇰🇷_KR_韩国_2
-      - 🇰🇷_KR_韩国_3
+      - 🇫🇷_FR_法国_4
+      - 🇫🇷_FR_法国_5
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国->🇮🇳_IN_印度
+      - 🇫🇷_FR_法国_6
       - 🇺🇸_US_美国_3
       - 🇺🇸_US_美国_4
+      - 🇺🇸_US_美国->🇬🇧_GB_英国
       - 🇺🇸_US_美国_5
       - 🇺🇸_US_美国_6
-      - 🇸🇬_SG_新加坡
       - 🇺🇸_US_美国_7
-      - 🇯🇵_JP_日本_2
-      - 🇯🇵_JP_日本_3
-      - 🇯🇵_JP_日本_4
       - 🇺🇸_US_美国_8
-      - 🇨🇦_CA_加拿大->🇫🇷_FR_法国
       - 🇺🇸_US_美国_9
-      - 🇨🇾_CY_塞浦路斯->🇬🇧_GB_英国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇺🇸_US_美国_10
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
       - 🇺🇸_US_美国_11
-      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
-      - 🇩🇪_DE_德国
       - 🇺🇸_US_美国_12
+      - 🇵🇰_PK_巴基斯坦_1
+      - 🇦🇫_AF_阿富汗
       - 🇺🇸_US_美国_13
+      - 🇩🇪_DE_德国_1
+      - 🇩🇪_DE_德国_2
+      - 🇫🇷_FR_法国_7
+      - 🇵🇰_PK_巴基斯坦_2
       - 🇺🇸_US_美国_14
-      - 🇨🇳_CN_中国->🇸🇬_SG_新加坡
-      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_15
   - name: Ⓜ️ 微软服务
     type: select
     proxies:
       - 🎯 全球直连
       - 🚀 节点选择
-      - 🇯🇵_JP_日本_1
-      - 🇹🇼_TW_台湾
+      - 🇫🇷_FR_法国_1
+      - 🇫🇷_FR_法国_2
+      - 🇫🇷_FR_法国_3
+      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
       - 🇺🇸_US_美国_1
       - 🇺🇸_US_美国_2
-      - 🇰🇷_KR_韩国_1
-      - 🇰🇷_KR_韩国_2
-      - 🇰🇷_KR_韩国_3
+      - 🇫🇷_FR_法国_4
+      - 🇫🇷_FR_法国_5
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国->🇮🇳_IN_印度
+      - 🇫🇷_FR_法国_6
       - 🇺🇸_US_美国_3
       - 🇺🇸_US_美国_4
+      - 🇺🇸_US_美国->🇬🇧_GB_英国
       - 🇺🇸_US_美国_5
       - 🇺🇸_US_美国_6
-      - 🇸🇬_SG_新加坡
       - 🇺🇸_US_美国_7
-      - 🇯🇵_JP_日本_2
-      - 🇯🇵_JP_日本_3
-      - 🇯🇵_JP_日本_4
       - 🇺🇸_US_美国_8
-      - 🇨🇦_CA_加拿大->🇫🇷_FR_法国
       - 🇺🇸_US_美国_9
-      - 🇨🇾_CY_塞浦路斯->🇬🇧_GB_英国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇺🇸_US_美国_10
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
       - 🇺🇸_US_美国_11
-      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
-      - 🇩🇪_DE_德国
       - 🇺🇸_US_美国_12
+      - 🇵🇰_PK_巴基斯坦_1
+      - 🇦🇫_AF_阿富汗
       - 🇺🇸_US_美国_13
+      - 🇩🇪_DE_德国_1
+      - 🇩🇪_DE_德国_2
+      - 🇫🇷_FR_法国_7
+      - 🇵🇰_PK_巴基斯坦_2
       - 🇺🇸_US_美国_14
-      - 🇨🇳_CN_中国->🇸🇬_SG_新加坡
-      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_15
   - name: 🍎 苹果服务
     type: select
     proxies:
       - 🚀 节点选择
       - 🎯 全球直连
-      - 🇯🇵_JP_日本_1
-      - 🇹🇼_TW_台湾
+      - 🇫🇷_FR_法国_1
+      - 🇫🇷_FR_法国_2
+      - 🇫🇷_FR_法国_3
+      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
       - 🇺🇸_US_美国_1
       - 🇺🇸_US_美国_2
-      - 🇰🇷_KR_韩国_1
-      - 🇰🇷_KR_韩国_2
-      - 🇰🇷_KR_韩国_3
+      - 🇫🇷_FR_法国_4
+      - 🇫🇷_FR_法国_5
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国->🇮🇳_IN_印度
+      - 🇫🇷_FR_法国_6
       - 🇺🇸_US_美国_3
       - 🇺🇸_US_美国_4
+      - 🇺🇸_US_美国->🇬🇧_GB_英国
       - 🇺🇸_US_美国_5
       - 🇺🇸_US_美国_6
-      - 🇸🇬_SG_新加坡
       - 🇺🇸_US_美国_7
-      - 🇯🇵_JP_日本_2
-      - 🇯🇵_JP_日本_3
-      - 🇯🇵_JP_日本_4
       - 🇺🇸_US_美国_8
-      - 🇨🇦_CA_加拿大->🇫🇷_FR_法国
       - 🇺🇸_US_美国_9
-      - 🇨🇾_CY_塞浦路斯->🇬🇧_GB_英国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇺🇸_US_美国_10
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
       - 🇺🇸_US_美国_11
-      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
-      - 🇩🇪_DE_德国
       - 🇺🇸_US_美国_12
+      - 🇵🇰_PK_巴基斯坦_1
+      - 🇦🇫_AF_阿富汗
       - 🇺🇸_US_美国_13
+      - 🇩🇪_DE_德国_1
+      - 🇩🇪_DE_德国_2
+      - 🇫🇷_FR_法国_7
+      - 🇵🇰_PK_巴基斯坦_2
       - 🇺🇸_US_美国_14
-      - 🇨🇳_CN_中国->🇸🇬_SG_新加坡
-      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_15
   - name: 🎯 全球直连
     type: select
     proxies:
@@ -294,37 +358,37 @@ proxy-groups:
       - 🚀 节点选择
       - 🎯 全球直连
       - ♻️ 自动选择
-      - 🇯🇵_JP_日本_1
-      - 🇹🇼_TW_台湾
+      - 🇫🇷_FR_法国_1
+      - 🇫🇷_FR_法国_2
+      - 🇫🇷_FR_法国_3
+      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
       - 🇺🇸_US_美国_1
       - 🇺🇸_US_美国_2
-      - 🇰🇷_KR_韩国_1
-      - 🇰🇷_KR_韩国_2
-      - 🇰🇷_KR_韩国_3
+      - 🇫🇷_FR_法国_4
+      - 🇫🇷_FR_法国_5
+      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国->🇮🇳_IN_印度
+      - 🇫🇷_FR_法国_6
       - 🇺🇸_US_美国_3
       - 🇺🇸_US_美国_4
+      - 🇺🇸_US_美国->🇬🇧_GB_英国
       - 🇺🇸_US_美国_5
       - 🇺🇸_US_美国_6
-      - 🇸🇬_SG_新加坡
       - 🇺🇸_US_美国_7
-      - 🇯🇵_JP_日本_2
-      - 🇯🇵_JP_日本_3
-      - 🇯🇵_JP_日本_4
       - 🇺🇸_US_美国_8
-      - 🇨🇦_CA_加拿大->🇫🇷_FR_法国
       - 🇺🇸_US_美国_9
-      - 🇨🇾_CY_塞浦路斯->🇬🇧_GB_英国
-      - 🇨🇳_CN_中国->🇺🇸_US_美国
       - 🇺🇸_US_美国_10
-      - 🇺🇸_US_美国->🇩🇪_DE_德国
       - 🇺🇸_US_美国_11
-      - 🇺🇸_US_美国->🇳🇱_NL_荷兰
-      - 🇩🇪_DE_德国
       - 🇺🇸_US_美国_12
+      - 🇵🇰_PK_巴基斯坦_1
+      - 🇦🇫_AF_阿富汗
       - 🇺🇸_US_美国_13
+      - 🇩🇪_DE_德国_1
+      - 🇩🇪_DE_德国_2
+      - 🇫🇷_FR_法国_7
+      - 🇵🇰_PK_巴基斯坦_2
       - 🇺🇸_US_美国_14
-      - 🇨🇳_CN_中国->🇸🇬_SG_新加坡
-      - 🇨🇳_CN_中国
+      - 🇺🇸_US_美国_15
 
 rules:
 # 本地/局域网地址
@@ -377,7 +441,6 @@ rules:
   - DOMAIN-KEYWORD,admaster,🛑 全球拦截
   - DOMAIN-KEYWORD,adsage,🛑 全球拦截
   - DOMAIN-KEYWORD,adsensor,🛑 全球拦截
-  - DOMAIN-KEYWORD,adservice,🛑 全球拦截
   - DOMAIN-KEYWORD,adsmogo,🛑 全球拦截
   - DOMAIN-KEYWORD,adsrvmedia,🛑 全球拦截
   - DOMAIN-KEYWORD,adsserving,🛑 全球拦截
@@ -2184,6 +2247,7 @@ rules:
   - DOMAIN-SUFFIX,aaplimg.com,🍎 苹果服务
   - DOMAIN-SUFFIX,akadns.net,🍎 苹果服务
   - DOMAIN-SUFFIX,apple-cloudkit.com,🍎 苹果服务
+  - DOMAIN-SUFFIX,apple-dns.net,🍎 苹果服务
   - DOMAIN-SUFFIX,apple-mapkit.com,🍎 苹果服务
   - DOMAIN-SUFFIX,apple.co,🍎 苹果服务
   - DOMAIN-SUFFIX,apple.com,🍎 苹果服务
@@ -2209,8 +2273,8 @@ rules:
   - IP-CIDR,198.183.17.0/24,🍎 苹果服务,no-resolve
   - IP-CIDR,205.180.175.0/24,🍎 苹果服务,no-resolve
 # 内容：国外媒体列表
-# 更新：2023-06-04 16:14:19
-# 数量：365条
+# 更新：2023-08-20 11:28:35
+# 数量：367条
 # ABC
 # AbemaTV
 # All4
@@ -2286,6 +2350,8 @@ rules:
   - DOMAIN-SUFFIX,aiv-cdn.net,🌍 国外媒体
   - DOMAIN-SUFFIX,aiv-delivery.net,🌍 国外媒体
   - DOMAIN-SUFFIX,amazon.jobs,🌍 国外媒体
+  - DOMAIN-SUFFIX,amazontools.com,🌍 国外媒体
+  - DOMAIN-SUFFIX,amazontours.com,🌍 国外媒体
   - DOMAIN-SUFFIX,amazonuniversity.jobs,🌍 国外媒体
   - DOMAIN-SUFFIX,amazonvideo.com,🌍 国外媒体
   - DOMAIN-SUFFIX,media-amazon.com,🌍 国外媒体
@@ -2497,6 +2563,7 @@ rules:
   - IP-CIDR,192.173.64.0/18,🌍 国外媒体,no-resolve
   - IP-CIDR,198.38.96.0/19,🌍 国外媒体,no-resolve
   - IP-CIDR,198.45.48.0/20,🌍 国外媒体,no-resolve
+  - IP-CIDR,203.75.84.0/24,🌍 国外媒体,no-resolve
   - IP-CIDR,207.45.72.0/22,🌍 国外媒体,no-resolve
   - IP-CIDR,208.75.76.0/22,🌍 国外媒体,no-resolve
 #   - USER-AGENT,Niconico*,🌍 国外媒体
@@ -2524,7 +2591,6 @@ rules:
   - DOMAIN-SUFFIX,olevod.tv,🌍 国外媒体
   - DOMAIN-SUFFIX,olevodtv.com,🌍 国外媒体
   - DOMAIN-KEYWORD,openai,🌍 国外媒体
-  - DOMAIN-SUFFIX,ai.com,🌍 国外媒体
   - DOMAIN-SUFFIX,auth0.com,🌍 国外媒体
   - DOMAIN-SUFFIX,challenges.cloudflare.com,🌍 国外媒体
   - DOMAIN-SUFFIX,client-api.arkoselabs.com,🌍 国外媒体
@@ -2970,7 +3036,6 @@ rules:
   - IP-CIDR,203.104.128.0/19,🚀 节点选择,no-resolve
   - DOMAIN-SUFFIX,openai.com,🚀 节点选择
   - DOMAIN-SUFFIX,challenges.cloudflare.com,🚀 节点选择
-  - DOMAIN-SUFFIX,ai.com,🚀 节点选择
   - DOMAIN-KEYWORD,1drv,🚀 节点选择
   - DOMAIN-KEYWORD,onedrive,🚀 节点选择
   - DOMAIN-KEYWORD,skydrive,🚀 节点选择
@@ -3127,13 +3192,13 @@ rules:
 # Ximalaya 喜马拉雅
 # Xunlei 迅雷
 # YYeTs 人人影视
-# Private Tracker
 # TeamViewer
 # Public Direct CDN 公共直连
 #DOMAIN-SUFFIX,ajax.aspnetcdn.com
 #DOMAIN-SUFFIX,ajax.cloudflare.com
 #DOMAIN-SUFFIX,cdnjs.cloudflare.com
 #DOMAIN-SUFFIX,code.jquery.com
+# China DNS
 # AccelerateDirectSites
   - DOMAIN-SUFFIX,13th.tech,🎯 全球直连
   - DOMAIN-SUFFIX,423down.com,🎯 全球直连
@@ -3150,6 +3215,7 @@ rules:
   - DOMAIN-SUFFIX,pdfwifi.com,🎯 全球直连
   - DOMAIN-SUFFIX,zhenguanyu.biz,🎯 全球直连
   - DOMAIN-SUFFIX,zhenguanyu.com,🎯 全球直连
+  - DOMAIN-SUFFIX,snapdrop.net,🎯 全球直连
   - DOMAIN-SUFFIX,cn,🎯 全球直连
   - DOMAIN-SUFFIX,xn--fiqs8s,🎯 全球直连
   - DOMAIN-SUFFIX,xn--55qx5d,🎯 全球直连
@@ -3470,130 +3536,6 @@ rules:
   - DOMAIN-SUFFIX,zmzapi.com,🎯 全球直连
   - DOMAIN-SUFFIX,zmzapi.net,🎯 全球直连
   - DOMAIN-SUFFIX,zmzfile.com,🎯 全球直连
-  - DOMAIN-KEYWORD,announce,🎯 全球直连
-  - DOMAIN-KEYWORD,torrent,🎯 全球直连
-  - DOMAIN-KEYWORD,tracker,🎯 全球直连
-  - DOMAIN-KEYWORD,announce,🎯 全球直连
-  - DOMAIN-KEYWORD,torrent,🎯 全球直连
-  - DOMAIN-KEYWORD,tracker,🎯 全球直连
-  - DOMAIN-SUFFIX,52pt.site,🎯 全球直连
-  - DOMAIN-SUFFIX,aidoru-online.me,🎯 全球直连
-  - DOMAIN-SUFFIX,alpharatio.cc,🎯 全球直连
-  - DOMAIN-SUFFIX,animebytes.tv,🎯 全球直连
-  - DOMAIN-SUFFIX,animetorrents.me,🎯 全球直连
-  - DOMAIN-SUFFIX,anthelion.me,🎯 全球直连
-  - DOMAIN-SUFFIX,asiancinema.me,🎯 全球直连
-  - DOMAIN-SUFFIX,audiences.me,🎯 全球直连
-  - DOMAIN-SUFFIX,avgv.cc,🎯 全球直连
-  - DOMAIN-SUFFIX,avistaz.to,🎯 全球直连
-  - DOMAIN-SUFFIX,awesome-hd.me,🎯 全球直连
-  - DOMAIN-SUFFIX,beitai.pt,🎯 全球直连
-  - DOMAIN-SUFFIX,beyond-hd.me,🎯 全球直连
-  - DOMAIN-SUFFIX,bibliotik.me,🎯 全球直连
-  - DOMAIN-SUFFIX,bittorrent.com,🎯 全球直连
-  - DOMAIN-SUFFIX,blutopia.xyz,🎯 全球直连
-  - DOMAIN-SUFFIX,broadcasthe.net,🎯 全球直连
-  - DOMAIN-SUFFIX,bt.byr.cn,🎯 全球直连
-  - DOMAIN-SUFFIX,bt.neu6.edu.cn,🎯 全球直连
-  - DOMAIN-SUFFIX,btschool.club,🎯 全球直连
-  - DOMAIN-SUFFIX,bwtorrents.tv,🎯 全球直连
-  - DOMAIN-SUFFIX,byr.pt,🎯 全球直连
-  - DOMAIN-SUFFIX,ccfbits.org,🎯 全球直连
-  - DOMAIN-SUFFIX,cgpeers.com,🎯 全球直连
-  - DOMAIN-SUFFIX,chdbits.co,🎯 全球直连
-  - DOMAIN-SUFFIX,cinemageddon.net,🎯 全球直连
-  - DOMAIN-SUFFIX,cinematik.net,🎯 全球直连
-  - DOMAIN-SUFFIX,cinemaz.to,🎯 全球直连
-  - DOMAIN-SUFFIX,classix-unlimited.co.uk,🎯 全球直连
-  - DOMAIN-SUFFIX,concertos.live,🎯 全球直连
-  - DOMAIN-SUFFIX,dicmusic.club,🎯 全球直连
-  - DOMAIN-SUFFIX,discfan.net,🎯 全球直连
-  - DOMAIN-SUFFIX,dxdhd.com,🎯 全球直连
-  - DOMAIN-SUFFIX,eastgame.org,🎯 全球直连
-  - DOMAIN-SUFFIX,empornium.me,🎯 全球直连
-  - DOMAIN-SUFFIX,et8.org,🎯 全球直连
-  - DOMAIN-SUFFIX,exoticaz.to,🎯 全球直连
-  - DOMAIN-SUFFIX,extremlymtorrents.ws,🎯 全球直连
-  - DOMAIN-SUFFIX,filelist.io,🎯 全球直连
-  - DOMAIN-SUFFIX,gainbound.net,🎯 全球直连
-  - DOMAIN-SUFFIX,gazellegames.net,🎯 全球直连
-  - DOMAIN-SUFFIX,gfxpeers.net,🎯 全球直连
-  - DOMAIN-SUFFIX,hd-space.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hd-torrents.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hd4.xyz,🎯 全球直连
-  - DOMAIN-SUFFIX,hd4fans.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hdarea.co,🎯 全球直连
-  - DOMAIN-SUFFIX,hdatmos.club,🎯 全球直连
-  - DOMAIN-SUFFIX,hdbd.us,🎯 全球直连
-  - DOMAIN-SUFFIX,hdbits.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hdchina.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hdcity.city,🎯 全球直连
-  - DOMAIN-SUFFIX,hddolby.com,🎯 全球直连
-  - DOMAIN-SUFFIX,hdfans.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hdhome.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hdpost.top,🎯 全球直连
-  - DOMAIN-SUFFIX,hdroute.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hdsky.me,🎯 全球直连
-  - DOMAIN-SUFFIX,hdstreet.club,🎯 全球直连
-  - DOMAIN-SUFFIX,hdtime.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hdupt.com,🎯 全球直连
-  - DOMAIN-SUFFIX,hdzone.me,🎯 全球直连
-  - DOMAIN-SUFFIX,hhanclub.top,🎯 全球直连
-  - DOMAIN-SUFFIX,hitpt.com,🎯 全球直连
-  - DOMAIN-SUFFIX,hitpt.org,🎯 全球直连
-  - DOMAIN-SUFFIX,hudbt.hust.edu.cn,🎯 全球直连
-  - DOMAIN-SUFFIX,icetorrent.org,🎯 全球直连
-  - DOMAIN-SUFFIX,iptorrents.com,🎯 全球直连
-  - DOMAIN-SUFFIX,j99.info,🎯 全球直连
-  - DOMAIN-SUFFIX,joyhd.net,🎯 全球直连
-  - DOMAIN-SUFFIX,jpopsuki.eu,🎯 全球直连
-  - DOMAIN-SUFFIX,karagarga.in,🎯 全球直连
-  - DOMAIN-SUFFIX,keepfrds.com,🎯 全球直连
-  - DOMAIN-SUFFIX,landof.tv,🎯 全球直连
-  - DOMAIN-SUFFIX,leaguehd.com,🎯 全球直连
-  - DOMAIN-SUFFIX,lemonhd.org,🎯 全球直连
-  - DOMAIN-SUFFIX,lztr.me,🎯 全球直连
-  - DOMAIN-SUFFIX,m-team.cc,🎯 全球直连
-  - DOMAIN-SUFFIX,madsrevolution.net,🎯 全球直连
-  - DOMAIN-SUFFIX,moecat.best,🎯 全球直连
-  - DOMAIN-SUFFIX,morethan.tv,🎯 全球直连
-  - DOMAIN-SUFFIX,msg.vg,🎯 全球直连
-  - DOMAIN-SUFFIX,myanonamouse.net,🎯 全球直连
-  - DOMAIN-SUFFIX,nanyangpt.com,🎯 全球直连
-  - DOMAIN-SUFFIX,ncore.cc,🎯 全球直连
-  - DOMAIN-SUFFIX,nebulance.io,🎯 全球直连
-  - DOMAIN-SUFFIX,nicept.net,🎯 全球直连
-  - DOMAIN-SUFFIX,npupt.com,🎯 全球直连
-  - DOMAIN-SUFFIX,nwsuaf6.edu.cn,🎯 全球直连
-  - DOMAIN-SUFFIX,open.cd,🎯 全球直连
-  - DOMAIN-SUFFIX,oppaiti.me,🎯 全球直连
-  - DOMAIN-SUFFIX,orpheus.network,🎯 全球直连
-  - DOMAIN-SUFFIX,ourbits.club,🎯 全球直连
-  - DOMAIN-SUFFIX,passthepopcorn.me,🎯 全球直连
-  - DOMAIN-SUFFIX,pornbits.net,🎯 全球直连
-  - DOMAIN-SUFFIX,privatehd.to,🎯 全球直连
-  - DOMAIN-SUFFIX,pterclub.com,🎯 全球直连
-  - DOMAIN-SUFFIX,pthome.net,🎯 全球直连
-  - DOMAIN-SUFFIX,ptsbao.club,🎯 全球直连
-  - DOMAIN-SUFFIX,pttime.org,🎯 全球直连
-  - DOMAIN-SUFFIX,pussytorrents.org,🎯 全球直连
-  - DOMAIN-SUFFIX,redacted.ch,🎯 全球直连
-  - DOMAIN-SUFFIX,sdbits.org,🎯 全球直连
-  - DOMAIN-SUFFIX,sharkpt.net,🎯 全球直连
-  - DOMAIN-SUFFIX,sjtu.edu.cn,🎯 全球直连
-  - DOMAIN-SUFFIX,skyey2.com,🎯 全球直连
-  - DOMAIN-SUFFIX,soulvoice.club,🎯 全球直连
-  - DOMAIN-SUFFIX,springsunday.net,🎯 全球直连
-  - DOMAIN-SUFFIX,tju.pt,🎯 全球直连
-  - DOMAIN-SUFFIX,tjupt.org,🎯 全球直连
-  - DOMAIN-SUFFIX,torrentday.com,🎯 全球直连
-  - DOMAIN-SUFFIX,torrentleech.org,🎯 全球直连
-  - DOMAIN-SUFFIX,torrentseeds.org,🎯 全球直连
-  - DOMAIN-SUFFIX,totheglory.im,🎯 全球直连
-  - DOMAIN-SUFFIX,trontv.com,🎯 全球直连
-  - DOMAIN-SUFFIX,u2.dmhy.org,🎯 全球直连
-  - DOMAIN-SUFFIX,uhdbits.org,🎯 全球直连
-  - DOMAIN-SUFFIX,xauat6.edu.cn,🎯 全球直连
   - DOMAIN-SUFFIX,teamviewer.com,🎯 全球直连
   - IP-CIDR,139.220.243.27/32,🎯 全球直连,no-resolve
   - IP-CIDR,172.16.102.56/32,🎯 全球直连,no-resolve
@@ -3608,6 +3550,10 @@ rules:
   - DOMAIN-SUFFIX,jiasule.com,🎯 全球直连
   - DOMAIN-SUFFIX,staticfile.org,🎯 全球直连
   - DOMAIN-SUFFIX,upaiyun.com,🎯 全球直连
+  - DOMAIN-SUFFIX,doh.pub,🎯 全球直连
+  - DOMAIN-SUFFIX,dns.alidns.com,🎯 全球直连
+  - DOMAIN-SUFFIX,doh.360.cn,🎯 全球直连
+  - IP-CIDR,1.12.12.12/32,🎯 全球直连,no-resolve
   - DOMAIN-SUFFIX,10010.com,🎯 全球直连
   - DOMAIN-SUFFIX,115.com,🎯 全球直连
   - DOMAIN-SUFFIX,12306.com,🎯 全球直连
@@ -3672,6 +3618,7 @@ rules:
   - DOMAIN-SUFFIX,eastday.com,🎯 全球直连
   - DOMAIN-SUFFIX,eastmoney.com,🎯 全球直连
   - DOMAIN-SUFFIX,ecitic.com,🎯 全球直连
+  - DOMAIN-SUFFIX,element-plus.org,🎯 全球直连
   - DOMAIN-SUFFIX,ewqcxz.com,🎯 全球直连
   - DOMAIN-SUFFIX,fang.com,🎯 全球直连
   - DOMAIN-SUFFIX,fantasy.tv,🎯 全球直连

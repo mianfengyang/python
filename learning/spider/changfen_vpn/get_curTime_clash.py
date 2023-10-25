@@ -15,94 +15,86 @@ from retry import retry
 socks.set_default_proxy(socks.SOCKS5, "127.0.0.1", 7899)
 socket.socket = socks.socksocket
 
-dir_L_yml = "/home/frank/.config/clash/changfen.yml"
-dir_W_yml = "D:\\project\\python\\learning\\spider\\changfen_vpn\\changfen.yml"
-dir_target_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1664420006859.yml"
-dir_target_L_yml = "/home/frank/.config/clash/profiles/1665195083683.yml"
+fs_L_yml = "/home/frank/.config/clash/changfen.yml"
+fs_W_yml = "D:\\project\\python\\learning\\spider\\changfen_vpn\\changfen.yml"
+ft_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1664420006859.yml"
+ft_L_yml = "/home/frank/.config/clash/profiles/1665195083683.yml"
 
-ua = UserAgent()
-headers = {'User-Agent':ua.random}
+class Upcf():
+    def __init__(self,fs_L_yml,fs_W_yml,ft_L_yml,ft_W_yml) -> None:
+        self.ua = UserAgent()
+        self.headers = {'User-Agent':self.ua.random}
+        self.proxies = {'http': 'http://127.0.0.1:7899'}
+        self.os_type = platform.system()
+        self.base_url = "https://www.cfmem.com/"
+        if self.os_type == "Windows":
+            self.fs_yml = fs_W_yml
+            self.ft_yml = ft_W_yml
+        if self.os_type == "Linux":
+            self.fs_yml = fs_L_yml
+            self.ft_yml = ft_L_yml
 
-def get_os_type():
-    return platform.system()
-     
-@retry()
-def save_url_yml(os_type,url,dir_W_yml,dir_L_yml):
-    if os_type == "Windows":
-        dir_yml = dir_W_yml
-    if os_type == "Linux":
-        dir_yml = dir_L_yml
-    requests.packages.urllib3.disable_warnings()
-    req = requests.get(url,verify=False,headers=headers).text
-    with open(dir_yml,"w",encoding="utf-8") as file:
-        file.write(req)
+    def downloadYmlByRequests(self):
+        req = requests.get(self.base_url,headers=self.headers,proxies=self.proxies)
+        html = req.text
+        text_find = etree.HTML(html)
+        cur_url = text_find.xpath('//*[@id="Blog1"]/div[1]/article[1]/div[1]/h2/a/@href')[0]
+        print(cur_url)
+        next_req = requests.get(cur_url)
+        html = next_req.text
+        text_find = etree.HTML(html)
+        #print(text_find.text())
+        clash_url = text_find.xpath('//*[@id="post-body"]/div[6]/span/span/div[2]/span/text()')[0]
+        #print(clash_url)
+        clash_url = re.split("：",clash_url)[-1]
+        #matchurl = re.search('https.*\.yaml',html).group()
+        print(clash_url)
+        requests.packages.urllib3.disable_warnings()
+        req = requests.get(clash_url,verify=False,headers=self.headers,proxies=self.proxies).text
+        with open(self.fs_yml,"w",encoding="utf-8") as file:
+            file.write(req)
 
+    def filterYml(self):
+        lineList = []
+        matchPattern_hk = re.compile(r'香港|台湾|HK|中国|CN')
+        matchPattern_dns = re.compile(r'119.29.29.29')
+        file = open(self.fs_yml,"r",encoding='UTF-8')
+        while 1:
+            line = file.readline()
+            if not line:
+                break
+            elif matchPattern_hk.search(line):
+                pass
+            elif matchPattern_dns.search(line):
+                lineList.append(line.replace("119.29.29.29","218.2.135.1"))
+            else:
+                lineList.append(line)
+        file.close()
+        file = open(self.ft_yml,'w',encoding='UTF-8')
+        for i in lineList:
+            file.write(i)
+        file.close()
+            
+    def isUp(self):
+        cur_date = str(datetime.date.today())
+        if os.path.isfile(self.ft_yml):
+            filemt = time.localtime(os.stat(self.ft_yml).st_mtime)
+            filemt = time.strftime("%Y-%m-%d", filemt)
+            if filemt == cur_date:
+                return True
+            else:
+                return False
+        return False
 
-def get_yml_to_file(dir_W_yml,dir_L_yml):
-    url_base = "https://www.cfmem.com/"
-    req = requests.get(url_base,headers=headers)
-    html = req.text
-    text_find = etree.HTML(html)
-    cur_url = text_find.xpath('//*[@id="Blog1"]/div[1]/article[1]/div[1]/h2/a/@href')[0]
-    print(cur_url)
-    next_req = requests.get(cur_url)
-    html = next_req.text
-    text_find = etree.HTML(html)
-    #print(text_find.text())
-    clash_url = text_find.xpath('//span[@class="cm-comment"]/div[2]/span[2]/text()')
-    #clash_url = re.split("：",clash_url)[-1]
-    #matchurl = re.search('https.*\.yaml',html).group()
-    print(clash_url)
-    os_type = get_os_type()
-    save_url_yml(os_type,clash_url,dir_W_yml,dir_L_yml)
-
-def filter_yml(os_type,dir_W_yml,dir_L_yml,dir_target_W_yml,dir_target_L_yml):
-    lineList = []
-    matchPattern_hk = re.compile(r'香港|台湾|HK|中国|CN')
-    matchPattern_dns = re.compile(r'119.29.29.29')
-    if os_type == "Windows":
-        dir_source_yml = dir_W_yml
-        dir_target_yml = dir_target_W_yml
-    if os_type == "Linux":
-        dir_source_yml = dir_L_yml
-        dir_target_yml = dir_target_L_yml
-    file = open(dir_source_yml,"r",encoding='UTF-8')
-    while 1:
-        line = file.readline()
-        if not line:
-            break
-        elif matchPattern_hk.search(line):
-            pass
-        elif matchPattern_dns.search(line):
-            lineList.append(line.replace("119.29.29.29","114.114.114.114"))
-        else:
-            lineList.append(line)
-    file.close()
-    file = open(dir_target_yml,'w',encoding='UTF-8')
-    for i in lineList:
-        file.write(i)
-    file.close()
-        
-def get_yml_date(os_type,dir_target_W_yml,dir_target_L_yml):
-    if os_type == "Windows":
-        dir = dir_target_W_yml
-    if os_type == "Linux":
-        dir = dir_target_L_yml
-    cur_date = str(datetime.date.today())
-    if os.path.isfile(dir):
-        filemt = time.localtime(os.stat(dir).st_mtime)
-        filemt = time.strftime("%Y-%m-%d", filemt)
-        if filemt == cur_date:
-            return True
-        else:
-            return False
-    return False
-
-def main(dir_W_yml,dir_L_yml,dir_target_W_yml,dir_target_L_yml):
-    os_type = get_os_type()
-    get_yml_to_file(dir_W_yml,dir_L_yml)
-    filter_yml(os_type,dir_W_yml,dir_L_yml,dir_target_W_yml,dir_target_L_yml)
-    print("clash yml file update success!")
+def main():
+    upcf = Upcf(fs_L_yml,fs_W_yml,ft_L_yml,ft_W_yml)
+    upcf.downloadYmlByRequests()
+    upcf.filterYml()
+    ifup = upcf.isUp()
+    if ifup:
+        print("clash yml file update success!")
+    else:
+        print("clash yml file update error!")
     
 if __name__ == "__main__":
-    main(dir_W_yml,dir_L_yml,dir_target_W_yml,dir_target_L_yml)
+    main()
