@@ -25,10 +25,12 @@ class UpFreeNode:
         if self.ostype == "Linux":
             self.fs_yml = fs_L_yml
             self.fd_yml = fd_L_yml
+        self.bigMon = ["01","05","07","08","10","12"]
+        self.smallMon = ["04","06","09","11"]
         self.curYear = datetime.datetime.today().strftime('%Y')
         self.curMonth = datetime.datetime.today().strftime('%m')
         self.curDay = datetime.datetime.today().strftime('%d')
-        self.day = int(self.curDay)-1
+        self.day = int(self.curDay)
         self.ua = UserAgent()
         self.headers = {'User-Agent':self.ua.random}
         self.proxies = {'http': 'http://127.0.0.1:7899'}
@@ -39,7 +41,20 @@ class UpFreeNode:
         self.baseUrl = "https://freenode.me/wp-content/uploads/"
         self.downloadUrl = self.baseUrl + self.curYear + '/' + self.curMonth + '/' + self.curMonth + self.curDay + '.yaml'
         self.req = requests.get(self.downloadUrl)
+        print("Curday url is " + str(self.req.status_code))
         if self.req.status_code != 200:
+            if self.day == "01" and self.curMonth in self.bigMon:
+                self.day = "31"
+            if self.day == "01" and self.curMonth in self.smallMon:
+                self.day = "30"
+            if self.curMonth == "03" and int(self.curYear) % 4 == 0:
+                self.day = "29"
+            else:
+                self.day == "28"
+            if int(self.curMonth) < 10:
+                self.curMonth = "0" + str(int(self.curMonth) - 1)
+            else:
+                self.curMonth = str(int(self.curMonth) - 1)
             self.downloadUrl = self.baseUrl + self.curYear + '/' + self.curMonth + '/' + self.curMonth + self.day + '.yaml'
         else:
             self.downloadUrl = self.downloadUrl
@@ -57,7 +72,7 @@ class UpFreeNode:
             file.write(req)
 
     def preFilterYml(self):
-        os.system('/home/frank/project/python/prefilterfrn.sh')
+        os.system('/home/frank/project/shell/python/prefilterfrn.sh')
 
     def filterYml(self):
         lineList = []

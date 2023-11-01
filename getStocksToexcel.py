@@ -1,7 +1,7 @@
 import easyquotation as eq
 import openpyxl
 
-excelfile = '/home/frank/桌面/股票相关-2023.xlsx'
+excelfile = '/home/frank/project/doc/stock/mystock.xlsx'
 
 class GetStocks:
 
@@ -30,7 +30,7 @@ class GetStocks:
     
 
 if __name__ == "__main__":
-    stocklist = ['600809','600745','603688']
+    stocklist = ['600809','600745']
     for i in stocklist:
         s1 = GetStocks(i)
         s1.printStockInfo()
