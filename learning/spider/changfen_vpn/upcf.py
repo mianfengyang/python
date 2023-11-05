@@ -44,7 +44,7 @@ class Upcf():
         html = next_req.text
         text_find = etree.HTML(html)
         #print(text_find.text())
-        clash_url = text_find.xpath('//*[@id="post-body"]/div[6]/span/span/div[2]/span/text()')[0]
+        clash_url = text_find.xpath('//*[@id="post-body"]/div[6]/span/span/div[3]/span/text()')[0]
         #print(clash_url)
         clash_url = re.split("：",clash_url)[-1]
         #matchurl = re.search('https.*\.yaml',html).group()
