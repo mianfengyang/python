@@ -55,7 +55,7 @@ class UpFreeNode:
                 self.curMonth = "0" + str(int(self.curMonth) - 1)
             else:
                 self.curMonth = self.curMonth
-            if int(self.curDay) < 10:
+            if int(self.curDay) <= 10:
                 self.day = "0" + str(int(self.curDay) - 1)
             else:
                 self.day = str(int(self.curDay) - 1)
