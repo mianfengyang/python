@@ -1,5 +1,4 @@
 import re
-import wget
 import os
 import platform
 import requests
@@ -63,9 +62,6 @@ class UpFreeNode:
         else:
             self.downloadUrl = self.downloadUrl
 
-
-    def getYamlByWget(self):
-        wget.download(self.downloadUrl,out=self.fs_yml)
 
     def getYamlByRequests(self):
         requests.packages.urllib3.disable_warnings()
