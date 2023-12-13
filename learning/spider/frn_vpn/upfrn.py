@@ -77,8 +77,8 @@ class UpFreeNode:
     def filterYml(self):
         lineList = []
         rmnodeline = []
-        matchPattern_filters = re.compile(r'香港|台湾|HK|中国|CN|JP|日本|法国|新加坡|德国')
-        matchPattern_chacha20 = re.compile(r'chacha20')
+        matchPattern_filters = re.compile(r'香港|台湾|中国|日本|法国|新加坡|德国')
+        matchPattern_chacha20 = re.compile(r'cipher: chacha20')
         matchPattern_dns = re.compile(r'119.29.29.29')
         file = open(self.fs_yml,"r",encoding='UTF-8')
         while 1:
@@ -87,8 +87,10 @@ class UpFreeNode:
                 break
             elif matchPattern_filters.search(line):
                 pass
+                #print(line)
             elif matchPattern_chacha20.search(line):
                 rmnodeline.append("-" + line.split("{")[1].split("}")[0].split(",")[0].split(":")[1])
+                #print(line)
             elif matchPattern_dns.search(line):
                 lineList.append(line.replace("119.29.29.29","218.2.135.1"))
             else:
