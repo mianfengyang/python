@@ -77,7 +77,7 @@ class UpFreeNode:
     def filterYml(self):
         lineList = []
         rmnodeline = []
-        matchPattern_filters = re.compile(r'香港|台湾|中国|日本|法国|新加坡|德国')
+        matchPattern_filters = re.compile(r'香港|台湾|中国')
         matchPattern_chacha20 = re.compile(r'cipher: chacha20')
         matchPattern_dns = re.compile(r'119.29.29.29')
         file = open(self.fs_yml,"r",encoding='UTF-8')
