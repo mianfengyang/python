@@ -105,8 +105,6 @@ class UpFreeNode:
 
 if __name__ == "__main__":
     frn = UpFreeNode(fs_L_yml,fs_W_yml,fd_L_yml,fd_W_yml)
-    #frn.getYamlByWget()
     frn.getYamlByRequests()
-    #frn.preFilterYml()
     frn.filterYml()
     print("update success! " + frn.downloadUrl)
