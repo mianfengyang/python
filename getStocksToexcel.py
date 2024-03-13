@@ -39,7 +39,7 @@ class GetStocks:
     
 
 if __name__ == "__main__":
-    stocklist = ['600809','000858','002236']
+    stocklist = ['601127','002281','300274','600809','300394']
     for i in stocklist:
         s1 = GetStocks(i)
         s1.printStockInfo()
