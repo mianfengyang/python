@@ -4,13 +4,11 @@ import os
 import time
 import datetime
 import platform
-
 from lxml import etree
 import requests
 from fake_useragent import UserAgent
 import socket
 import socks
-from retry import retry
 
 socks.set_default_proxy(socks.SOCKS5, "127.0.0.1", 7899)
 socket.socket = socks.socksocket
@@ -18,7 +16,7 @@ socket.socket = socks.socksocket
 fs_L_yml = "/home/frank/.config/clash/changfen.yml"
 fs_W_yml = "D:\\project\\python\\learning\\spider\\changfen_vpn\\changfen.yml"
 ft_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1664420006859.yml"
-ft_L_yml = "/home/frank/.config/clash/profiles/1678421125458.yml"
+ft_L_yml = "/home/frank/.config/clash/profiles/1712995742487.yml"
 
 class Upcf():
     def __init__(self,fs_L_yml,fs_W_yml,ft_L_yml,ft_W_yml) -> None:
