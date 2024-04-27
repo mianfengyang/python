@@ -5,7 +5,7 @@ import datetime
 import time
 
 
-excelfile = '/home/frank/project/doc/stock/mystock.xlsx'
+excelfile = 'mystock.xlsx'
 
 class GetStocks:
 
@@ -39,7 +39,7 @@ class GetStocks:
     
 
 if __name__ == "__main__":
-    stocklist = ['600809','000858','002236']
+    stocklist = ['600809','001203','516090','510310','300260']
     for i in stocklist:
         s1 = GetStocks(i)
         s1.printStockInfo()
