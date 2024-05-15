@@ -5,7 +5,7 @@ import datetime
 import time
 
 
-excelfile = 'mystock.xlsx'
+excelfile = '/home/frank/project/python/mystock.xlsx'
 
 class GetStocks:
 
