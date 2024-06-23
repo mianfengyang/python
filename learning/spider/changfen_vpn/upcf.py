@@ -54,8 +54,10 @@ class Upcf():
 
     def filterYml(self):
         lineList = []
+        rmNode = []
         matchPattern_hk = re.compile(r'香港|台湾|HK|中国|CN')
         matchPattern_dns = re.compile(r'119.29.29.29')
+        matchPattern_chacha20 = re.compile((r'chacha20'))
         file = open(self.fs_yml,"r",encoding='UTF-8')
         while 1:
             line = file.readline()
@@ -63,6 +65,9 @@ class Upcf():
                 break
             elif matchPattern_hk.search(line):
                 pass
+            elif matchPattern_chacha20.search(line):
+                rmNode.append("- " + line.split("{")[1].split("}")[0].split(",")[0].split(":")[1].replace("\"",""))
+                print(rmNode)
             elif matchPattern_dns.search(line):
                 lineList.append(line.replace("119.29.29.29","218.2.135.1"))
             else:
@@ -70,7 +75,8 @@ class Upcf():
         file.close()
         file = open(self.ft_yml,'w',encoding='UTF-8')
         for i in lineList:
-            file.write(i)
+            if i.strip() not in rmNode:
+                file.write(i)
         file.close()
             
     def isUp(self):
