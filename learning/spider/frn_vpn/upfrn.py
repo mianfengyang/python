@@ -8,7 +8,7 @@ import datetime
 
 fs_L_yml = "/home/frank/.config/clash/freenode.yml"
 fs_W_yml = "D:\\project\\python\\learning\\spider\\frn_vpn\\frn.yml"
-fd_L_yml = "/home/frank/.config/clash/profiles/1692090343227.yml"
+fd_L_yml = "/home/frank/.config/clash/profiles/1719710951029.yml"
 fd_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1693528527309.yml"
 
 #downloadUrl = sys.argv[1]
@@ -37,8 +37,8 @@ class UpFreeNode:
             self.day = '0' + str(self.day)
         else:
             self.day = str(self.day)
-        self.baseUrl = "https://freenode.me/wp-content/uploads/"
-        self.downloadUrl = self.baseUrl + self.curYear + '/' + self.curMonth + '/' + self.curMonth + self.curDay + '.yaml'
+        self.baseUrl = "https://freenode.openrunner.net/uploads/"
+        self.downloadUrl = self.baseUrl + self.curYear + self.curMonth + self.curDay + '-clash.yaml'
         self.req = requests.get(self.downloadUrl)
         print("Curday url is " + str(self.req.status_code))
         if self.req.status_code != 200:
@@ -58,7 +58,7 @@ class UpFreeNode:
                 self.day = "0" + str(int(self.curDay) - 1)
             else:
                 self.day = str(int(self.curDay) - 1)
-            self.downloadUrl = self.baseUrl + self.curYear + '/' + self.curMonth + '/' + self.curMonth + self.day + '.yaml'
+            self.downloadUrl = self.baseUrl + self.curYear + self.curMonth + self.day + '-clash.yaml'
         else:
             self.downloadUrl = self.downloadUrl
 
@@ -70,9 +70,6 @@ class UpFreeNode:
         req = req.text
         with open(self.fs_yml,"w",encoding="utf-8") as file:
             file.write(req)
-
-    def preFilterYmlBysh(self):
-        os.system('/home/frank/project/shell/python/prefilterfrn.sh')
 
     def filterYml(self):
         lineList = []
