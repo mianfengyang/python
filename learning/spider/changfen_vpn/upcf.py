@@ -42,9 +42,9 @@ class Upcf():
         html = next_req.text
         text_find = etree.HTML(html)
         #print(text_find.text())
-        clash_url = text_find.xpath('//*[@id="post-body"]/div[5]/span/span/div/span/div[3]/span/text()')[0]
-        #print(clash_url)
-        clash_url = re.split("：",clash_url)[-1]
+        clash_url = text_find.xpath('//*[@id="post-body"]/div/div[4]/div[2]/span/text()')[0]
+        print(clash_url)
+        clash_url = re.split(">",clash_url)[-1]
         #matchurl = re.search('https.*\.yaml',html).group()
         print(clash_url)
         requests.packages.urllib3.disable_warnings()
@@ -66,7 +66,7 @@ class Upcf():
             elif matchPattern_hk.search(line):
                 pass
             elif matchPattern_chacha20.search(line):
-                rmNode.append("- " + line.split("{")[1].split("}")[0].split(",")[0].split(":")[1].replace("\"",""))
+                rmNode.append("- " + line.split(",")[0].split(":")[1].replace("\"",""))
                 #print(rmNode)
             elif matchPattern_dns.search(line):
                 lineList.append(line.replace("119.29.29.29","218.2.135.1"))
