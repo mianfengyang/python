@@ -1,14 +1,16 @@
 import re
-import os
 import platform
 import requests
+import httpx
 from fake_useragent import UserAgent
 import datetime
 
 
-fs_L_yml = "/home/frank/.config/clash/freenode.yml"
+fs_L_yml_frn = "/home/frank/.config/clash/freenode.yml"
+fs_L_yml_opr = "/home/frank/.config/clash/openrunner.yml"
 fs_W_yml = "D:\\project\\python\\learning\\spider\\frn_vpn\\frn.yml"
-fd_L_yml = "/home/frank/.config/clash/profiles/1719710951029.yml"
+fd_L_yml_frn = "/home/frank/.config/clash/profiles/1721973767262.yml"
+fd_L_yml_opr = "/home/frank/.config/clash/profiles/1721976735187.yml"
 fd_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1693528527309.yml"
 
 #downloadUrl = sys.argv[1]
@@ -16,30 +18,29 @@ fd_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1693528527309.yml"
 
 class UpFreeNode:
 
-    def __init__(self,fs_L_yml,fs_W_yml,fd_L_yml,fd_W_yml) -> None:
-        self.ostype = platform.system()
-        if self.ostype == "Windows":
-            self.fs_yml = fs_W_yml
-            self.fd_yml = fd_W_yml
-        if self.ostype == "Linux":
-            self.fs_yml = fs_L_yml
-            self.fd_yml = fd_L_yml
+    def __init__(self,fs_yml,fd_yml) -> None:
+        self.fs_yml = fs_yml
+        self.fd_yml = fd_yml
         self.bigMon = ["01","05","07","08","10","12"]
         self.smallMon = ["04","06","09","11"]
         self.curYear = datetime.datetime.today().strftime('%Y')
         self.curMonth = datetime.datetime.today().strftime('%m')
         self.curDay = datetime.datetime.today().strftime('%d')
         self.day = int(self.curDay)
-        self.ua = UserAgent()
-        self.headers = {'User-Agent':self.ua.random}
-        self.proxies = {'http': 'http://127.0.0.1:7899'}
         if self.day < 10:
             self.day = '0' + str(self.day)
         else:
             self.day = str(self.day)
-        self.baseUrl = "https://freenode.openrunner.net/uploads/"
-        self.downloadUrl = self.baseUrl + self.curYear + self.curMonth + self.curDay + '-clash.yaml'
-        self.req = requests.get(self.downloadUrl)
+        self.baseUrl = "https://www.freeclashnode.com/uploads/"
+        self.backUrl = self.curYear + '/' + self.curMonth + '/' + '3-' + self.curYear + self.curMonth + self.curDay + '.yaml'
+        
+
+    def getDownloadUrl(self):
+        self.ua = UserAgent()
+        self.headers = {'User-Agent':self.ua.random}
+        self.proxies = {'http': 'http://127.0.0.1:7899'}
+        self.downloadUrl = self.baseUrl + self.backUrl
+        self.req = requests.get(self.downloadUrl,headers=self.headers,proxies=self.proxies,verify=False)
         print("Curday url is " + str(self.req.status_code))
         if self.req.status_code != 200:
             if self.curMonth in self.bigMon and self.curDay == "01":
@@ -58,14 +59,16 @@ class UpFreeNode:
                 self.day = "0" + str(int(self.curDay) - 1)
             else:
                 self.day = str(int(self.curDay) - 1)
-            self.downloadUrl = self.baseUrl + self.curYear + self.curMonth + self.day + '-clash.yaml'
+            self.backUrl = self.curYear + '/' + self.curMonth + '/' + '3-' + self.curYear + self.curMonth + self.day + '.yaml'
+            self.downloadUrl = self.baseUrl + self.backUrl
         else:
             self.downloadUrl = self.downloadUrl
-
-
+        return self.downloadUrl
+    
     def getYamlByRequests(self):
         requests.packages.urllib3.disable_warnings()
-        req = requests.get(self.downloadUrl,verify=False,headers=self.headers,proxies=self.proxies)
+        self.downloadUrl = self.getDownloadUrl()
+        req = httpx.get(self.downloadUrl,verify=False,headers=self.headers)
         req.encoding = 'utf-8'
         req = req.text
         with open(self.fs_yml,"w",encoding="utf-8") as file:
@@ -86,7 +89,9 @@ class UpFreeNode:
                 pass
                 #print(line)
             elif matchPattern_chacha20.search(line):
-                rmnodeline.append("- " + line.split(",")[0].split(":")[1].replace("\"","")[0])
+                print(line)
+                rmnodeline.append("-" + line.split(",")[0].split(":")[1])
+                print(rmnodeline)
             elif matchPattern_dns.search(line):
                 lineList.append(line.replace("119.29.29.29","218.2.135.1"))
             else:
@@ -98,9 +103,24 @@ class UpFreeNode:
                 file.write(i)
         file.close()
 
+class UpOpenrunner(UpFreeNode):
+    def __init__(self, fs_yml,fd_yml) -> None:
+        super().__init__(fs_yml, fd_yml)
+        self.baseUrl = "https://freenode.openrunner.net/uploads/"
+        self.backUrl = self.curYear + self.curMonth + self.curDay + '-clash.yaml'
+
+
+
 
 if __name__ == "__main__":
-    frn = UpFreeNode(fs_L_yml,fs_W_yml,fd_L_yml,fd_W_yml)
+    if platform.system() == "Linux":
+        frn = UpFreeNode(fs_L_yml_frn,fd_L_yml_frn)
+        opr = UpOpenrunner(fs_L_yml_opr,fd_L_yml_opr)
+    if platform.system() == "Windows":
+        frn = UpFreeNode(fs_W_yml,fd_W_yml) 
     frn.getYamlByRequests()
     frn.filterYml()
     print("update success! " + frn.downloadUrl)
+    opr.getYamlByRequests()
+    opr.filterYml()
+    print("update success! " + opr.downloadUrl)
