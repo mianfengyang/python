@@ -89,9 +89,9 @@ class UpFreeNode:
                 pass
                 #print(line)
             elif matchPattern_chacha20.search(line):
-                print(line)
+                #print(line)
                 rmnodeline.append("-" + line.split(",")[0].split(":")[1])
-                print(rmnodeline)
+                #print(rmnodeline)
             elif matchPattern_dns.search(line):
                 lineList.append(line.replace("119.29.29.29","218.2.135.1"))
             else:
