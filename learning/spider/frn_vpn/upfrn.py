@@ -1,6 +1,5 @@
 import re
 import platform
-import requests
 import httpx
 from fake_useragent import UserAgent
 import datetime
@@ -9,7 +8,7 @@ import datetime
 fs_L_yml_frn = "/home/frank/.config/clash/freenode.yml"
 fs_L_yml_opr = "/home/frank/.config/clash/openrunner.yml"
 fs_W_yml = "D:\\project\\python\\learning\\spider\\frn_vpn\\frn.yml"
-fd_L_yml_frn = "/home/frank/.config/clash/profiles/1721973767262.yml"
+fd_L_yml_frn = "/home/frank/.config/clash/profiles/1722600464996.yml"
 fd_L_yml_opr = "/home/frank/.config/clash/profiles/1721976735187.yml"
 fd_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1693528527309.yml"
 
@@ -38,9 +37,9 @@ class UpFreeNode:
     def getDownloadUrl(self):
         self.ua = UserAgent()
         self.headers = {'User-Agent':self.ua.random}
-        self.proxies = {'http': 'http://127.0.0.1:7899'}
+        self.proxies = {'http://': 'http://127.0.0.1:7899'}
         self.downloadUrl = self.baseUrl + self.backUrl
-        self.req = requests.get(self.downloadUrl,headers=self.headers,proxies=self.proxies,verify=False)
+        self.req = httpx.get(self.downloadUrl,headers=self.headers,verify=False)
         print("Curday url is " + str(self.req.status_code))
         if self.req.status_code != 200:
             if self.curMonth in self.bigMon and self.curDay == "01":
@@ -66,7 +65,6 @@ class UpFreeNode:
         return self.downloadUrl
     
     def getYamlByRequests(self):
-        requests.packages.urllib3.disable_warnings()
         self.downloadUrl = self.getDownloadUrl()
         req = httpx.get(self.downloadUrl,verify=False,headers=self.headers)
         req.encoding = 'utf-8'
@@ -90,8 +88,9 @@ class UpFreeNode:
                 #print(line)
             elif matchPattern_chacha20.search(line):
                 #print(line)
-                rmnodeline.append("-" + line.split(",")[0].split(":")[1])
-                #print(rmnodeline)
+                #rmnodeline.append("-" + line.split(",")[0].split(":")[1])
+                rmnodeline.append("-" + line.lstrip().replace("-","").split(",")[0].split(":")[1])
+                print(rmnodeline)
             elif matchPattern_dns.search(line):
                 lineList.append(line.replace("119.29.29.29","218.2.135.1"))
             else:
@@ -109,7 +108,10 @@ class UpOpenrunner(UpFreeNode):
         self.baseUrl = "https://freenode.openrunner.net/uploads/"
         self.backUrl = self.curYear + self.curMonth + self.curDay + '-clash.yaml'
 
-
+class UpChangfen(UpFreeNode):
+    def __init__(self, fs_yml, fd_yml) -> None:
+        super().__init__(fs_yml, fd_yml)
+        self.baseUrl = "https://www.cfmem.com/"
 
 
 if __name__ == "__main__":

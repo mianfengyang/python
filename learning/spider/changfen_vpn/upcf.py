@@ -7,15 +7,11 @@ import platform
 from lxml import etree
 import requests
 from fake_useragent import UserAgent
-import socket
-import socks
 
-socks.set_default_proxy(socks.SOCKS5, "127.0.0.1", 7899)
-socket.socket = socks.socksocket
 
-fs_L_yml = "/home/frank/.config/clash/changfen.yml"
-fs_W_yml = "D:\\project\\python\\learning\\spider\\changfen_vpn\\changfen.yml"
-ft_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1664420006859.yml"
+fs_L_yml = "/home/frank/.config/clash/changfen.yaml"
+fs_W_yml = "D:\\project\\python\\learning\\spider\\changfen_vpn\\changfen.yaml"
+ft_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1664420006859.yaml"
 ft_L_yml = "/home/frank/.config/clash/profiles/1712995742487.yml"
 
 class Upcf():
@@ -66,7 +62,7 @@ class Upcf():
             elif matchPattern_hk.search(line):
                 pass
             elif matchPattern_chacha20.search(line):
-                rmNode.append("- " + line.split(",")[0].split(":")[1].replace("\"",""))
+                rmNode.append("-" + line.lstrip().replace("-","").split(",")[0].split(":")[1])
                 #print(rmNode)
             elif matchPattern_dns.search(line):
                 lineList.append(line.replace("119.29.29.29","218.2.135.1"))
