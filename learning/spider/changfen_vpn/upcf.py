@@ -1,6 +1,7 @@
 from genericpath import isfile
 import re
 import os
+import subprocess
 import time
 import datetime
 import platform
@@ -10,9 +11,11 @@ from fake_useragent import UserAgent
 
 
 fs_L_yml = "/home/frank/.config/clash/changfen.yaml"
+fs_L_yml_verge = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/changfen.yaml"
 fs_W_yml = "D:\\project\\python\\learning\\spider\\changfen_vpn\\changfen.yaml"
 ft_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1664420006859.yaml"
-ft_L_yml = "/home/frank/.config/clash/profiles/1712995742487.yml"
+ft_L_yml = "/home/frank/.config/clash/profiles/1723104912814.yml"
+ft_L_yml_verge = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/cf.yaml"
 
 class Upcf():
     def __init__(self,fs_L_yml,fs_W_yml,ft_L_yml,ft_W_yml) -> None:
@@ -62,7 +65,7 @@ class Upcf():
             elif matchPattern_hk.search(line):
                 pass
             elif matchPattern_chacha20.search(line):
-                rmNode.append("-" + line.lstrip().replace("-","").split(",")[0].split(":")[1])
+                rmNode.append("-" + line.replace("-","").split(",")[0].split(":")[1])
                 #print(rmNode)
             elif matchPattern_dns.search(line):
                 lineList.append(line.replace("119.29.29.29","218.2.135.1"))
@@ -71,14 +74,26 @@ class Upcf():
         file.close()
         file = open(self.ft_yml,'w',encoding='UTF-8')
         for i in lineList:
-            if i.strip() not in rmNode:
+            if i not in rmNode:
                 file.write(i)
         file.close()
             
+    def pushFileTogithub(self):
+        targetdir = "/data/project/cfvpn/"
+        sourcefile = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/changfen.yaml"
+        copy = subprocess.run(['cp', sourcefile,targetdir], capture_output=True, text=True)
+        print(copy.stdout)
+        gitadd = subprocess.run(['git', 'add', '.'], capture_output=True, text=True)
+        print(copy.stdout)
+        gitcomit = subprocess.run(['git', 'commit', '-m',"new file"], capture_output=True, text=True)
+        print(gitcomit.stdout)
+        gitpush = subprocess.run(['git', 'push'], capture_output=True, text=True)
+        print(gitpush.stdout)
+
     def isUp(self):
         cur_date = str(datetime.date.today())
         if os.path.isfile(self.ft_yml):
-            filemt = time.localtime(os.stat(self.ft_yml).st_mtime)
+            filemt = time.localtime(os.stat(self.fs_yml).st_mtime)
             filemt = time.strftime("%Y-%m-%d", filemt)
             if filemt == cur_date:
                 return True
@@ -87,9 +102,10 @@ class Upcf():
         return False
 
 def main():
-    upcf = Upcf(fs_L_yml,fs_W_yml,ft_L_yml,ft_W_yml)
+    upcf = Upcf(fs_L_yml_verge,fs_W_yml,ft_L_yml_verge,ft_W_yml)
     upcf.downloadYmlByRequests()
-    upcf.filterYml()
+    #upcf.filterYml()
+    upcf.pushFileTogithub()
     ifup = upcf.isUp()
     if ifup:
         print("clash yml file update success!")

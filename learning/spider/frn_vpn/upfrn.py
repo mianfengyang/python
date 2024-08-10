@@ -3,9 +3,11 @@ import platform
 import httpx
 from fake_useragent import UserAgent
 import datetime
-
+import subprocess
 
 fs_L_yml_frn = "/home/frank/.config/clash/freenode.yml"
+fs_L_yml_verge_opr = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/opr.yaml"
+fs_L_yml_verge_frn = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/frn.yaml"
 fs_L_yml_opr = "/home/frank/.config/clash/openrunner.yml"
 fs_W_yml = "D:\\project\\python\\learning\\spider\\frn_vpn\\frn.yml"
 fd_L_yml_frn = "/home/frank/.config/clash/profiles/1722600464996.yml"
@@ -17,9 +19,9 @@ fd_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1693528527309.yml"
 
 class UpFreeNode:
 
-    def __init__(self,fs_yml,fd_yml) -> None:
+    def __init__(self,fs_yml) -> None:
         self.fs_yml = fs_yml
-        self.fd_yml = fd_yml
+        #self.fd_yml = fd_yml
         self.bigMon = ["01","05","07","08","10","12"]
         self.smallMon = ["04","06","09","11"]
         self.curYear = datetime.datetime.today().strftime('%Y')
@@ -32,6 +34,8 @@ class UpFreeNode:
             self.day = str(self.day)
         self.baseUrl = "https://www.freeclashnode.com/uploads/"
         self.backUrl = self.curYear + '/' + self.curMonth + '/' + '3-' + self.curYear + self.curMonth + self.curDay + '.yaml'
+        self.targetdir = "/data/project/cfvpn/"
+        self.sourcefile = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/frn.yaml"
         
 
     def getDownloadUrl(self):
@@ -72,6 +76,16 @@ class UpFreeNode:
         with open(self.fs_yml,"w",encoding="utf-8") as file:
             file.write(req)
 
+    def pushFileTogithub(self):
+        copy = subprocess.run(['cp', self.sourcefile,self.targetdir], capture_output=True, text=True)
+        print(copy.stdout)
+        gitadd = subprocess.run(['git', 'add', '.'], capture_output=True, text=True)
+        print(gitadd.stdout)
+        gitcomit = subprocess.run(['git', 'commit', '-m',"add file" + self.sourcefile], capture_output=True, text=True)
+        print(gitcomit.stdout)
+        gitpush = subprocess.run(['git', 'push'], capture_output=True, text=True)
+        print(gitpush.stdout)
+
     def filterYml(self):
         lineList = []
         rmnodeline = []
@@ -103,26 +117,23 @@ class UpFreeNode:
         file.close()
 
 class UpOpenrunner(UpFreeNode):
-    def __init__(self, fs_yml,fd_yml) -> None:
-        super().__init__(fs_yml, fd_yml)
+    def __init__(self, fs_yml) -> None:
+        super().__init__(fs_yml)
         self.baseUrl = "https://freenode.openrunner.net/uploads/"
         self.backUrl = self.curYear + self.curMonth + self.curDay + '-clash.yaml'
-
-class UpChangfen(UpFreeNode):
-    def __init__(self, fs_yml, fd_yml) -> None:
-        super().__init__(fs_yml, fd_yml)
-        self.baseUrl = "https://www.cfmem.com/"
-
+        self.sourcefile = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/opr.yaml"
 
 if __name__ == "__main__":
     if platform.system() == "Linux":
-        frn = UpFreeNode(fs_L_yml_frn,fd_L_yml_frn)
-        opr = UpOpenrunner(fs_L_yml_opr,fd_L_yml_opr)
+        frn = UpFreeNode(fs_L_yml_verge_frn)
+        opr = UpOpenrunner(fs_L_yml_verge_opr)
     if platform.system() == "Windows":
         frn = UpFreeNode(fs_W_yml,fd_W_yml) 
     frn.getYamlByRequests()
-    frn.filterYml()
+    frn.pushFileTogithub()
+    #frn.filterYml()
     print("update success! " + frn.downloadUrl)
     opr.getYamlByRequests()
-    opr.filterYml()
+    opr.pushFileTogithub()
+    #opr.filterYml()
     print("update success! " + opr.downloadUrl)
