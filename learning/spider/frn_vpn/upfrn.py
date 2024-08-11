@@ -35,7 +35,8 @@ class UpFreeNode:
         self.baseUrl = "https://www.freeclashnode.com/uploads/"
         self.backUrl = self.curYear + '/' + self.curMonth + '/' + '3-' + self.curYear + self.curMonth + self.curDay + '.yaml'
         self.targetdir = "/data/project/cfvpn/"
-        self.sourcefile = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/frn.yaml"
+        self.sourcedir = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/"
+        self.sfile = "frn.yaml"
         
 
     def getDownloadUrl(self):
@@ -77,11 +78,12 @@ class UpFreeNode:
             file.write(req)
 
     def pushFileTogithub(self):
-        copy = subprocess.run(['cp', self.sourcefile,self.targetdir], capture_output=True, text=True)
+        copy = subprocess.run(['cp', self.sourcedir + self.sfile,self.targetdir], capture_output=True, text=True)
         print(copy.stdout)
-        gitadd = subprocess.run(['git', 'add', '.'], capture_output=True, text=True)
+        gitadd = subprocess.run(['git', 'add', self.sfile], capture_output=True, text=True)
         print(gitadd.stdout)
-        gitcomit = subprocess.run(['git', 'commit', '-m',"add file" + self.sourcefile], capture_output=True, text=True)
+        comit = "update " + self.sfile + ' ' + datetime.datetime.today().strftime("%Y-%m-%d")
+        gitcomit = subprocess.run(['git', 'commit', '-m',comit], capture_output=True, text=True)
         print(gitcomit.stdout)
         gitpush = subprocess.run(['git', 'push'], capture_output=True, text=True)
         print(gitpush.stdout)
@@ -121,7 +123,7 @@ class UpOpenrunner(UpFreeNode):
         super().__init__(fs_yml)
         self.baseUrl = "https://freenode.openrunner.net/uploads/"
         self.backUrl = self.curYear + self.curMonth + self.curDay + '-clash.yaml'
-        self.sourcefile = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/opr.yaml"
+        self.sfile = "opr.yaml"
 
 if __name__ == "__main__":
     if platform.system() == "Linux":

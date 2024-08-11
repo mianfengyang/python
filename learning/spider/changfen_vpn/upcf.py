@@ -11,7 +11,7 @@ from fake_useragent import UserAgent
 
 
 fs_L_yml = "/home/frank/.config/clash/changfen.yaml"
-fs_L_yml_verge = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/changfen.yaml"
+fs_L_yml_verge = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/cf.yaml"
 fs_W_yml = "D:\\project\\python\\learning\\spider\\changfen_vpn\\changfen.yaml"
 ft_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1664420006859.yaml"
 ft_L_yml = "/home/frank/.config/clash/profiles/1723104912814.yml"
@@ -30,6 +30,8 @@ class Upcf():
         if self.os_type == "Linux":
             self.fs_yml = fs_L_yml
             self.ft_yml = ft_L_yml
+        self.sourcedir = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/"
+        self.sfile = "cf.yaml"
 
     def downloadYmlByRequests(self):
         req = requests.get(self.base_url,headers=self.headers,proxies=self.proxies)
@@ -41,9 +43,9 @@ class Upcf():
         html = next_req.text
         text_find = etree.HTML(html)
         #print(text_find.text())
-        clash_url = text_find.xpath('//*[@id="post-body"]/div/div[4]/div[2]/span/text()')[0]
+        clash_url = text_find.xpath('//*[@id="post-body"]/div/div[4]/div[3]/span/text()')[0]
         print(clash_url)
-        clash_url = re.split(">",clash_url)[-1]
+        clash_url = re.split(">",clash_url)[-1].lstrip()
         #matchurl = re.search('https.*\.yaml',html).group()
         print(clash_url)
         requests.packages.urllib3.disable_warnings()
@@ -80,12 +82,13 @@ class Upcf():
             
     def pushFileTogithub(self):
         targetdir = "/data/project/cfvpn/"
-        sourcefile = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/changfen.yaml"
+        sourcefile = self.sourcedir + self.sfile
         copy = subprocess.run(['cp', sourcefile,targetdir], capture_output=True, text=True)
         print(copy.stdout)
-        gitadd = subprocess.run(['git', 'add', '.'], capture_output=True, text=True)
-        print(copy.stdout)
-        gitcomit = subprocess.run(['git', 'commit', '-m',"new file"], capture_output=True, text=True)
+        gitadd = subprocess.run(['git', 'add', self.sfile], capture_output=True, text=True)
+        print(gitadd.stdout)
+        comit = "update " + self.sfile + ' ' + datetime.datetime.today().strftime("%Y-%m-%d")
+        gitcomit = subprocess.run(['git', 'commit', '-m',comit], capture_output=True, text=True)
         print(gitcomit.stdout)
         gitpush = subprocess.run(['git', 'push'], capture_output=True, text=True)
         print(gitpush.stdout)
