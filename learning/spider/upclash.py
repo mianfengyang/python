@@ -20,6 +20,7 @@ class UpFreeNode:
         self.curDay = datetime.datetime.today().strftime('%d')
         self.baseUrl = "https://www.freeclashnode.com/uploads/"
         self.backUrl = self.curYear + '/' + self.curMonth + '/' + '1-' + self.curYear + self.curMonth + self.curDay + '.yaml'
+        self.downloadUrl = None
         self.targetdir = "/data/project/cfvpn/"
         self.sourcedir = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/"
         self.sfile = "frn.yaml"
@@ -73,12 +74,14 @@ class UpFreeNode:
         except Exception as e:
             print(f"can not get downloadUrl, {e}")
         else:
-            print(f"Curday url is {self.downloadUrl} download file......")
-            req = httpx.get(self.downloadUrl,verify=False,headers=self.headers)
-            req.encoding = 'utf-8'
-            req = req.text
+            if "v2rayse" in self.downloadUrl:
+                self.req = httpx.get(self.downloadUrl,headers=self.headers,proxies=self.proxies)
+            else:
+                self.req = httpx.get(self.downloadUrl,verify=False,headers=self.headers)
+            self.req.encoding = 'utf-8'
+            self.req = self.req.text
             with open(self.fs_yml,"w",encoding="utf-8") as file:
-                file.write(req)
+                file.write(self.req)
             print(f"Download success and wirte to file {self.sfile}")
 
     def gitAddCommit(self):
@@ -125,6 +128,7 @@ class UpFreeNode:
         file.close()
 
     def run(self):
+        print(f"=============================== Up {type(self).__name__} ===============================")
         self.getYamlByRequests()
         self.gitAddCommit()
 
@@ -146,28 +150,28 @@ class UpChangfen(UpFreeNode):
 
     def getDownloadUrl(self):
         try:
-            req = httpx.get(self.baseUrl,headers=self.headers,proxies=self.proxies)
+            self.req = httpx.get(self.baseUrl,headers=self.headers,proxies=self.proxies)
         except Exception as e:
             print(f"Query {self.baseUrl} failed {e}")
         else:
-            html = req.text
+            self.html = self.req.text
             #print(html)
             with open(self.testfile,"w",encoding="utf-8") as cfhtml:
-                cfhtml.write(html)
-            text_find = etree.HTML(html)
-        try:
-            cur_url = text_find.xpath('(//a[contains(@title,"2024")])[1]/@href')[0]
-            #print(cur_url)
-        except Exception as e:
-            print(f"Invalid url check xpath error code: {e}")
-        else:
-            next_req = httpx.get(cur_url)
-            html = next_req.text
-            text_find = etree.HTML(html)
-            #print(text_find.text())
-            self.downloadUrl = text_find.xpath('//span[contains(.,"mihomo")][1]/text()')[0]
-            self.downloadUrl = re.split(">",self.downloadUrl)[-1].lstrip()
-            print(f"clash url is {self.downloadUrl}")
+                cfhtml.write(self.html)
+            try:
+                self.text_find = etree.HTML(self.html)
+                self.cur_url = self.text_find.xpath('//a[contains(@title,"2024")]/@href')[0]
+                #print(cur_url)
+            except Exception as e:
+                print(f"Invalid url check xpath error code: {e}")
+            else:
+                self.next_req = httpx.get(self.cur_url)
+                self.html = self.next_req.text
+                self.text_find = etree.HTML(self.html)
+                #print(text_find.text())
+                self.downloadUrl = self.text_find.xpath('//span[contains(.,"mihomo")][1]/text()')[0]
+                self.downloadUrl = re.split(">",self.downloadUrl)[-1].lstrip()
+                print(f"clash url is {self.downloadUrl}")
         return self.downloadUrl
 
 def gitPush():
@@ -207,10 +211,10 @@ if __name__ == "__main__":
     if platform.system() == "Windows":
         frn = UpFreeNode(fs_W_yml) 
     tfrn.start()
-    topr.start()
-    tcf.start()
     tfrn.join()
+    topr.start()
     topr.join()
+    tcf.start()
     tcf.join()
     gitPush()
     
