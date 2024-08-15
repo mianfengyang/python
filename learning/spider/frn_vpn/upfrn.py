@@ -4,6 +4,7 @@ import httpx
 from fake_useragent import UserAgent
 import datetime
 import subprocess
+import os
 
 fs_L_yml_frn = "/home/frank/.config/clash/freenode.yml"
 fs_L_yml_verge_opr = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/opr.yaml"
@@ -33,16 +34,19 @@ class UpFreeNode:
         else:
             self.day = str(self.day)
         self.baseUrl = "https://www.freeclashnode.com/uploads/"
-        self.backUrl = self.curYear + '/' + self.curMonth + '/' + '3-' + self.curYear + self.curMonth + self.curDay + '.yaml'
+        self.backUrl = self.curYear + '/' + self.curMonth + '/' + '1-' + self.curYear + self.curMonth + self.curDay + '.yaml'
         self.targetdir = "/data/project/cfvpn/"
         self.sourcedir = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/"
         self.sfile = "frn.yaml"
+        self.soucefile = self.sourcedir + self.sfile
         
-
-    def getDownloadUrl(self):
         self.ua = UserAgent()
         self.headers = {'User-Agent':self.ua.random}
         self.proxies = {'http://': 'http://127.0.0.1:7899'}
+
+        
+
+    def getDownloadUrl(self):
         self.downloadUrl = self.baseUrl + self.backUrl
         self.req = httpx.get(self.downloadUrl,headers=self.headers,verify=False)
         print("Curday url is " + str(self.req.status_code))
@@ -63,7 +67,7 @@ class UpFreeNode:
                 self.day = "0" + str(int(self.curDay) - 1)
             else:
                 self.day = str(int(self.curDay) - 1)
-            self.backUrl = self.curYear + '/' + self.curMonth + '/' + '3-' + self.curYear + self.curMonth + self.day + '.yaml'
+            self.backUrl = self.curYear + '/' + self.curMonth + '/' + '1-' + self.curYear + self.curMonth + self.day + '.yaml'
             self.downloadUrl = self.baseUrl + self.backUrl
         else:
             self.downloadUrl = self.downloadUrl
@@ -78,15 +82,20 @@ class UpFreeNode:
             file.write(req)
 
     def pushFileTogithub(self):
-        copy = subprocess.run(['cp', self.sourcedir + self.sfile,self.targetdir], capture_output=True, text=True)
-        print(copy.stdout)
-        gitadd = subprocess.run(['git', 'add', self.sfile], capture_output=True, text=True)
-        print(gitadd.stdout)
+        copy = subprocess.run(['cp', self.sourcefile,self.targetdir])
+        if copy:
+            print("copy file success")
+        os.chdir(self.targetdir)
+        gitadd = subprocess.run(['git', 'add', self.sfile],text=False,capture_output=False)
+        if gitadd:
+            print(f"git add {self.sfile}")
         comit = "update " + self.sfile + ' ' + datetime.datetime.today().strftime("%Y-%m-%d")
-        gitcomit = subprocess.run(['git', 'commit', '-m',comit], capture_output=True, text=True)
-        print(gitcomit.stdout)
-        gitpush = subprocess.run(['git', 'push'], capture_output=True, text=True)
-        print(gitpush.stdout)
+        gitcomit = subprocess.run(['git', 'commit', '-m',comit])
+        if gitcomit:
+            print("git comit success")
+        gitpush = subprocess.run(['git', 'push'])
+        if gitpush:
+            print("git push success")
 
     def filterYml(self):
         lineList = []

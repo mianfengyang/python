@@ -32,24 +32,26 @@ class Upcf():
             self.ft_yml = ft_L_yml
         self.sourcedir = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/"
         self.sfile = "cf.yaml"
+        self.sourcefile = self.sourcedir + self.sfile
+        self.targetdir = "/data/project/cfvpn/"
 
     def downloadYmlByRequests(self):
         req = requests.get(self.base_url,headers=self.headers,proxies=self.proxies)
         html = req.text
         text_find = etree.HTML(html)
-        cur_url = text_find.xpath('//*[@id="Blog1"]/div[1]/article[1]/div[1]/h2/a/@href')[0]
+        cur_url = text_find.xpath('(//a[contains(@title,"2024")])[1]/@href')[0]
         print(cur_url)
         next_req = requests.get(cur_url)
         html = next_req.text
         text_find = etree.HTML(html)
         #print(text_find.text())
-        clash_url = text_find.xpath('//*[@id="post-body"]/div/div[4]/div[3]/span/text()')[0]
+        clash_url = text_find.xpath('//span[contains(.,"mihomo")][1]/text()')[0]
         print(clash_url)
         clash_url = re.split(">",clash_url)[-1].lstrip()
         #matchurl = re.search('https.*\.yaml',html).group()
         print(clash_url)
         requests.packages.urllib3.disable_warnings()
-        req = requests.get(clash_url,verify=False,headers=self.headers,proxies=self.proxies).text
+        req = requests.get(clash_url,headers=self.headers,proxies=self.proxies).text
         with open(self.fs_yml,"w",encoding="utf-8") as file:
             file.write(req)
 
@@ -81,17 +83,20 @@ class Upcf():
         file.close()
             
     def pushFileTogithub(self):
-        targetdir = "/data/project/cfvpn/"
-        sourcefile = self.sourcedir + self.sfile
-        copy = subprocess.run(['cp', sourcefile,targetdir], capture_output=True, text=True)
-        print(copy.stdout)
-        gitadd = subprocess.run(['git', 'add', self.sfile], capture_output=True, text=True)
-        print(gitadd.stdout)
+        copy = subprocess.run(['cp', self.sourcefile,self.targetdir],text=True,capture_output=True)
+        if not copy.returncode:
+            print("copy file success")
+        os.chdir(self.targetdir)
+        gitadd = subprocess.run(['git', 'add', self.sfile],text=True,capture_output=True)
+        if not gitadd.returncode:
+            print(f"git add {self.sfile}")
         comit = "update " + self.sfile + ' ' + datetime.datetime.today().strftime("%Y-%m-%d")
-        gitcomit = subprocess.run(['git', 'commit', '-m',comit], capture_output=True, text=True)
-        print(gitcomit.stdout)
-        gitpush = subprocess.run(['git', 'push'], capture_output=True, text=True)
-        print(gitpush.stdout)
+        gitcomit = subprocess.run(['git', 'commit', '-m',comit],text=True,capture_output=True)
+        if not gitcomit.returncode:
+            print("git comit success")
+        gitpush = subprocess.run(['git', 'push'],text=True,capture_output=True)
+        if not gitpush.returncode:
+            print("git push success")
 
     def isUp(self):
         cur_date = str(datetime.date.today())
