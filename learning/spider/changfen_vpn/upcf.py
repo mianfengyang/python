@@ -39,7 +39,7 @@ class Upcf():
         req = requests.get(self.base_url,headers=self.headers,proxies=self.proxies)
         html = req.text
         text_find = etree.HTML(html)
-        cur_url = text_find.xpath('(//a[contains(@title,"2024")])[1]/@href')[0]
+        cur_url = text_find.xpath('(//h2/a[contains(@title,"2024")])[1]/@href')[0]
         print(cur_url)
         next_req = requests.get(cur_url)
         html = next_req.text

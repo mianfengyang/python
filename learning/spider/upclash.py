@@ -62,10 +62,8 @@ class UpFreeNode:
                 self.day = str(int(self.curDay) - 1)
             self.backUrl = self.curYear + '/' + self.curMonth + '/' + '1-' + self.curYear + self.curMonth + self.day + '.yaml'
             self.downloadUrl = self.baseUrl + self.backUrl
-            print(f"Curday url is {str(self.req.status_code)} use lastday {self.downloadUrl}")
         else:
             self.downloadUrl = self.downloadUrl
-            print(f"Curday url is {str(self.req.status_code)} use {self.downloadUrl}")
         return self.downloadUrl
     
     def getYamlByRequests(self):
@@ -74,6 +72,7 @@ class UpFreeNode:
         except Exception as e:
             print(f"can not get downloadUrl, {e}")
         else:
+            print(f"DownloadUrl is {self.downloadUrl}")
             if "v2rayse" in self.downloadUrl:
                 self.req = httpx.get(self.downloadUrl,headers=self.headers,proxies=self.proxies)
             else:
@@ -160,7 +159,7 @@ class UpChangfen(UpFreeNode):
                 cfhtml.write(self.html)
             try:
                 self.text_find = etree.HTML(self.html)
-                self.cur_url = self.text_find.xpath('//a[contains(@title,"2024")]/@href')[0]
+                self.cur_url = self.text_find.xpath('(//h2/a[contains(@title,"2024")])[1]/@href')[0]
                 #print(cur_url)
             except Exception as e:
                 print(f"Invalid url check xpath error code: {e}")
@@ -169,9 +168,8 @@ class UpChangfen(UpFreeNode):
                 self.html = self.next_req.text
                 self.text_find = etree.HTML(self.html)
                 #print(text_find.text())
-                self.downloadUrl = self.text_find.xpath('//span[contains(.,"mihomo")][1]/text()')[0]
+                self.downloadUrl = self.text_find.xpath('(//span[contains(.,"mihomo")])[1]/text()')[0]
                 self.downloadUrl = re.split(">",self.downloadUrl)[-1].lstrip()
-                print(f"clash url is {self.downloadUrl}")
         return self.downloadUrl
 
 def gitPush():
@@ -191,6 +189,11 @@ def upopr(fs):
     opr = UpOpenrunner(fs)
     opr.run()
 
+def upAll(ins,fs):
+    t = ins(fs)
+    t.run()
+
+
 if __name__ == "__main__":
     fs_L_c4w_frn = "/home/frank/.config/clash/freenode.yaml"
     fs_L_c4w_opr = "/home/frank/.config/clash/openrunner.yaml"
@@ -207,7 +210,6 @@ if __name__ == "__main__":
         tfrn = Thread(target=upfrn,args=(fs_L_verge_frn,))
         topr = Thread(target=upopr,args=(fs_L_verge_opr,))
         tcf = Thread(target=upcf,args=(fs_L_verge_cf,))
-        
     if platform.system() == "Windows":
         frn = UpFreeNode(fs_W_yml) 
     tfrn.start()
