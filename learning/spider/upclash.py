@@ -73,7 +73,8 @@ class UpFreeNode:
             print(f"can not get downloadUrl, {e}")
         else:
             print(f"DownloadUrl is {self.downloadUrl}")
-            if "v2rayse" in self.downloadUrl:
+            if "v2rayse" or "github" in self.downloadUrl:
+                
                 self.req = httpx.get(self.downloadUrl,headers=self.headers,proxies=self.proxies)
             else:
                 self.req = httpx.get(self.downloadUrl,verify=False,headers=self.headers)
@@ -131,13 +132,25 @@ class UpFreeNode:
         self.getYamlByRequests()
         self.gitAddCommit()
 
-class UpOpenrunner(UpFreeNode):
+class Upclashfans(UpFreeNode):
     def __init__(self, fs_yml) -> None:
         super().__init__(fs_yml)
-        self.baseUrl = "https://freenode.openrunner.net/uploads/"
-        self.backUrl = self.curYear + self.curMonth + self.curDay + '-clash.yaml'
-        self.sfile = "opr.yaml"
+        self.baseUrl = "https://clashfans.github.io/uploads/"
+        self.backUrl = self.curYear + '/' + self.curMonth + '/3-' + self.curYear + self.curMonth + self.curDay + '.yaml'
+        self.sfile = "cfs.yaml"
         self.sourcefile = self.sourcedir + self.sfile
+
+class Upcgh(UpFreeNode):
+    def __init__(self, fs_yml):
+        super().__init__(fs_yml)
+        self.baseUrl = "https://clashgithub.com/wp-content/uploads/rss/"
+        self.backUrl = self.curYear + self.curMonth + self.curDay + '.yml'
+        self.sfile = "cgh.yaml"
+        self.sourcefile = self.sourcedir + self.sfile
+        self.downloadUrl = self.baseUrl + self.backUrl
+
+    def getDownloadUrl(self):
+        return self.downloadUrl 
 
 class UpChangfen(UpFreeNode):
     def __init__(self, fs_yml) -> None:
@@ -159,7 +172,7 @@ class UpChangfen(UpFreeNode):
                 cfhtml.write(self.html)
             try:
                 self.text_find = etree.HTML(self.html)
-                self.cur_url = self.text_find.xpath('(//h2/a[contains(@title,"2024")])[1]/@href')[0]
+                self.cur_url = self.text_find.xpath('(//h2/a//@href)[1]')[0]
                 #print(cur_url)
             except Exception as e:
                 print(f"Invalid url check xpath error code: {e}")
@@ -185,9 +198,13 @@ def upfrn(fs):
     frn = UpFreeNode(fs)
     frn.run()
     
-def upopr(fs):
-    opr = UpOpenrunner(fs)
-    opr.run()
+def upcfs(fs):
+    cfs = Upclashfans(fs)
+    cfs.run()
+
+def upcgh(fs):
+    cgithub = Upcgh(fs)
+    cgithub.run()
 
 def upAll(ins,fs):
     t = ins(fs)
@@ -198,25 +215,27 @@ if __name__ == "__main__":
     fs_L_c4w_frn = "/home/frank/.config/clash/freenode.yaml"
     fs_L_c4w_opr = "/home/frank/.config/clash/openrunner.yaml"
     fs_L_c4w_cf = "/home/frank/.config/clash/changfen.yaml"
-    fs_L_verge_opr = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/opr.yaml"
+    fs_L_verge_cfs = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/cfs.yaml"
     fs_L_verge_frn = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/frn.yaml"
     fs_L_verge_cf = "/home/frank/.local/share/io.github.clash-verge-rev.clash-verge-rev/cf.yaml"
     fs_W_yml = "D:\\project\\python\\learning\\spider\\frn_vpn\\frn.yml"
     fd_L_c4w_frn = "/home/frank/.config/clash/profiles/1722600464996.yml"
     fd_L_c4w_opr = "/home/frank/.config/clash/profiles/1721976735187.yml"
+    fd_L_c4w_opr = "/home/frank/.config/clash/profiles/1721976735187.yml"
+
     fd_W_yml = "C:\\Users\\frank\\.config\\clash\\profiles\\1693528527309.yml"
     
     if platform.system() == "Linux":
         tfrn = Thread(target=upfrn,args=(fs_L_verge_frn,))
-        topr = Thread(target=upopr,args=(fs_L_verge_opr,))
         tcf = Thread(target=upcf,args=(fs_L_verge_cf,))
+        tcfs = Thread(target=upcfs,args=(fs_L_verge_cfs,))
     if platform.system() == "Windows":
         frn = UpFreeNode(fs_W_yml) 
     tfrn.start()
     tfrn.join()
-    topr.start()
-    topr.join()
     tcf.start()
     tcf.join()
+    tcfs.start()
+    tcfs.join()
     gitPush()
     
