@@ -73,9 +73,8 @@ class UpFreeNode:
             print(f"can not get downloadUrl, {e}")
         else:
             print(f"DownloadUrl is {self.downloadUrl}")
-            if "v2rayse" or "github" in self.downloadUrl:
-                
-                self.req = httpx.get(self.downloadUrl,headers=self.headers,proxies=self.proxies)
+            if "github" in self.downloadUrl:
+                self.req = httpx.get(url=self.downloadUrl,headers=self.headers,proxies=self.proxies)
             else:
                 self.req = httpx.get(self.downloadUrl,verify=False,headers=self.headers)
             self.req.encoding = 'utf-8'
@@ -135,7 +134,7 @@ class UpFreeNode:
 class Upclashfans(UpFreeNode):
     def __init__(self, fs_yml) -> None:
         super().__init__(fs_yml)
-        self.baseUrl = "https://clashfans.github.io/uploads/"
+        self.baseUrl = "https://www.freeclashnode.com/uploads/"
         self.backUrl = self.curYear + '/' + self.curMonth + '/3-' + self.curYear + self.curMonth + self.curDay + '.yaml'
         self.sfile = "cfs.yaml"
         self.sourcefile = self.sourcedir + self.sfile
@@ -162,7 +161,7 @@ class UpChangfen(UpFreeNode):
 
     def getDownloadUrl(self):
         try:
-            self.req = httpx.get(self.baseUrl,headers=self.headers,proxies=self.proxies)
+            self.req = httpx.get(url=self.baseUrl,headers=self.headers)
         except Exception as e:
             print(f"Query {self.baseUrl} failed {e}")
         else:
