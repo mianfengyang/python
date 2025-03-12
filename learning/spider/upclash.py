@@ -170,13 +170,14 @@ class UpChangfen(UpFreeNode):
             cfhtml.write(self.html)
         self.text_find = etree.HTML(self.html)
         self.cur_url = self.text_find.xpath('(//h2/a//@href)[1]')[0]
-        print(self.cur_url)
+        #print(self.cur_url)
         self.next_req = httpx.get(self.cur_url)
         self.next_html = self.next_req.text
         self.text_find = etree.HTML(self.next_html)
         #print(self.text_find.text())
         self.downloadUrl = self.text_find.xpath('(//span[contains(.,"mihomo")])[1]/text()')[0]
         self.downloadUrl = re.split(">",self.downloadUrl)[-1].lstrip()
+        print("Download Url is: " + self.downloadUrl)
         return self.downloadUrl
 
 def gitPush():
