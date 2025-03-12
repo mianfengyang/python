@@ -161,27 +161,22 @@ class UpChangfen(UpFreeNode):
 
     def getDownloadUrl(self):
         try:
-            self.req = httpx.get(url=self.baseUrl,headers=self.headers)
+            self.req = httpx.get(url=self.baseUrl,headers=self.headers,follow_redirects=True)
         except Exception as e:
             print(f"Query {self.baseUrl} failed {e}")
-        else:
-            self.html = self.req.text
-            #print(html)
-            with open(self.testfile,"w",encoding="utf-8") as cfhtml:
-                cfhtml.write(self.html)
-            try:
-                self.text_find = etree.HTML(self.html)
-                self.cur_url = self.text_find.xpath('(//h2/a//@href)[1]')[0]
-                #print(cur_url)
-            except Exception as e:
-                print(f"Invalid url check xpath error code: {e}")
-            else:
-                self.next_req = httpx.get(self.cur_url)
-                self.html = self.next_req.text
-                self.text_find = etree.HTML(self.html)
-                #print(text_find.text())
-                self.downloadUrl = self.text_find.xpath('(//span[contains(.,"mihomo")])[1]/text()')[0]
-                self.downloadUrl = re.split(">",self.downloadUrl)[-1].lstrip()
+        self.html = self.req.text
+        #print(self.html)
+        with open(self.testfile,"w",encoding="utf-8") as cfhtml:
+            cfhtml.write(self.html)
+        self.text_find = etree.HTML(self.html)
+        self.cur_url = self.text_find.xpath('(//h2/a//@href)[1]')[0]
+        print(self.cur_url)
+        self.next_req = httpx.get(self.cur_url)
+        self.next_html = self.next_req.text
+        self.text_find = etree.HTML(self.next_html)
+        #print(self.text_find.text())
+        self.downloadUrl = self.text_find.xpath('(//span[contains(.,"mihomo")])[1]/text()')[0]
+        self.downloadUrl = re.split(">",self.downloadUrl)[-1].lstrip()
         return self.downloadUrl
 
 def gitPush():
