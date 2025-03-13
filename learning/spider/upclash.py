@@ -71,17 +71,15 @@ class UpFreeNode:
             self.downloadUrl = self.getDownloadUrl()
         except Exception as e:
             print(f"can not get downloadUrl, {e}")
-        else:
-            print(f"DownloadUrl is {self.downloadUrl}")
-            if "github" in self.downloadUrl:
-                self.req = httpx.get(url=self.downloadUrl,headers=self.headers,proxies=self.proxies)
-            else:
-                self.req = httpx.get(self.downloadUrl,verify=False,headers=self.headers)
-            self.req.encoding = 'utf-8'
-            self.req = self.req.text
-            with open(self.fs_yml,"w",encoding="utf-8") as file:
-                file.write(self.req)
-            print(f"Download success and wirte to file {self.sfile}")
+        print(f"DownloadUrl is {self.downloadUrl}")
+        #if "github" in self.downloadUrl:
+        self.req = httpx.get(url=self.downloadUrl,headers=self.headers,proxies=self.proxies,follow_redirects=True,verify=False,timeout=None)
+        #else:
+        #    self.req = httpx.get(self.downloadUrl,headers=self.headers,follow_redirects=True)
+        self.req.encoding = 'utf-8'
+        with open(self.fs_yml,"w",encoding="utf-8") as file:
+            file.write(self.req.text)
+        print(f"Download success and wirte to file {self.sfile}")
 
     def gitAddCommit(self):
         copy = subprocess.run(['cp', self.sourcefile,self.targetdir],text=True,capture_output=True)
@@ -177,7 +175,7 @@ class UpChangfen(UpFreeNode):
         #print(self.text_find.text())
         self.downloadUrl = self.text_find.xpath('(//span[contains(.,"mihomo")])[1]/text()')[0]
         self.downloadUrl = re.split(">",self.downloadUrl)[-1].lstrip()
-        print("Download Url is: " + self.downloadUrl)
+        #print("Download Url is: " + self.downloadUrl)
         return self.downloadUrl
 
 def gitPush():
