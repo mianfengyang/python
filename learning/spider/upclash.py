@@ -73,7 +73,7 @@ class UpFreeNode:
             print(f"can not get downloadUrl, {e}")
         print(f"DownloadUrl is {self.downloadUrl}")
         #if "github" in self.downloadUrl:
-        self.req = httpx.get(url=self.downloadUrl,headers=self.headers,proxies=self.proxies,follow_redirects=True,verify=False,timeout=None)
+        self.req = httpx.get(url=self.downloadUrl,headers=self.headers,follow_redirects=True,verify=False,timeout=None)
         #else:
         #    self.req = httpx.get(self.downloadUrl,headers=self.headers,follow_redirects=True)
         self.req.encoding = 'utf-8'
