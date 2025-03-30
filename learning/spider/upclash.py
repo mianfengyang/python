@@ -38,7 +38,7 @@ class UpFreeNode:
         else:
             self.day = str(self.day)
         self.downloadUrl = self.baseUrl + self.backUrl
-        self.req = requests.get(url=self.downloadUrl,headers=self.headers,verify=False,timeout=None,proxies=None)
+        self.req = requests.get(url=self.downloadUrl,headers=self.headers,timeout=5,proxies=None)
         if self.req.status_code != 200:
             if self.curMonth in self.bigMon and self.curDay == "01":
                 self.day = "30"
@@ -65,7 +65,13 @@ class UpFreeNode:
     def getYamlByRequests(self):
         self.downloadUrl = self.getDownloadUrl()
         print(f"DownloadUrl is {self.downloadUrl}")
-        self.req = requests.get(url=self.downloadUrl,headers=self.headers,verify=False,timeout=None,proxies=None)
+        if "yaml" or "http" not in self.downloadUrl:
+            print("Get download url failed")
+            return
+        self.req = requests.get(url=self.downloadUrl,headers=self.headers,timeout=15)
+        if self.req.status_code != 200:
+            print(f"Get yaml failed, status code is {self.req.status_code}")
+            return
         self.req.encoding = 'utf-8'
         self.req = self.req.text
         with open(self.fs_yml,"w",encoding="utf-8") as file:
@@ -114,16 +120,26 @@ class UpChangfen(UpFreeNode):
         self.baseUrl = "https://www.cfmem.com/"
 
     def getDownloadUrl(self):
-        self.req = requests.get(url=self.baseUrl,headers=self.headers,verify=False,timeout=None,proxies=None)
+        self.req = requests.get(url=self.baseUrl,headers=self.headers,timeout=10)
+        if self.req.status_code != 200:
+            print(f"Get url failed, status code is {self.req.status_code}")
+            return
+
         self.html = self.req.text
         self.text_find = etree.HTML(self.html)
         self.cur_url = self.text_find.xpath('(//h2/a/@href)[1]')[0]
-        print(self.cur_url)
-        self.next_req = requests.get(url=self.cur_url,headers=self.headers,verify=False,timeout=None,proxies=None)
+        #print(self.cur_url)
+        self.next_req = requests.get(url=self.cur_url,headers=self.headers,timeout=10)
+        if self.next_req.status_code != 200:
+            print(f"Get url failed, status code is {self.next_req.status_code}")
+            return
         self.html = self.next_req.text
         self.text_find = etree.HTML(self.html)
         #print(text_find.text())
         self.downloadUrl = self.text_find.xpath('//span[contains(.,"mihomo")]/text()')[0]
+        if self.downloadUrl == "":
+            print("Get Dowloadurl failed")
+            return None
         self.downloadUrl = re.split(">",self.downloadUrl)[-1].lstrip()
         #print(self.downloadUrl)
         return self.downloadUrl
