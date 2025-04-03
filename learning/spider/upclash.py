@@ -1,6 +1,5 @@
 import re
-import os
-import subprocess
+
 import platform
 import datetime
 import requests
@@ -15,7 +14,6 @@ class UpFreeNode:
 
     def __init__(self,fs_yml) -> None:
         self.fs_yml = fs_yml
-        #self.fd_yml = fd_yml
         self.curYear = datetime.datetime.today().strftime('%Y')
         self.curMonth = datetime.datetime.today().strftime('%m')
         self.curDay = datetime.datetime.today().strftime('%d')
@@ -25,7 +23,10 @@ class UpFreeNode:
         
         self.ua = UserAgent()
         self.headers = {'User-Agent':self.ua.random}
-        self.proxies = {'http://': 'http://127.0.0.1:7899','https://': 'http://127.0.0.1:7899'}
+        self.proxies = {
+                        "http": "http://127.0.0.1:7899",
+                        "https": "http://127.0.0.1:7899"
+                        }
 
 
 
@@ -38,7 +39,7 @@ class UpFreeNode:
         else:
             self.day = str(self.day)
         self.downloadUrl = self.baseUrl + self.backUrl
-        self.req = requests.get(url=self.downloadUrl,headers=self.headers,timeout=5,proxies=None)
+        self.req = requests.get(url=self.downloadUrl,headers=self.headers,verify=False)
         if self.req.status_code != 200:
             if self.curMonth in self.bigMon and self.curDay == "01":
                 self.day = "30"
@@ -64,18 +65,15 @@ class UpFreeNode:
     
     def getYamlByRequests(self):
         self.downloadUrl = self.getDownloadUrl()
-        print(f"DownloadUrl is {self.downloadUrl}")
-        if "yaml" or "http" not in self.downloadUrl:
+        if "yaml" not in self.downloadUrl:
             print("Get download url failed")
             return
-        self.req = requests.get(url=self.downloadUrl,headers=self.headers,timeout=15)
-        if self.req.status_code != 200:
-            print(f"Get yaml failed, status code is {self.req.status_code}")
-            return
+        print(f"DownloadUrl is {self.downloadUrl}")
+        self.req = requests.get(url=self.downloadUrl,headers=self.headers,verify=False,timeout=None)
         self.req.encoding = 'utf-8'
-        self.req = self.req.text
+        self.req_text = self.req.text
         with open(self.fs_yml,"w",encoding="utf-8") as file:
-            file.write(self.req)
+            file.write(self.req_text)
         print(f"Write file {self.fs_yml} success")
 
     def filterYml(self):
@@ -111,16 +109,15 @@ class UpFreeNode:
     def run(self):
         print(f"=============================== Up {type(self).__name__} ===============================")
         self.getYamlByRequests()
-        #self.gitAddCommit()
 
 
 class UpChangfen(UpFreeNode):
     def __init__(self, fs_yml) -> None:
         super().__init__(fs_yml)
-        self.baseUrl = "https://www.cfmem.com/"
+        self.baseUrl = "https://www.cfmem.com"
 
     def getDownloadUrl(self):
-        self.req = requests.get(url=self.baseUrl,headers=self.headers,timeout=10)
+        self.req = requests.get(url=self.baseUrl,headers=self.headers,verify=False,timeout=None)
         if self.req.status_code != 200:
             print(f"Get url failed, status code is {self.req.status_code}")
             return
@@ -129,7 +126,7 @@ class UpChangfen(UpFreeNode):
         self.text_find = etree.HTML(self.html)
         self.cur_url = self.text_find.xpath('(//h2/a/@href)[1]')[0]
         #print(self.cur_url)
-        self.next_req = requests.get(url=self.cur_url,headers=self.headers,timeout=10)
+        self.next_req = requests.get(url=self.cur_url,headers=self.headers,verify=False,timeout=None)
         if self.next_req.status_code != 200:
             print(f"Get url failed, status code is {self.next_req.status_code}")
             return
@@ -137,17 +134,10 @@ class UpChangfen(UpFreeNode):
         self.text_find = etree.HTML(self.html)
         #print(text_find.text())
         self.downloadUrl = self.text_find.xpath('//span[contains(.,"mihomo")]/text()')[0]
-        if self.downloadUrl == "":
-            print("Get Dowloadurl failed")
-            return None
         self.downloadUrl = re.split(">",self.downloadUrl)[-1].lstrip()
         #print(self.downloadUrl)
         return self.downloadUrl
 
-def gitPush():
-    os.chdir("/data/project/cfvpn")
-    if subprocess.run(['git','push'],text=True,capture_output=True).returncode == 0:
-        print("git push success")
 
 def upcf(fs):
     cf = UpChangfen(fs)
