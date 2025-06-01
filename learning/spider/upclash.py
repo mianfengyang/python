@@ -3,8 +3,7 @@ import re
 import platform
 import datetime
 import requests
-import certifi
-import httpx
+
 from fake_useragent import UserAgent
 from lxml import etree
 from threading import Thread
@@ -110,18 +109,6 @@ class UpFreeNode:
         print(f"=============================== Up {type(self).__name__} ===============================")
         self.getYamlByRequests()
 
-
-class Upcgh(UpFreeNode):
-    def __init__(self, fs_yml):
-        super().__init__(fs_yml)
-        self.baseUrl = "https://clashgithub.com/wp-content/uploads/rss/"
-        self.backUrl = self.curYear + self.curMonth + self.curDay + '.yml'
-        self.sfile = "cgh.yaml"
-        self.sourcefile = self.sourcedir + self.sfile
-        self.downloadUrl = self.baseUrl + self.backUrl
-
-    def getDownloadUrl(self):
-        return self.downloadUrl 
 
 class UpChangfen(UpFreeNode):
     def __init__(self, fs_yml) -> None:
