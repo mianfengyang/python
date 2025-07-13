@@ -16,7 +16,7 @@ class UpFreeNode:
         self.curYear = datetime.datetime.today().strftime('%Y')
         self.curMonth = datetime.datetime.today().strftime('%m')
         self.curDay = datetime.datetime.today().strftime('%d')
-        self.baseUrl = "https://www.freeclashnode.com/uploads/"
+        self.baseUrl = "https://node.freeclashnode.com/uploads/"
         self.backUrl = self.curYear + '/' + self.curMonth + '/' + '3-' + self.curYear + self.curMonth + self.curDay + '.yaml'
         self.downloadUrl = None
         
@@ -155,16 +155,16 @@ if __name__ == "__main__":
 
     
     if platform.system() == "Linux":
-        #tfrn = Thread(target=upfrn,args=(fs_L_verge_frn,))
+        tfrn = Thread(target=upfrn,args=(fs_L_verge_frn,))
         tcf = Thread(target=upcf,args=(fs_L_verge_cf,))
-        #tfrn.start()
-        #tfrn.join()
+        tfrn.start()
+        tfrn.join()
         tcf.start()
         tcf.join()
     if platform.system() == "Windows":
-        #tfrn = Thread(target=upfrn,args=(fs_W_verge_frn,))
+        tfrn = Thread(target=upfrn,args=(fs_W_verge_frn,))
         tcf = Thread(target=upcf,args=(fs_W_verge_cf,))
-        #tfrn.start()
-        #tfrn.join()
+        tfrn.start()
+        tfrn.join()
         tcf.start()
         tcf.join()
